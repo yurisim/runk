@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Person {
+  id            String     @id @default(uuid())
+  email         String     @unique
+  grade         Grade
+  firstName     String
+  middleInitial String?
+  lastName      String
+  ssn           Int        @unique
+  afsc          String
+  org           Org        @relation(fields: [orgId], references: [id])
+  orgId         String
+  forms         Response[]
+}
+
+model Org {
+  id    String   @id @default(uuid())
+  name  String
+  PAS   String
+  FDID  String
+  users Person[]
+}
+
+model Form {
+  id        String     @id @default(uuid())
+  questions Question[]
+  responses Response[]
+}
+
+model Question {
+  id      String   @id @default(uuid())
+  value   String
+  form    Form     @relation(fields: [formId], references: [id])
+  formId  String
+  answers Answer[]
+}
+
+model Answer {
+  id         String     @id @default(uuid())
+  value      String
+  question   Question   @relation(fields: [questionId], references: [id])
+  questionId String
+  responses  Response[]
+}
+
+model Response {
+  id      String   @id @default(uuid())
+  // one user can have many responses
+  user    Person   @relation(fields: [userId], references: [id])
+  userId  String
+  form    Form     @relation(fields: [formId], references: [id])
+  formId  String
+  answers Answer[]
+  begin   DateTime
+  end     DateTime
+  // Raters
+}
+
+enum Grade {
+  E1
+  E2
+  E3
+  E4
+  E5
+  E6
+  E7
+  E8
+  E9
+}
