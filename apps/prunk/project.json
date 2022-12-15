@@ -7,16 +7,26 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/prunk",
         "index": "apps/prunk/src/index.html",
         "main": "apps/prunk/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/prunk/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/prunk/src/favicon.ico", "apps/prunk/src/assets"],
-        "styles": ["apps/prunk/src/styles.scss"],
+        "assets": [
+          "apps/prunk/src/favicon.ico",
+          "apps/prunk/src/assets"
+        ],
+        "styles": [
+          "@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/prunk/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -69,14 +79,21 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/prunk/**/*.ts", "apps/prunk/**/*.html"]
+        "lintFilePatterns": [
+          "apps/prunk/**/*.ts",
+          "apps/prunk/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/prunk/jest.config.ts",
         "passWithNoTests": true
