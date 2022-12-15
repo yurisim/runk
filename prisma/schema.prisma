@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Person {
+  id        String @id @default(uuid())
+  email     String @unique
+  grade     Grade
+  firstName String
+  lastName  String
+  ssn       Int    @unique
+  afsc      String
+  org       Org    @relation(fields: [orgId], references: [id])
+  orgId     String
+}
+
+model Org {
+  id      String   @id @default(uuid())
+  name    String
+  orgTier OrgTier
+  PAS     String
+  FDID    String
+  users   Person[]
+}
+
+enum Grade {
+  E1
+  E2
+  E3
+  E4
+  E5
+  E6
+  E7
+  E8
+  E9
+}
+
+enum OrgTier {
+  WING
+  GROUP
+  SQUADRON
+  OTHER
+}
