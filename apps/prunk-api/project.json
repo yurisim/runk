@@ -69,7 +69,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "NX_CLOUD_DISTRIBUTED_EXECUTION=false npx prisma db push --accept-data-loss --force-reset"
+          "npx prisma db push --accept-data-loss --force-reset"
         ],
         "parallel": false
       }
@@ -78,7 +78,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "NX_CLOUD_DISTRIBUTED_EXECUTION=false npx prisma generate"
+          "npx prisma generate"
         ],
         "parallel": false
       }
