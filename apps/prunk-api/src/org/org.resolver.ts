@@ -9,7 +9,9 @@ export class OrgResolver {
   constructor(private readonly orgService: OrgService) {}
 
   @Mutation(() => Org)
-  createOrg(@Args('createOrgInput') createOrgInput: OrgCreateInput): Promise<Org> {
+  createOrg(
+    @Args('createOrgInput') createOrgInput: OrgCreateInput
+  ): Promise<Org> {
     return this.orgService.create(createOrgInput);
   }
 

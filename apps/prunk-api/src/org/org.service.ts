@@ -3,7 +3,6 @@ import { OrgCreateInput } from 'prisma/@generated/org/org-create.input';
 import { OrgUpdateInput } from 'prisma/@generated/org/org-update.input';
 import { PrismaService } from '../prisma/prisma.service';
 
-
 @Injectable()
 export class OrgService {
   constructor(private prisma: PrismaService) {}

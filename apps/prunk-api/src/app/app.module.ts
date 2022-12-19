@@ -17,7 +17,7 @@ import { OrgModule } from '../org/org.module';
       autoSchemaFile: true,
     }),
     PrismaModule,
-    OrgModule
+    OrgModule,
   ],
   controllers: [AppController],
   providers: [AppService],
