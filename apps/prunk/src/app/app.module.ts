@@ -7,10 +7,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { PrComponent } from './pr/pr.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, PrComponent],
   imports: [
+    AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     MatButtonModule,
