@@ -17,7 +17,10 @@ export class FormService {
     return `This action returns a #${id} form`;
   }
 
-  update(id: StringFieldUpdateOperationsInput, updateFormInput: FormUpdateInput) {
+  update(
+    id: StringFieldUpdateOperationsInput,
+    updateFormInput: FormUpdateInput
+  ) {
     return `This action updates a #${id} form`;
   }
 

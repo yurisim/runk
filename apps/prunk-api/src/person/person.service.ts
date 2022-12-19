@@ -17,7 +17,10 @@ export class PersonService {
     return `This action returns a #${id} person`;
   }
 
-  update(id: StringFieldUpdateOperationsInput, updatePersonInput: PersonUpdateInput) {
+  update(
+    id: StringFieldUpdateOperationsInput,
+    updatePersonInput: PersonUpdateInput
+  ) {
     return `This action updates a #${id} person`;
   }
 

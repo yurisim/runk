@@ -17,7 +17,10 @@ export class AnswerService {
     return `This action returns a #${id} answer`;
   }
 
-  update(id: StringFieldUpdateOperationsInput, updateAnswerInput: AnswerUpdateInput) {
+  update(
+    id: StringFieldUpdateOperationsInput,
+    updateAnswerInput: AnswerUpdateInput
+  ) {
     return `This action updates a #${id} answer`;
   }
 

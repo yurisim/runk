@@ -17,7 +17,10 @@ export class ResponseService {
     return `This action returns a #${id} response`;
   }
 
-  update(id: StringFieldUpdateOperationsInput, updateResponseInput: ResponseUpdateInput) {
+  update(
+    id: StringFieldUpdateOperationsInput,
+    updateResponseInput: ResponseUpdateInput
+  ) {
     return `This action updates a #${id} response`;
   }
 

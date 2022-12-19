@@ -4,7 +4,6 @@ import { Answer } from 'prisma/@generated/answer/answer.model';
 import { AnswerCreateInput } from 'prisma/@generated/answer/answer-create.input';
 import { AnswerUpdateInput } from 'prisma/@generated/answer/answer-update.input';
 
-
 @Resolver(() => Answer)
 export class AnswerResolver {
   constructor(private readonly answerService: AnswerService) {}
