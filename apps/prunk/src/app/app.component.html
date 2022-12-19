@@ -1,16 +1,12 @@
-<P>
-  <mat-form-field appearance="outline" class="m-2">
-    <mat-label>Your forms are working</mat-label>
-    <input matInput placeholder="Placeholder" />
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>If Margin = Good Tailwind</mat-hint>
-  </mat-form-field>
-</P>
+These are buttons to quickly navigate through the different pages of the app.
+Will be removed once we have functioning navbars.
 
-<button
-  mat-raised-button
-  color="accent"
-  class="bg-gradient-to-r from-teal-500 w-fit"
->
-  Accent
-</button>
+<div class="flex flex-row space-x-2">
+  <button mat-stroked-button color="primary" routerLink="/home">Home</button>
+  <button mat-stroked-button color="primary" routerLink="/login">Login</button>
+  <button mat-stroked-button color="primary" routerLink="/pr">
+    Performance Reviews
+  </button>
+</div>
+
+<router-outlet></router-outlet>
