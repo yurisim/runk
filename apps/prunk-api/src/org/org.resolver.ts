@@ -9,27 +9,27 @@ export class OrgResolver {
   constructor(private readonly orgService: OrgService) {}
 
   @Mutation(() => Org)
-  createOrg(@Args('createOrgInput') createOrgInput: OrgCreateInput) {
+  createOrg(@Args('createOrgInput') createOrgInput: OrgCreateInput): Promise<Org> {
     return this.orgService.create(createOrgInput);
   }
 
-  @Query(() => [Org], { name: 'org' })
+  @Query(() => [Org], { name: 'orgs' })
   findAll() {
     return this.orgService.findAll();
   }
 
-  @Query(() => Org, { name: 'org' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.orgService.findOne(id);
-  }
+  // @Query(() => Org, { name: 'org' })
+  // findOne(@Args('id', { type: () => Int }) id: number) {
+  //   return this.orgService.findOne(id);
+  // }
 
-  @Mutation(() => Org)
-  updateOrg(@Args('updateOrgInput') updateOrgInput: OrgUpdateInput) {
-    return this.orgService.update(updateOrgInput.id, updateOrgInput);
-  }
+  // @Mutation(() => Org)
+  // updateOrg(@Args('updateOrgInput') updateOrgInput: OrgUpdateInput) {
+  //   return this.orgService.update(updateOrgInput.id, updateOrgInput);
+  // }
 
-  @Mutation(() => Org)
-  removeOrg(@Args('id', { type: () => Int }) id: number) {
-    return this.orgService.remove(id);
-  }
+  // @Mutation(() => Org)
+  // removeOrg(@Args('id', { type: () => Int }) id: number) {
+  //   return this.orgService.remove(id);
+  // }
 }

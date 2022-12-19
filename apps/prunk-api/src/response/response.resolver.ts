@@ -8,35 +8,35 @@ import { ResponseUpdateInput } from 'prisma/@generated/response/response-update.
 export class ResponseResolver {
   constructor(private readonly responseService: ResponseService) {}
 
-  @Mutation(() => Response)
-  createResponse(
-    @Args('createResponseInput') createResponseInput: ResponseCreateInput
-  ) {
-    return this.responseService.create(createResponseInput);
-  }
+  // @Mutation(() => Response)
+  // createResponse(
+  //   @Args('createResponseInput') createResponseInput: ResponseCreateInput
+  // ) {
+  //   return this.responseService.create(createResponseInput);
+  // }
 
-  @Query(() => [Response], { name: 'response' })
-  findAll() {
-    return this.responseService.findAll();
-  }
+  // @Query(() => [Response], { name: 'response' })
+  // findAll() {
+  //   return this.responseService.findAll();
+  // }
 
-  @Query(() => Response, { name: 'response' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.responseService.findOne(id);
-  }
+  // @Query(() => Response, { name: 'response' })
+  // findOne(@Args('id', { type: () => Int }) id: number) {
+  //   return this.responseService.findOne(id);
+  // }
 
-  @Mutation(() => Response)
-  updateResponse(
-    @Args('updateResponseInput') updateResponseInput: ResponseUpdateInput
-  ) {
-    return this.responseService.update(
-      updateResponseInput.id,
-      updateResponseInput
-    );
-  }
+  // @Mutation(() => Response)
+  // updateResponse(
+  //   @Args('updateResponseInput') updateResponseInput: ResponseUpdateInput
+  // ) {
+  //   return this.responseService.update(
+  //     updateResponseInput.id,
+  //     updateResponseInput
+  //   );
+  // }
 
-  @Mutation(() => Response)
-  removeResponse(@Args('id', { type: () => Int }) id: number) {
-    return this.responseService.remove(id);
-  }
+  // @Mutation(() => Response)
+  // removeResponse(@Args('id', { type: () => Int }) id: number) {
+  //   return this.responseService.remove(id);
+  // }
 }

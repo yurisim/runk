@@ -8,28 +8,28 @@ import { FormUpdateInput } from 'prisma/@generated/form/form-update.input';
 export class FormResolver {
   constructor(private readonly formService: FormService) {}
 
-  @Mutation(() => Form)
-  createForm(@Args('createFormInput') createFormInput: FormCreateInput) {
-    return this.formService.create(createFormInput);
-  }
+  // @Mutation(() => Form)
+  // createForm(@Args('createFormInput') createFormInput: FormCreateInput) {
+  //   return this.formService.create(createFormInput);
+  // }
 
-  @Query(() => [Form], { name: 'form' })
-  findAll() {
-    return this.formService.findAll();
-  }
+  // @Query(() => [Form], { name: 'form' })
+  // findAll() {
+  //   return this.formService.findAll();
+  // }
 
-  @Query(() => Form, { name: 'form' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.formService.findOne(id);
-  }
+  // @Query(() => Form, { name: 'form' })
+  // findOne(@Args('id', { type: () => Int }) id: number) {
+  //   return this.formService.findOne(id);
+  // }
 
-  @Mutation(() => Form)
-  updateForm(@Args('updateFormInput') updateFormInput: FormUpdateInput) {
-    return this.formService.update(updateFormInput.id, updateFormInput);
-  }
+  // @Mutation(() => Form)
+  // updateForm(@Args('updateFormInput') updateFormInput: FormUpdateInput) {
+  //   return this.formService.update(updateFormInput.id, updateFormInput);
+  // }
 
-  @Mutation(() => Form)
-  removeForm(@Args('id', { type: () => Int }) id: number) {
-    return this.formService.remove(id);
-  }
+  // @Mutation(() => Form)
+  // removeForm(@Args('id', { type: () => Int }) id: number) {
+  //   return this.formService.remove(id);
+  // }
 }

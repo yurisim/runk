@@ -64,6 +64,24 @@
         "jestConfig": "apps/prunk-api/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "prisma-migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx prisma db push --accept-data-loss --force-reset"
+        ],
+        "parallel": false
+      }
+    },
+    "prisma-studio": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx prisma studio"
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []

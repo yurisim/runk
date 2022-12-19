@@ -8,32 +8,32 @@ import { Person } from 'prisma/@generated/person/person.model';
 export class PersonResolver {
   constructor(private readonly personService: PersonService) {}
 
-  @Mutation(() => Person)
-  createPerson(
-    @Args('createPersonInput') createPersonInput: PersonCreateInput
-  ) {
-    return this.personService.create(createPersonInput);
-  }
+  // @Mutation(() => Person)
+  // createPerson(
+  //   @Args('createPersonInput') createPersonInput: PersonCreateInput
+  // ) {
+  //   return this.personService.create(createPersonInput);
+  // }
 
-  @Query(() => [Person], { name: 'person' })
-  findAll() {
-    return this.personService.findAll();
-  }
+  // @Query(() => [Person], { name: 'person' })
+  // findAll() {
+  //   return this.personService.findAll();
+  // }
 
-  @Query(() => Person, { name: 'person' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.personService.findOne(id);
-  }
+  // @Query(() => Person, { name: 'person' })
+  // findOne(@Args('id', { type: () => Int }) id: number) {
+  //   return this.personService.findOne(id);
+  // }
 
-  @Mutation(() => Person)
-  updatePerson(
-    @Args('updatePersonInput') updatePersonInput: PersonUpdateInput
-  ) {
-    return this.personService.update(updatePersonInput.id, updatePersonInput);
-  }
+  // @Mutation(() => Person)
+  // updatePerson(
+  //   @Args('updatePersonInput') updatePersonInput: PersonUpdateInput
+  // ) {
+  //   return this.personService.update(updatePersonInput.id, updatePersonInput);
+  // }
 
-  @Mutation(() => Person)
-  removePerson(@Args('id', { type: () => Int }) id: number) {
-    return this.personService.remove(id);
-  }
+  // @Mutation(() => Person)
+  // removePerson(@Args('id', { type: () => Int }) id: number) {
+  //   return this.personService.remove(id);
+  // }
 }

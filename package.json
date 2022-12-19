@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js",
+    "postinstall": "node ./decorate-angular-cli.js && npx nx run-many --target=prisma-migrate --all --no-parallel",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test"
@@ -77,3 +77,4 @@
     "typescript": "~4.8.2"
   }
 }
+
