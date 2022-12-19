@@ -74,6 +74,15 @@
         "parallel": false
       }
     },
+    "prisma-generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx prisma generate"
+        ],
+        "parallel": false
+      }
+    },
     "prisma-studio": {
       "executor": "nx:run-commands",
       "options": {
