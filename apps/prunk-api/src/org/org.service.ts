@@ -1,19 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { OrgCreateInput } from 'prisma/@generated/org/org-create.input';
-import { OrgUpdateInput } from 'prisma/@generated/org/org-update.input';
 import { PrismaService } from '../prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class OrgService {
   constructor(private prisma: PrismaService) {}
-  create(createOrgInput: OrgCreateInput) {
+  create(createOrgInput: Prisma.OrgCreateInput) {
     return this.prisma.org.create({
       data: createOrgInput,
     });
   }
 
-  findAll() {
-    return this.prisma.org.findMany();
+  findAll(orgFindManyArgs: Prisma.OrgFindManyArgs) {
+    return this.prisma.org.findMany(orgFindManyArgs);
   }
 
   // findOne(id: number) {
