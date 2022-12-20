@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { OrgService } from './org.service';
 import { Org } from 'prisma/@generated/org/org.model';
 import { OrgCreateInput } from 'prisma/@generated/org/org-create.input';
-import { OrgUpdateInput } from 'prisma/@generated/org/org-update.input';
+import { FindManyOrgArgs } from 'prisma/@generated/org/find-many-org.args';
 
 @Resolver(() => Org)
 export class OrgResolver {
@@ -16,8 +16,8 @@ export class OrgResolver {
   }
 
   @Query(() => [Org], { name: 'orgs' })
-  findAll() {
-    return this.orgService.findAll();
+  findAll(@Args() findManyOrgArgs: FindManyOrgArgs) {
+    return this.orgService.findAll(findManyOrgArgs);
   }
 
   // @Query(() => Org, { name: 'org' })
