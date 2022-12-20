@@ -16,9 +16,7 @@ export class OrgResolver {
   }
 
   @Query(() => [Org], { name: 'orgs' })
-  findAll(
-    @Args() findManyOrgArgs: FindManyOrgArgs
-  ) {
+  findAll(@Args() findManyOrgArgs: FindManyOrgArgs) {
     return this.orgService.findAll(findManyOrgArgs);
   }
 
