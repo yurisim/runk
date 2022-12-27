@@ -1,0 +1,35 @@
+<form formGroup="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+        <br/>
+        <h1 class="container mx-auto">Sign In</h1>
+        <div class="flex flex-row space-x-12">
+            <p>Don't have an account </p>
+            <a class="text-teal-300 underline hover:font-bold cursor-pointer">Get one!</a>
+        </div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>email</mat-label>
+                <input type="email" matInput formControlName="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ex. bob.snuffy@us.af.mil" />
+                <!--<input matInput formControlName="email" name="email" required type="email">-->
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>password</mat-label>
+                <input matInput [type]="hide ? 'password*' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-row space-x-4 space-y-2.5">
+            <mat-checkbox id="rememberMeCheckbox">Remeber Me</mat-checkbox>
+            <a class="text-teal-300 hover:font-bold cursor-pointer">Forgot Password</a>
+        </div>
+        <br/>
+        <div class="container mx-auto">
+            <button mat-stroked-button style="background-color:turquoise;">Log In</button>
+        </div>
+    </div>
+</form>
