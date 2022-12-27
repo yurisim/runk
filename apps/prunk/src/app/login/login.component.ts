@@ -12,16 +12,23 @@ export class MyErrorStateMatcher implements ErrorStateMatcher{
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
+
 export class LoginComponent {
   hide = true;
   matcher = new MyErrorStateMatcher();
 
   loginForm = new FormGroup({
-    emailFormControl: new FormControl('', [Validators.required, Validators.email]),
-    passwordControl: new FormControl('')
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')])
   });
 
   onSubmit(): void {
-    //Do some stuff here
+    console.log("On submit");
+    if (this.loginForm.invalid) {
+      console.log("invalid")
+      return;
+    }
+    console.log("this is fun!")
+    //Login successful code here!
   }
 }
