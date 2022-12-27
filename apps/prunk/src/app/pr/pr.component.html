@@ -1,44 +1,138 @@
-<mat-stepper #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <mat-card>
-      <mat-card-content class="bg-white rounded-t-3xl">
-        <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Fill out your name</ng-template>
-          <mat-form-field appearance="fill">
-            <mat-label>First Name</mat-label>
+<mat-stepper #stepper class="m-3 min-w-fit max-w-screen-md">
+  <mat-step [stepControl]="rateeTab">
+    <form [formGroup]="rateeTab" class="flex flex-col">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+
+      <!-- Line 1 -->
+      <div class="formLineItem">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="firstName"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="lastName"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-fit">
+          <mat-label>MI</mat-label>
+          <input matInput formControlName="middleInitial" maxlength="1" />
+        </mat-form-field>
+      </div>
+
+      <!-- Line 2 -->
+      <div class="formLineItem">
+        <mat-form-field appearance="outline">
+          <mat-label>SSN</mat-label>
+          <input matInput formControlName="SSN" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>DAFSC</mat-label>
+          <input matInput formControlName="DAFSC" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Grade</mat-label>
+          <input matInput formControlName="grade" />
+        </mat-form-field>
+      </div>
+
+      <!-- Line 3 -->
+      <div>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Organization</mat-label>
+          <input matInput placeholder="ex: 552 ACNS" formControlName="org" />
+        </mat-form-field>
+      </div>
+
+      <!-- Line 4 -->
+      <div class="formLineItem">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>PAS Code</mat-label>
+          <input matInput formControlName="PAS" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>FDID</mat-label>
+          <input matInput formControlName="FDID" />
+        </mat-form-field>
+      </div>
+
+      <!-- Line 5 -->
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Select a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
             <input
-              matInput
-              placeholder="First Name"
-              formControlName="firstCtrl"
-              required
+              matStartDate
+              placeholder="Start date"
+              readonly
+              formControlName="startDate"
             />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Last Name</mat-label>
             <input
-              matInput
-              placeholder="Last Name"
-              formControlName="firstCtrl"
-              required
+              matEndDate
+              placeholder="End date"
+              readonly
+              formControlName="endDate"
             />
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <!-- Line 6 -->
+      <div class="formLineItem">
+        <mat-form-field appearance="outline">
+          <mat-label>No. Days Non-Rated</mat-label>
+          <input matInput formControlName="daysNonRated" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>No. Days Supervision</mat-label>
+          <input matInput formControlName="daysRated" readonly />
+        </mat-form-field>
+      </div>
+
+      <!-- Line 7 -->
+      <div class="formLineItem">
+        <mat-form-field appearance="outline">
+          <mat-label>Duty Title</mat-label>
+          <input matInput formControlName="dutyTitle" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Reason For Report</mat-label>
+          <input matInput formControlName="reasonReport" />
+        </mat-form-field>
+      </div>
+
+      <!-- Line 8 -->
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Key Duties, Tasks, Responsibilies</mat-label>
+          <textarea matInput formControlName="reasonReport" ></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-    <form [formGroup]="secondFormGroup">
-      <mat-form-field appearance="fill">
+
+  <mat-step [stepControl]="performanceTab" label="Fill out your address">
+    <form [formGroup]="performanceTab">
+      <mat-form-field appearance="outline">
         <mat-label>Address</mat-label>
-        <input
-          matInput
-          formControlName="secondCtrl"
-          placeholder="Ex. 1 Main St, New York, NY"
-          required
-        />
+        <input matInput placeholder="Ex. 1 Main St, New York, NY" required />
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>

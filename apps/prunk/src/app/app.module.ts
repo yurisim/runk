@@ -14,6 +14,9 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PrComponent } from './pr/pr.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'
+
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, HomeComponent, PrComponent],
@@ -29,6 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatStepperModule,
     ReactiveFormsModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
