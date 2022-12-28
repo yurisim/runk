@@ -1,11 +1,11 @@
-<mat-stepper #stepper class="m-3 min-w-fit max-w-screen-md">
+<mat-stepper #stepper class="m-3 min-w-fit max-w-screen-md flex justify-center">
   <!-- TAB 01 -->
   <mat-step [stepControl]="rateeTab">
     <form [formGroup]="rateeTab" class="flex flex-col">
       <ng-template matStepLabel>Fill out your name</ng-template>
 
       <!-- Line 1 -->
-      <div class="formLineItem">
+      <div class="formLineItem mt-2">
         <mat-form-field appearance="outline">
           <mat-label>First Name</mat-label>
           <input
@@ -24,7 +24,7 @@
             required
           />
         </mat-form-field>
-        <mat-form-field appearance="outline" class="w-fit">
+        <mat-form-field appearance="outline">
           <mat-label>MI</mat-label>
           <input matInput formControlName="middleInitial" maxlength="1" />
         </mat-form-field>
