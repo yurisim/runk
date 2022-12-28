@@ -1,0 +1,22 @@
+<p>{{ questionNumber + 1 }}. {{ questionPrompt }}</p>
+
+<mat-button-toggle-group>
+  <mat-button-toggle
+    *ngFor="let option of scaleOptions"
+    [value]="option"
+    (change)="scaleChange(option)"
+  >
+    {{ option }}
+  </mat-button-toggle>
+</mat-button-toggle-group>
+
+<mat-form-field appearance="outline" *ngIf="commentEnabled">
+  <mat-label>Comments</mat-label>
+  <textarea
+    matInput
+    #comment
+    maxlength="{{ charLimit }}"
+    formControlName="reasonReport"
+  ></textarea>
+  <mat-hint align="end">{{ comment.value.length }} / {{ charLimit }}</mat-hint>
+</mat-form-field>

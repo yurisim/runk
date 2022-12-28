@@ -15,11 +15,18 @@ import { HomeComponent } from './home/home.component';
 import { PrComponent } from './pr/pr.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core'
-
-
+import { MatNativeDateModule } from '@angular/material/core';
+import { ReviewScaleComponent } from './components/review-scale/review-scale.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, PrComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    PrComponent,
+    ReviewScaleComponent,
+  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -34,6 +41,8 @@ import { MatNativeDateModule } from '@angular/material/core'
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatButtonToggleModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
