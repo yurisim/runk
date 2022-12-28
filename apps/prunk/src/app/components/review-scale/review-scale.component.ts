@@ -22,6 +22,8 @@ export class ReviewScaleComponent {
   @Output()
   scaleEmit = new EventEmitter<string>();
 
+  scaleValue = '';
+
   scaleOptions: string[] = [
     'Not Rated',
     'Met Some',
