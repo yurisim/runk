@@ -17,9 +17,8 @@
     <mat-label>Comments</mat-label>
     <textarea
       matInput
-      class="resize-none"
       #comment
-      rows="{{ (charLimit / 150) * 2}}"
+      rows="{{ (charLimit / 240) * 2}}"
       maxlength="{{ charLimit }}"
       formControlName="reasonReport"
       (input)="commentChange(comment.value)"

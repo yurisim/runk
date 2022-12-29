@@ -52,7 +52,7 @@ export class PrComponent {
     },
   ];
 
-  charLimits = [675, 225, 225, 0];
+  charLimits = [720, 240, 240, 0];
 
   commentsEnabled = [true, true, true, false];
 
