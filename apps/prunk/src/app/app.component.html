@@ -1,6 +1,5 @@
 These are buttons to quickly navigate through the different pages of the app.
 Will be removed once we have functioning navbars.
-{{ reviewValue }}
 <div class="flex flex-row space-x-2">
   <button mat-stroked-button color="primary" routerLink="/home">Home</button>
   <button mat-stroked-button color="primary" routerLink="/login">Login</button>
@@ -8,14 +7,5 @@ Will be removed once we have functioning navbars.
     Performance Reviews
   </button>
 </div>
-
-<runk-review-scale
-  *ngFor="let question of questions; let i = index"
-  [questionNumber]="i"
-  [questionPrompt]="question"
-  [charLimit]="charLimits[i]"
-  [commentEnabled]="commentsEnabled[i]"
-  (scaleEmit)="setEmitValue($event)"
-></runk-review-scale>
 
 <router-outlet></router-outlet>

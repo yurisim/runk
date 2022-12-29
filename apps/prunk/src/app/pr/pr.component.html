@@ -2,7 +2,7 @@
   <!-- TAB 01 -->
   <mat-step [stepControl]="rateeTab">
     <form [formGroup]="rateeTab" class="flex flex-col">
-      <ng-template matStepLabel>Fill out your name</ng-template>
+      <ng-template matStepLabel>Ratee Identification</ng-template>
 
       <!-- Line 1 -->
       <div class="mt-2 formLineItem">
@@ -120,7 +120,7 @@
       <div>
         <mat-form-field appearance="outline">
           <mat-label>Key Duties, Tasks, Responsibilities</mat-label>
-          <textarea matInput formControlName="reasonReport" ></textarea>
+          <textarea matInput formControlName="reasonReport"></textarea>
         </mat-form-field>
       </div>
       <div>
@@ -128,16 +128,28 @@
       </div>
     </form>
   </mat-step>
-
-  <mat-step [stepControl]="performanceTab" label="Fill out your address">
+  <!-- Tab 2 -->
+  <mat-step [stepControl]="performanceTab" label="Performance Review">
     <form [formGroup]="performanceTab">
-      <mat-form-field appearance="outline">
-        <mat-label>Address</mat-label>
-        <input matInput placeholder="Ex. 1 Main St, New York, NY" required />
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+      <runk-review-scale
+        *ngFor="let QA of QAs; let i = index"
+        [questionNumber]="i"
+        [QA]="QA"
+        [charLimit]="charLimits[i]"
+        [commentEnabled]="commentsEnabled[i]"
+        (emitQA)="setQA($any($event))"
+        (emitComment)="setComment($event, i)"
+      ></runk-review-scale>
+      <p *ngFor="let comment of comments">{{ comment }}</p>
+      <div class="flex justify-between">
+        <button mat-button matStepperPrevious color="primary" class="">
+          <mat-icon> arrow_back_ios</mat-icon>
+          Back
+        </button>
+        <button mat-raised-button matSuffix color="primary" matStepperNext class="">
+          Next
+          <mat-icon> arrow_forward_ios</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>

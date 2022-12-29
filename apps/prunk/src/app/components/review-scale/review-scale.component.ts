@@ -1,17 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { QA } from '../../types';
 
 @Component({
-  selector:
-    'runk-review-scale[questionNumber][questionPrompt][charLimit][commentEnabled]',
+  selector: 'runk-review-scale[questionNumber][QA][charLimit][commentEnabled]',
   templateUrl: './review-scale.component.html',
   styleUrls: ['./review-scale.component.scss'],
 })
-export class ReviewScaleComponent implements OnInit {
+export class ReviewScaleComponent {
   @Input()
   questionNumber!: number;
 
   @Input()
-  questionPrompt!: string;
+  QA!: QA;
+
+  @Input()
+  initialComment = '';
 
   @Input()
   charLimit!: number;
@@ -20,9 +23,10 @@ export class ReviewScaleComponent implements OnInit {
   commentEnabled!: boolean;
 
   @Output()
-  scaleEmit = new EventEmitter<string>();
+  emitQA = new EventEmitter<QA>();
 
-  scaleValue = '';
+  @Output()
+  emitComment = new EventEmitter<string>();
 
   scaleOptions: string[] = [
     'Not Rated',
@@ -32,12 +36,16 @@ export class ReviewScaleComponent implements OnInit {
     'Exceeded Most',
   ];
 
-  ngOnInit(): void {
-    this.scaleValue = this.scaleOptions[0];
+  scaleChange(option: string) {
+    this.QA.answer = option;
+    this.emitQA.emit({
+      question: this.QA.question,
+      answer: this.QA.answer,
+    });
   }
 
-  scaleChange(option: string) {
-    this.scaleValue = option;
-    this.scaleEmit.emit(this.scaleValue);
+  commentChange(content: string) {
+    this.initialComment = content;
+    this.emitComment.emit(this.initialComment);
   }
 }
