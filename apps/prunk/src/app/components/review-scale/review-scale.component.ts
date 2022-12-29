@@ -36,7 +36,8 @@ export class ReviewScaleComponent implements OnInit {
     this.scaleValue = this.scaleOptions[0];
   }
 
-  scaleChange() {
+  scaleChange(option: string) {
+    this.scaleValue = option;
     this.scaleEmit.emit(this.scaleValue);
   }
 }

@@ -5,8 +5,7 @@
   <mat-button-toggle
     *ngFor="let option of scaleOptions; let i = index"
     [value]="option"
-    [checked]="i === 0"
-    (change)="scaleChange()"
+    (change)="scaleChange(option)"
   >
     {{ option }}
   </mat-button-toggle>
