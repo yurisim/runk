@@ -7,12 +7,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
-import {MatCheckboxModule} from '@angular/material/checkbox'
+import { HomeComponent } from './home/home.component';
+import { PrComponent } from './pr/pr.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, PrComponent],
   imports: [
+    AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     MatButtonModule,
