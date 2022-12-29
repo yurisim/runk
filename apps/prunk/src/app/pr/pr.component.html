@@ -123,8 +123,16 @@
           <textarea matInput formControlName="reasonReport"></textarea>
         </mat-form-field>
       </div>
-      <div>
-        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      <div class="flex mt-5">
+        <button
+          mat-flat-button
+          color="primary"
+          matStepperNext
+          class="justify-self-end"
+        >
+          Next
+          <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>
@@ -140,15 +148,15 @@
         (emitQA)="setQA($any($event))"
         (emitComment)="setComment($event, i)"
       ></runk-review-scale>
-      <p *ngFor="let comment of comments">{{ comment }}</p>
-      <div class="flex justify-between">
-        <button mat-button matStepperPrevious color="primary" class="">
+
+      <div class="flex justify-between mt-5">
+        <button mat-button matStepperPrevious color="primary">
           <mat-icon> arrow_back_ios</mat-icon>
           Back
         </button>
-        <button mat-raised-button matSuffix color="primary" matStepperNext class="">
+        <button mat-flat-button color="primary" matStepperNext>
           Next
-          <mat-icon> arrow_forward_ios</mat-icon>
+          <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
         </button>
       </div>
     </form>
