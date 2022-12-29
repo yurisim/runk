@@ -1,7 +1,7 @@
-<div class="grid grid-cols-1">
+<div class="grid grid-cols-1 my-3">
   <p>{{ questionNumber + 1 }}. {{ QA.question }}</p>
 
-  <mat-button-toggle-group class="w-fit place-self-center">
+  <mat-button-toggle-group class="w-fit place-self-center rounded-none">
     <!-- Ensure that this reads the inputted value if it previously has a record -->
     <mat-button-toggle
       *ngFor="let option of scaleOptions; let i = index"
@@ -17,6 +17,7 @@
     <textarea
       matInput
       #comment
+      rows="{{ (charLimit / 225) * 2 }}"
       maxlength="{{ charLimit }}"
       formControlName="reasonReport"
       (input)="commentChange(comment.value)"
