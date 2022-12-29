@@ -19,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReviewScaleComponent } from './components/review-scale/review-scale.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,

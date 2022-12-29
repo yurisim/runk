@@ -11,7 +11,10 @@ export class ReviewScaleComponent {
   questionNumber!: number;
 
   @Input()
-  QA!: QA;
+  QA: QA = {
+    question: '',
+    answer: '',
+  };
 
   @Input()
   initialComment = '';
@@ -38,6 +41,7 @@ export class ReviewScaleComponent {
 
   scaleChange(option: string) {
     this.QA.answer = option;
+
     this.emitQA.emit({
       question: this.QA.question,
       answer: this.QA.answer,
