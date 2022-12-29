@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector:
@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './review-scale.component.html',
   styleUrls: ['./review-scale.component.scss'],
 })
-export class ReviewScaleComponent {
+export class ReviewScaleComponent implements OnInit {
   @Input()
   questionNumber!: number;
 
@@ -32,7 +32,11 @@ export class ReviewScaleComponent {
     'Exceeded Most',
   ];
 
-  scaleChange(option: string) {
-    this.scaleEmit.emit(option);
+  ngOnInit(): void {
+    this.scaleValue = this.scaleOptions[0];
+  }
+
+  scaleChange() {
+    this.scaleEmit.emit(this.scaleValue);
   }
 }
