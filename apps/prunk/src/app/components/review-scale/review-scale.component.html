@@ -19,11 +19,11 @@
       matInput
       #comment
       rows="{{ (charLimit / 240) * 2}}"
-      maxlength="{{ charLimit }}"
-      formControlName="reasonReport"
+      maxLength="{{ charLimit }}"
       (input)="commentChange(comment.value)"
     ></textarea>
     <mat-hint align="end"
+      *ngIf="charLimit !== -1"
       >{{ comment.value.length }} / {{ charLimit }}</mat-hint
     >
   </mat-form-field>

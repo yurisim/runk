@@ -49,7 +49,7 @@
           </div>
 
           <!-- Line 3 -->
-          <div>
+          <div class="formLineItem">
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Organization</mat-label>
               <input
@@ -58,10 +58,6 @@
                 formControlName="org"
               />
             </mat-form-field>
-          </div>
-
-          <!-- Line 4 -->
-          <div class="formLineItem">
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>PAS Code</mat-label>
               <input matInput formControlName="PAS" />
@@ -73,7 +69,7 @@
           </div>
 
           <!-- Line 5 -->
-          <div>
+          <div class="formLineItem">
             <mat-form-field appearance="outline">
               <mat-label>Select a date range</mat-label>
               <mat-date-range-input [rangePicker]="picker">
@@ -81,12 +77,14 @@
                   matStartDate
                   placeholder="Start date"
                   readonly
+                  (dateChange)="calculateDaysOfRating()"
                   formControlName="startDate"
                 />
                 <input
                   matEndDate
                   placeholder="End date"
                   readonly
+                  (dateChange)="calculateDaysOfRating()"
                   formControlName="endDate"
                 />
               </mat-date-range-input>
@@ -96,16 +94,12 @@
               ></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
-          </div>
-
-          <!-- Line 6 -->
-          <div class="formLineItem">
             <mat-form-field appearance="outline">
-              <mat-label>No. Days Non-Rated</mat-label>
-              <input matInput formControlName="daysNonRated" />
+              <mat-label># of Days Non-Rated</mat-label>
+              <input matInput formControlName="daysNonRated" (change)="calculateDaysOfRating()" />
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>No. Days Supervision</mat-label>
+              <mat-label># of Days Rated</mat-label>
               <input matInput formControlName="daysRated" readonly />
             </mat-form-field>
           </div>
@@ -126,15 +120,26 @@
           <div>
             <mat-form-field appearance="outline">
               <mat-label>Key Duties, Tasks, Responsibilities</mat-label>
-              <textarea matInput formControlName="reasonReport"></textarea>
+              <textarea
+                matInput
+                rows="{{ (240 / 240) * 2 }}"
+                maxLength="{{ 240 }}"
+                #keyDuties
+                formControlName="keyDuties"
+              ></textarea>
+              <mat-hint align="end"
+                >{{ keyDuties.value.length }} / {{ 240 }}</mat-hint
+              >
             </mat-form-field>
           </div>
-          <div class="flex justify-end">
+
+          <div class="flex justify-end mt-3">
             <button mat-flat-button color="primary" matStepperNext>
               Next
               <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
             </button>
           </div>
+
         </form>
       </mat-step>
       <!-- Tab 2 -->

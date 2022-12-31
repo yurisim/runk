@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { QA } from '../types';
+import { DateTime, Interval } from 'luxon';
 
 @Component({
   selector: 'runk-pr',
@@ -8,31 +9,38 @@ import { QA } from '../types';
   styleUrls: ['./pr.component.scss'],
 })
 export class PrComponent {
-  constructor(private fb: FormBuilder) {}
+  constructor() {
+    //
+  }
 
-  rateeTab = this.fb.group({
-    firstName: ['', Validators.required],
-    middleInitial: [''],
-    lastName: ['', Validators.required],
-    SSN: ['', Validators.required],
-    DAFSC: ['', Validators.required],
-    grade: ['', Validators.required],
-    org: ['', Validators.required],
-    PAS: ['', Validators.required],
-    FDID: ['', Validators.required],
-    startDate: ['', Validators.required],
-    endDate: ['', Validators.required],
-    daysNonRated: [0, Validators.maxLength(3)],
-    daysRated: [0, Validators.required],
-    dutyTitle: ['', Validators.required],
-    reasonReport: ['', Validators.required],
-    keyDuties: ['', [Validators.required, Validators.maxLength(480)]],
-  });
-  performanceTab = this.fb.group({});
-  raterTab = this.fb.group({});
-  // secondFormGroup = this._formBuilder.group({
-  //   secondCtrl: ['', Validators.required],
-  // });
+  maxDaysNonRated = 0;
+
+rateeTab = new FormGroup({
+    firstName: new FormControl('', Validators.required),
+    middleInitial: new FormControl(''),
+    lastName: new FormControl('', Validators.required),
+    SSN: new FormControl('', Validators.required),
+    DAFSC: new FormControl('', Validators.required),
+    grade: new FormControl('', Validators.required),
+    org: new FormControl('', Validators.required),
+    PAS: new FormControl('', Validators.required),
+    FDID: new FormControl('', Validators.required),
+    startDate: new FormControl<Date | null>(null, Validators.required),
+    endDate: new FormControl<Date | null>(null, Validators.required),
+    daysNonRated: new FormControl(0, [Validators.maxLength(3)]),
+    daysRated: new FormControl(0),
+    dutyTitle: new FormControl('', Validators.required),
+    reasonReport: new FormControl('', Validators.required),
+    keyDuties: new FormControl('', [Validators.required, Validators.maxLength(480)]),
+});
+
+
+
+
+  performanceTab = new FormGroup({});
+
+  raterTab = new FormGroup({});
+
   QAs: QA[] = [
     {
       question: 'Performance in Primary Duties/Training Requirements',
@@ -67,5 +75,24 @@ export class PrComponent {
 
   setComment(emittedValue: string, index: number) {
     this.comments[index] = emittedValue
+  }
+
+  calculateDaysOfRating() {
+    const startDate = this.rateeTab.get('startDate')?.value;
+    const endDate = this.rateeTab.get('endDate')?.value;
+
+    if (startDate && endDate) {
+
+      const start = DateTime.fromJSDate(startDate);
+      const end = DateTime.fromJSDate(endDate);
+
+      const interval = end.diff(start, ['days']).days;
+
+      this.maxDaysNonRated = interval;
+
+      const daysNonRated = this.rateeTab.get('daysNonRated')?.value ?? 0;
+
+      this.rateeTab.get('daysRated')?.setValue(interval - daysNonRated);
+    }
   }
 }
