@@ -26,7 +26,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/graphql": "^10.1.7",
     "@nestjs/platform-express": "^9.0.0",
-    "@nrwl/angular": "15.4.1",
+    "@nrwl/angular": "15.4.2",
     "@nrwl/nest": "15.4.1",
     "@prisma/client": "^4.8.0",
     "apollo-server-express": "^3.11.1",
