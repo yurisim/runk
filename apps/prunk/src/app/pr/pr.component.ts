@@ -15,7 +15,7 @@ export class PrComponent {
 
   maxDaysNonRated = 0;
 
-rateeTab = new FormGroup({
+  rateeTab = new FormGroup({
     firstName: new FormControl('', Validators.required),
     middleInitial: new FormControl(''),
     lastName: new FormControl('', Validators.required),
@@ -27,15 +27,18 @@ rateeTab = new FormGroup({
     FDID: new FormControl('', Validators.required),
     startDate: new FormControl<Date | null>(null, Validators.required),
     endDate: new FormControl<Date | null>(null, Validators.required),
-    daysNonRated: new FormControl(0, [Validators.maxLength(3)]),
+    daysNonRated: new FormControl(0, [
+      Validators.maxLength(3),
+      Validators.pattern('[0-9]'),
+    ]),
     daysRated: new FormControl(0),
     dutyTitle: new FormControl('', Validators.required),
     reasonReport: new FormControl('', Validators.required),
-    keyDuties: new FormControl('', [Validators.required, Validators.maxLength(480)]),
-});
-
-
-
+    keyDuties: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(480),
+    ]),
+  });
 
   performanceTab = new FormGroup({});
 
@@ -66,15 +69,16 @@ rateeTab = new FormGroup({
 
   comments = ['', '', '', ''];
 
-  setQA(emittedQA: QA) {
+  setQA(emittedQA: QA): void {
     const index = this.QAs.findIndex(
       (qa: QA) => qa.question === emittedQA.question
     );
+
     this.QAs[index] = emittedQA;
   }
 
   setComment(emittedValue: string, index: number) {
-    this.comments[index] = emittedValue
+    this.comments[index] = emittedValue;
   }
 
   calculateDaysOfRating() {
@@ -82,10 +86,10 @@ rateeTab = new FormGroup({
     const endDate = this.rateeTab.get('endDate')?.value;
 
     if (startDate && endDate) {
-
       const start = DateTime.fromJSDate(startDate);
       const end = DateTime.fromJSDate(endDate);
 
+      // The component should prevent this from being negative
       const interval = end.diff(start, ['days']).days;
 
       this.maxDaysNonRated = interval;
