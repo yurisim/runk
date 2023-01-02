@@ -96,7 +96,9 @@ export class PrComponent {
 
       const daysNonRated = this.rateeTab.get('daysNonRated')?.value ?? 0;
 
-      this.rateeTab.get('daysRated')?.setValue(interval - daysNonRated);
+      if (!isNaN(daysNonRated)) {
+        this.rateeTab.get('daysRated')?.setValue(interval - daysNonRated);
+      }
     }
   }
 }
