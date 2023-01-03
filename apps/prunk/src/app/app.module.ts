@@ -19,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReviewScaleComponent } from './components/review-scale/review-scale.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { PersonDataComponent } from './components/person-data/person-data.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     PrComponent,
     ReviewScaleComponent,
+    PersonDataComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,68 @@
+<!-- Line 1 -->
+<form [formGroup]="raterTab" class="flex flex-col">
+  <ng-template matStepLabel>Ratee Identification</ng-template>
+  <div class="mt-2 formLineItem">
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        placeholder="First Name"
+        formControlName="firstName"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        placeholder="Last Name"
+        formControlName="lastName"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="basis-1/4">
+      <mat-label>MI</mat-label>
+      <input matInput formControlName="middleInitial" maxlength="1" />
+    </mat-form-field>
+  </div>
+
+  <!-- Line 2 -->
+  <div class="formLineItem">
+    <mat-form-field appearance="outline">
+      <mat-label>Branch</mat-label>
+      <input matInput formControlName="branch" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>DAFSC</mat-label>
+      <input matInput formControlName="DAFSC" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Grade</mat-label>
+      <input matInput formControlName="grade" />
+    </mat-form-field>
+  </div>
+
+  <!-- Line 3 -->
+  <div class="formLineItem">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Organization</mat-label>
+      <input matInput placeholder="ex: 552 ACNS" formControlName="org" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Duty Title</mat-label>
+      <input matInput formControlName="dutyTitle" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Last 4 of SSN</mat-label>
+      <input matInput formControlName="SSN" />
+    </mat-form-field>
+  </div>
+
+  <!-- Line 4 -->
+  <div class="formLineItem">
+    <mat-form-field appearance="outline">
+      <mat-label>Signature</mat-label>
+      <input matInput formControlName="signature" />
+    </mat-form-field>
+  </div>
+</form>

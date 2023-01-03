@@ -68,7 +68,7 @@
             </mat-form-field>
           </div>
 
-          <!-- Line 5 -->
+          <!-- Line 4 -->
           <div class="formLineItem">
             <mat-form-field appearance="outline">
               <mat-label>Select a date range</mat-label>
@@ -104,7 +104,7 @@
             </mat-form-field>
           </div>
 
-          <!-- Line 7 -->
+          <!-- Line 5 -->
           <div class="formLineItem">
             <mat-form-field appearance="outline">
               <mat-label>Duty Title</mat-label>
@@ -116,7 +116,7 @@
             </mat-form-field>
           </div>
 
-          <!-- Line 8 -->
+          <!-- Line 6 -->
           <div>
             <mat-form-field appearance="outline">
               <mat-label>Key Duties, Tasks, Responsibilities</mat-label>
@@ -166,6 +166,26 @@
             </button>
           </div>
         </form>
+      </mat-step>
+
+      <!-- Raters Section -->
+      <!-- Tab 3 -->
+      <mat-step label="Rater Information">
+          <!-- Rater Information -->
+          <runk-person-data
+          (emitPersonData)=""></runk-person-data>
+          
+          <!-- Additional Rater Information -->
+          <runk-person-data></runk-person-data>
+
+
+
+          <div class="flex justify-end mt-3">
+            <button mat-flat-button color="primary" matStepperNext>
+              Next
+              <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
+            </button>
+          </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>

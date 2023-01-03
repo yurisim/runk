@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { QA } from '../types';
-import { DateTime, Interval } from 'luxon';
+import { PersonData, QA, Roles } from '../types';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'runk-pr',
@@ -19,7 +19,7 @@ export class PrComponent {
     firstName: new FormControl('', Validators.required),
     middleInitial: new FormControl(''),
     lastName: new FormControl('', Validators.required),
-    SSN: new FormControl('', Validators.required),
+    SSN: new FormControl('', [Validators.required]),
     DAFSC: new FormControl('', Validators.required),
     grade: new FormControl('', Validators.required),
     org: new FormControl('', Validators.required),
@@ -43,8 +43,6 @@ export class PrComponent {
 
   performanceTab = new FormGroup({});
 
-  raterTab = new FormGroup({});
-
   QAs: QA[] = [
     {
       question: 'Performance in Primary Duties/Training Requirements',
@@ -64,11 +62,70 @@ export class PrComponent {
     },
   ];
 
+  people: PersonData[] = [
+    {
+      firstName: '',
+      lastName: '',
+      branch: '',
+      DAFSC: '',
+      grade: '',
+      org: '',
+      SSN: '',
+      dutyTitle: '',
+      signature: '',
+      role: Roles.RATEE
+    },
+    {
+      firstName: '',
+      lastName: '',
+      branch: '',
+      DAFSC: '',
+      grade: '',
+      org: '',
+      SSN: '',
+      dutyTitle: '',
+      signature: '',
+      role: Roles.RATER
+    },
+    {
+      firstName: '',
+      lastName: '',
+      branch: '',
+      DAFSC: '',
+      grade: '',
+      org: '',
+      SSN: '',
+      dutyTitle: '',
+      signature: '',
+      role: Roles.ADDITIONAL
+    },
+    {
+      firstName: '',
+      lastName: '',
+      branch: '',
+      DAFSC: '',
+      grade: '',
+      org: '',
+      SSN: '',
+      dutyTitle: '',
+      signature: '',
+      role: Roles.CC
+    },
+  ];
+
   charLimits = [720, 240, 240, 0];
 
   commentsEnabled = [true, true, true, false];
 
   comments = ['', '', '', ''];
+
+  setPerson(emittedPerson: PersonData){
+    const index = this.people.findIndex(
+      (person: PersonData) => person.role === emittedPerson.role
+    );
+
+    this.people[index] = emittedPerson;
+  }
 
   setQA(emittedQA: QA): void {
     const index = this.QAs.findIndex(
