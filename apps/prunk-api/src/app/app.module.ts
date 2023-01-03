@@ -7,6 +7,7 @@ import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { PrismaModule } from '../prisma/prisma.module';
 import { OrgModule } from '../org/org.module';
+import { AuthzModule } from './authz/authz.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { OrgModule } from '../org/org.module';
     }),
     PrismaModule,
     OrgModule,
+    AuthzModule,
   ],
   controllers: [AppController],
   providers: [AppService],
