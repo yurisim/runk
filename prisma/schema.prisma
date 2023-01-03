@@ -6,9 +6,9 @@ generator client {
 }
 
 generator nestgraphql {
-    provider = "prisma-nestjs-graphql"
-    output = "./@generated"
-  }
+  provider = "prisma-nestjs-graphql"
+  output   = "./@generated"
+}
 
 datasource db {
   provider = "postgresql"
@@ -83,3 +83,11 @@ enum Grade {
   E8
   E9
 }
+
+// enum RatedScale {
+//   NotRated =
+//   MetSome
+//   MetAll
+//   ExceededSome
+//   ExceededMost
+// }

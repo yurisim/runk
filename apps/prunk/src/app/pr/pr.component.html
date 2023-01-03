@@ -1,1 +1,180 @@
-<p>pr works!</p>
+<mat-card class="m-3 w-[1080px]">
+  <mat-card-content>
+    <mat-stepper #stepper>
+      <!-- TAB 01 -->
+      <mat-step [stepControl]="rateeTab" state="person">
+        <form [formGroup]="rateeTab" class="flex flex-col">
+          <ng-template matStepLabel>Ratee Identification</ng-template>
+
+          <!-- Line 1 -->
+          <div class="mt-2 formLineItem">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input
+                matInput
+                placeholder="First Name"
+                formControlName="firstName"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input
+                matInput
+                placeholder="Last Name"
+                formControlName="lastName"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="basis-1/4">
+              <mat-label>MI</mat-label>
+              <input matInput formControlName="middleInitial" maxlength="1" />
+            </mat-form-field>
+          </div>
+
+          <!-- Line 2 -->
+          <div class="formLineItem">
+            <mat-form-field appearance="outline">
+              <mat-label>SSN</mat-label>
+              <input matInput formControlName="SSN" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>DAFSC</mat-label>
+              <input matInput formControlName="DAFSC" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Grade</mat-label>
+              <input matInput formControlName="grade" />
+            </mat-form-field>
+          </div>
+
+          <!-- Line 3 -->
+          <div class="formLineItem">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Organization</mat-label>
+              <input
+                matInput
+                placeholder="ex: 552 ACNS"
+                formControlName="org"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>PAS Code</mat-label>
+              <input matInput formControlName="PAS" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>FDID</mat-label>
+              <input matInput formControlName="FDID" />
+            </mat-form-field>
+          </div>
+
+          <!-- Line 5 -->
+          <div class="formLineItem">
+            <mat-form-field appearance="outline">
+              <mat-label>Select a date range</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input
+                  matStartDate
+                  placeholder="Start date"
+                  readonly
+                  (dateChange)="calculateDaysOfRating()"
+                  formControlName="startDate"
+                />
+                <input
+                  matEndDate
+                  placeholder="End date"
+                  readonly
+                  (dateChange)="calculateDaysOfRating()"
+                  formControlName="endDate"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="basis-1/2">
+              <mat-label># of Days Non-Rated</mat-label>
+              <input matInput formControlName="daysNonRated" (change)="calculateDaysOfRating()" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="basis-1/2">
+              <mat-label># of Days Rated</mat-label>
+              <input matInput formControlName="daysRated" type="number" readonly />
+            </mat-form-field>
+          </div>
+
+          <!-- Line 7 -->
+          <div class="formLineItem">
+            <mat-form-field appearance="outline">
+              <mat-label>Duty Title</mat-label>
+              <input matInput formControlName="dutyTitle" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Reason For Report</mat-label>
+              <input matInput formControlName="reasonReport" />
+            </mat-form-field>
+          </div>
+
+          <!-- Line 8 -->
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Key Duties, Tasks, Responsibilities</mat-label>
+              <textarea
+                matInput
+                rows="{{ (240 / 240) * 2 }}"
+                maxLength="{{ 240 }}"
+                #keyDuties
+                formControlName="keyDuties"
+              ></textarea>
+              <mat-hint align="end"
+                >{{ keyDuties.value.length }} / {{ 240 }}</mat-hint
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="flex justify-end mt-3">
+            <button mat-flat-button color="primary" matStepperNext>
+              Next
+              <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
+            </button>
+          </div>
+
+        </form>
+      </mat-step>
+      <!-- Tab 2 -->
+      <mat-step [stepControl]="performanceTab" label="Performance Review">
+        <form [formGroup]="performanceTab">
+          <runk-review-scale
+            *ngFor="let QA of QAs; let i = index"
+            [questionNumber]="i"
+            [QA]="QA"
+            [charLimit]="charLimits[i]"
+            [commentEnabled]="commentsEnabled[i]"
+            (emitQA)="setQA($any($event))"
+            (emitComment)="setComment($event, i)"
+          ></runk-review-scale>
+
+          <div class="flex justify-between mt-5">
+            <button mat-button matStepperPrevious color="primary">
+              <mat-icon> arrow_back_ios</mat-icon>
+              Back
+            </button>
+            <button mat-flat-button color="primary" matStepperNext>
+              Next
+              <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </mat-card-content>
+</mat-card>

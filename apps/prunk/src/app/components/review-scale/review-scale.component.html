@@ -1,0 +1,30 @@
+<div class="grid grid-cols-1 my-3">
+  <p>{{ questionNumber + 1 }}. {{ QA.question }}</p>
+
+  <mat-button-toggle-group class="flex">
+    <!-- Ensure that this reads the inputted value if it previously has a record -->
+    <mat-button-toggle
+      *ngFor="let option of scaleOptions; let i = index"
+      [value]="option"
+      class="grow"
+      [checked]="option === QA.answer"
+      (change)="scaleChange(option)"
+    >
+      {{ option }}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <mat-form-field appearance="outline" *ngIf="commentEnabled" class="mt-5">
+    <mat-label>Comments</mat-label>
+    <textarea
+      matInput
+      #comment
+      rows="{{ (charLimit / 240) * 2}}"
+      maxLength="{{ charLimit }}"
+      (input)="commentChange(comment.value)"
+    ></textarea>
+    <mat-hint align="end"
+      *ngIf="charLimit !== -1"
+      >{{ comment.value.length }} / {{ charLimit }}</mat-hint
+    >
+  </mat-form-field>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { QA } from './types';
 
 @Component({
   selector: 'runk-root',
