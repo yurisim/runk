@@ -29,6 +29,7 @@ export class PrComponent {
     endDate: new FormControl<Date | null>(null, Validators.required),
     daysNonRated: new FormControl(0, [
       Validators.maxLength(3),
+      // Only Numbers
       Validators.pattern('[0-9]'),
     ]),
     daysRated: new FormControl(0),

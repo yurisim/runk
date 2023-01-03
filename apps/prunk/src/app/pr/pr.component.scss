@@ -3,5 +3,5 @@ mat-form-field {
 }
 
 .formLineItem {
-  @apply space-x-3 flex justify-between #{!important};
+  @apply space-x-3 flex flex-row #{!important};
 }

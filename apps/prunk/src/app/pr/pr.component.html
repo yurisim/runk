@@ -26,7 +26,7 @@
                 required
               />
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="basis-1/4">
               <mat-label>MI</mat-label>
               <input matInput formControlName="middleInitial" maxlength="1" />
             </mat-form-field>
@@ -94,11 +94,11 @@
               ></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label># of Days Non-Rated hehe</mat-label>
+            <mat-form-field appearance="outline" class="basis-1/2">
+              <mat-label># of Days Non-Rated</mat-label>
               <input matInput formControlName="daysNonRated" (change)="calculateDaysOfRating()" />
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="basis-1/2">
               <mat-label># of Days Rated</mat-label>
               <input matInput formControlName="daysRated" type="number" readonly />
             </mat-form-field>
