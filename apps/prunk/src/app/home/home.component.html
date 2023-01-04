@@ -1,5 +1,6 @@
-<div class="grid m-3 gap-2 grid-cols-1 md:grid-cols-2 w-fit">
-  <mat-card class="w-fit m-3">
+<div class="grid m-3 gap-3 grid-cols-1 md:grid-cols-2 w-fit">
+  <!-- Create a PR -->
+  <mat-card class="w-full m-5">
     <mat-card-header class="justify-center">
       <mat-card-title class="text-center">Create a PR</mat-card-title>
     </mat-card-header>
@@ -18,7 +19,9 @@
       </button>
     </mat-card-content>
   </mat-card>
-  <mat-card class="w-fit m-3">
+
+  <!-- View a PR -->
+  <mat-card class="w-full m-5">
     <mat-card-header class="justify-center">
       <mat-card-title class="text-center">Edit/Review a PR</mat-card-title>
     </mat-card-header>
@@ -37,7 +40,9 @@
       </button>
     </mat-card-content>
   </mat-card>
-  <mat-card class="w-fit m-3">
+
+  <!-- View a Past PR -->
+  <mat-card class="w-full m-5">
     <mat-card-header class="justify-center">
       <mat-card-title class="text-center">View a Past PR</mat-card-title>
     </mat-card-header>
@@ -49,6 +54,23 @@
       <button mat-fab extended color="primary">
         <mat-icon>group_add</mat-icon>
         <p class="mb-0">For Another (0)</p>
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- View Subordinates -->
+  <mat-card class="w-full m-5">
+    <mat-card-header class="justify-center">
+      <mat-card-title class="text-center">View Subordinates</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="grid grid-cols-2 gap-3 mt-5">
+      <button mat-fab extended color="primary">
+        <mat-icon>groups</mat-icon>
+        <p class="mb-0">View Profiles</p>
+      </button>
+      <button mat-fab extended color="primary">
+        <mat-icon>groups</mat-icon>
+        <p class="mb-0">This is Placeholder</p>
       </button>
     </mat-card-content>
   </mat-card>
