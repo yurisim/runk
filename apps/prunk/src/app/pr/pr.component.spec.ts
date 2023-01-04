@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 
 import { PrComponent } from './pr.component';
 
@@ -8,6 +10,7 @@ describe('PrComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule, MatCardModule],
       declarations: [PrComponent],
     }).compileComponents();
 

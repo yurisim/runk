@@ -1,0 +1,7 @@
+mat-form-field {
+  @apply w-full #{!important};
+}
+
+.formLineItem {
+  @apply space-x-3 flex flex-row #{!important};
+}
