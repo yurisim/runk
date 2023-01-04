@@ -1,1 +1,55 @@
-<p>home works!</p>
+<div class="grid m-3 gap-2 grid-cols-1 md:grid-cols-2 w-fit">
+  <mat-card class="w-fit m-3">
+    <mat-card-header class="justify-center">
+      <mat-card-title class="text-center">Create a PR</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="grid grid-cols-2 gap-3 mt-5">
+      <button mat-fab extended color="primary" class routerLink="/pr">
+        <mat-icon>person_add</mat-icon>
+        <p class="mb-0">For Me</p>
+      </button>
+      <button mat-fab extended color="primary">
+        <mat-icon>group_add</mat-icon>
+        <p class="mb-0">For Another</p>
+      </button>
+      <button mat-fab extended color="primary">
+        <mat-icon>note</mat-icon>
+        <p class="mb-0">Blank Template</p>
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="w-fit m-3">
+    <mat-card-header class="justify-center">
+      <mat-card-title class="text-center">Edit/Review a PR</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="grid grid-cols-2 gap-3 mt-5">
+      <button mat-fab extended color="primary">
+        <mat-icon>person_add</mat-icon>
+        <p class="mb-0">For Me (0)</p>
+      </button>
+      <button mat-fab extended color="primary">
+        <mat-icon>group_add</mat-icon>
+        <p class="mb-0">For Another (0)</p>
+      </button>
+      <button mat-fab extended color="primary">
+        <mat-icon>note</mat-icon>
+        <p class="mb-0">In-Progress (0)</p>
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="w-fit m-3">
+    <mat-card-header class="justify-center">
+      <mat-card-title class="text-center">View a Past PR</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="grid grid-cols-2 gap-3 mt-5">
+      <button mat-fab extended color="primary">
+        <mat-icon>person_add</mat-icon>
+        <p class="mb-0">For Me (0)</p>
+      </button>
+      <button mat-fab extended color="primary">
+        <mat-icon>group_add</mat-icon>
+        <p class="mb-0">For Another (0)</p>
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

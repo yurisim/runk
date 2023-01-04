@@ -9,7 +9,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReviewScaleComponent } from './components/review-scale/review-scale.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatNativeDateModule,
     MatIconModule,
+    MatDividerModule,
     MatInputModule,
     MatSlideToggleModule,
     MatCheckboxModule,
