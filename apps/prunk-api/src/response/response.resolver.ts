@@ -1,8 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ResponseService } from './response.service';
-import { Response } from 'prisma/@generated/response/response.model';
-import { ResponseCreateInput } from 'prisma/@generated/response/response-create.input';
-import { ResponseUpdateInput } from 'prisma/@generated/response/response-update.input';
+
 
 @Resolver(() => Response)
 export class ResponseResolver {

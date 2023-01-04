@@ -1,29 +1,30 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { FindManyPersonArgs } from '../@generated/person/find-many-person.args';
+import { FindUniquePersonArgs } from '../@generated/person/find-unique-person.args';
+import { Person } from '../@generated/person/person.model';
+import { UpsertOnePersonArgs } from '../@generated/person/upsert-one-person.args';
 import { PersonService } from './person.service';
-import { PersonCreateInput } from 'prisma/@generated/person/person-create.input';
-import { PersonUpdateInput } from 'prisma/@generated/person/person-update.input';
-import { Person } from 'prisma/@generated/person/person.model';
 
 @Resolver(() => Person)
 export class PersonResolver {
   constructor(private readonly personService: PersonService) {}
 
-  // @Mutation(() => Person)
-  // createPerson(
-  //   @Args('createPersonInput') createPersonInput: PersonCreateInput
-  // ) {
-  //   return this.personService.create(createPersonInput);
-  // }
+  @Mutation(() => Person)
+  upsertPerson(
+    @Args() upsertOnePersonArgs: UpsertOnePersonArgs
+  ) {
+    return this.personService.upsert(upsertOnePersonArgs);
+  }
 
-  // @Query(() => [Person], { name: 'person' })
-  // findAll() {
-  //   return this.personService.findAll();
-  // }
+  @Query(() => [Person], { name: 'people' })
+  findAll(@Args() findManyPersonArgs: FindManyPersonArgs) {
+    return this.personService.findMany(findManyPersonArgs);
+  }
 
-  // @Query(() => Person, { name: 'person' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.personService.findOne(id);
-  // }
+  @Query(() => Person, { name: 'person' })
+  findOne(@Args() findUniquePersonArgs: FindUniquePersonArgs) {
+    return this.personService.findOne(findUniquePersonArgs);
+  }
 
   // @Mutation(() => Person)
   // updatePerson(

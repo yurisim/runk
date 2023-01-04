@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { FormCreateInput } from 'prisma/@generated/form/form-create.input';
-import { FormUpdateInput } from 'prisma/@generated/form/form-update.input';
-import { StringFieldUpdateOperationsInput } from 'prisma/@generated/prisma/string-field-update-operations.input';
+import { FormCreateInput } from '../@generated/form/form-create.input';
+import { FormUpdateInput } from '../@generated/form/form-update.input';
+import { StringFieldUpdateOperationsInput } from '../@generated/prisma/string-field-update-operations.input';
+
 
 @Injectable()
 export class FormService {

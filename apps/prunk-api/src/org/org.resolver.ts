@@ -1,8 +1,9 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { FindManyOrgArgs } from '../@generated/org/find-many-org.args';
+import { OrgCreateInput } from '../@generated/org/org-create.input';
+import { Org } from '../@generated/org/org.model';
 import { OrgService } from './org.service';
-import { Org } from 'prisma/@generated/org/org.model';
-import { OrgCreateInput } from 'prisma/@generated/org/org-create.input';
-import { FindManyOrgArgs } from 'prisma/@generated/org/find-many-org.args';
+
 
 @Resolver(() => Org)
 export class OrgResolver {

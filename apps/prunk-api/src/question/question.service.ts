@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { QuestionCreateInput } from 'prisma/@generated/question/question-create.input';
-import { QuestionUpdateInput } from 'prisma/@generated/question/question-update.input';
-import { StringFieldUpdateOperationsInput } from 'prisma/@generated/prisma/string-field-update-operations.input';
+import { StringFieldUpdateOperationsInput } from '../@generated/prisma/string-field-update-operations.input';
+import { QuestionCreateInput } from '../@generated/question/question-create.input';
+import { QuestionUpdateInput } from '../@generated/question/question-update.input';
+
 
 @Injectable()
 export class QuestionService {
