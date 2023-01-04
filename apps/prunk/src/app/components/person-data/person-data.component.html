@@ -1,5 +1,5 @@
 <!-- Line 1 -->
-<form [formGroup]="raterTab" class="flex flex-col">
+<form [formGroup]="raterTab" class="flex flex-col mt-2">
   <ng-template matStepLabel>Ratee Identification</ng-template>
   <div class="mt-2 formLineItem">
     <mat-form-field appearance="outline">
@@ -8,6 +8,8 @@
         matInput
         placeholder="First Name"
         formControlName="firstName"
+        [(ngModel)]="personData.firstName"
+        (input)="userInfo()"
         required
       />
     </mat-form-field>
@@ -17,52 +19,96 @@
         matInput
         placeholder="Last Name"
         formControlName="lastName"
+        [(ngModel)]="personData.lastName"
+        (input)="userInfo()"
         required
       />
     </mat-form-field>
     <mat-form-field appearance="outline" class="basis-1/4">
       <mat-label>MI</mat-label>
-      <input matInput formControlName="middleInitial" maxlength="1" />
+      <input
+        matInput
+        formControlName="middleInitial"
+        maxlength="1"
+        [(ngModel)]="personData.middleInitial"
+        (input)="userInfo()"
+      />
     </mat-form-field>
   </div>
 
   <!-- Line 2 -->
   <div class="formLineItem">
-    <mat-form-field appearance="outline">
-      <mat-label>Branch</mat-label>
-      <input matInput formControlName="branch" />
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Duty Title</mat-label>
+      <input
+        matInput
+        formControlName="dutyTitle"
+        [(ngModel)]="personData.dutyTitle"
+        (input)="userInfo()"
+      />
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>DAFSC</mat-label>
-      <input matInput formControlName="DAFSC" />
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>SSN</mat-label>
+      <input
+        matInput
+        formControlName="SSN"
+        [(ngModel)]="personData.SSN"
+        (input)="userInfo()"
+      />
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="basis-1/4">
       <mat-label>Grade</mat-label>
-      <input matInput formControlName="grade" />
+      <input
+        matInput
+        formControlName="grade"
+        [(ngModel)]="personData.grade"
+        (input)="userInfo()"
+      />
     </mat-form-field>
   </div>
 
   <!-- Line 3 -->
   <div class="formLineItem">
+    <mat-form-field appearance="outline" *ngIf="rateeFields">
+      <mat-label>DAFSC</mat-label>
+      <input
+        matInput
+        formControlName="DAFSC"
+        [(ngModel)]="personData.DAFSC"
+        (input)="userInfo()"
+      />
+    </mat-form-field>
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Organization</mat-label>
-      <input matInput placeholder="ex: 552 ACNS" formControlName="org" />
+      <input
+        matInput
+        placeholder="ex: 552 ACNS"
+        formControlName="org"
+        [(ngModel)]="personData.org"
+        (input)="userInfo()"
+      />
     </mat-form-field>
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Duty Title</mat-label>
-      <input matInput formControlName="dutyTitle" />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Last 4 of SSN</mat-label>
-      <input matInput formControlName="SSN" />
+    <mat-form-field appearance="outline" *ngIf="raterFields">
+      <mat-label>Branch</mat-label>
+      <input
+        matInput
+        formControlName="branch"
+        [(ngModel)]="personData.branch"
+        (input)="userInfo()"
+      />
     </mat-form-field>
   </div>
 
   <!-- Line 4 -->
-  <div class="formLineItem">
+  <div class="formLineItem" *ngIf="raterFields">
     <mat-form-field appearance="outline">
       <mat-label>Signature</mat-label>
-      <input matInput formControlName="signature" />
+      <input
+        matInput
+        formControlName="signature"
+        [(ngModel)]="personData.signature"
+        (input)="userInfo()"
+      />
     </mat-form-field>
   </div>
 </form>

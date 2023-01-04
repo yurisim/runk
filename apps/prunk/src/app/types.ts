@@ -13,7 +13,7 @@ export class PersonData {
   SSN!: string;
   dutyTitle!: string;
   signature!: string;
-  role!: Roles;
+  role?: Roles;
 }
 
 export enum Roles {

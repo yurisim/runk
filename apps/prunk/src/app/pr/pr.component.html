@@ -6,58 +6,10 @@
         <form [formGroup]="rateeTab" class="flex flex-col">
           <ng-template matStepLabel>Ratee Identification</ng-template>
 
-          <!-- Line 1 -->
-          <div class="mt-2 formLineItem">
-            <mat-form-field appearance="outline">
-              <mat-label>First Name</mat-label>
-              <input
-                matInput
-                placeholder="First Name"
-                formControlName="firstName"
-                required
-              />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Last Name</mat-label>
-              <input
-                matInput
-                placeholder="Last Name"
-                formControlName="lastName"
-                required
-              />
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="basis-1/4">
-              <mat-label>MI</mat-label>
-              <input matInput formControlName="middleInitial" maxlength="1" />
-            </mat-form-field>
-          </div>
-
-          <!-- Line 2 -->
-          <div class="formLineItem">
-            <mat-form-field appearance="outline">
-              <mat-label>SSN</mat-label>
-              <input matInput formControlName="SSN" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>DAFSC</mat-label>
-              <input matInput formControlName="DAFSC" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Grade</mat-label>
-              <input matInput formControlName="grade" />
-            </mat-form-field>
-          </div>
+          <runk-person-data [raterFields]="false"></runk-person-data>
 
           <!-- Line 3 -->
           <div class="formLineItem">
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Organization</mat-label>
-              <input
-                matInput
-                placeholder="ex: 552 ACNS"
-                formControlName="org"
-              />
-            </mat-form-field>
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>PAS Code</mat-label>
               <input matInput formControlName="PAS" />
@@ -65,6 +17,10 @@
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>FDID</mat-label>
               <input matInput formControlName="FDID" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Reason For Report</mat-label>
+              <input matInput formControlName="reasonReport" />
             </mat-form-field>
           </div>
 
@@ -96,23 +52,20 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="basis-1/2">
               <mat-label># of Days Non-Rated</mat-label>
-              <input matInput formControlName="daysNonRated" (change)="calculateDaysOfRating()" />
+              <input
+                matInput
+                formControlName="daysNonRated"
+                (change)="calculateDaysOfRating()"
+              />
             </mat-form-field>
             <mat-form-field appearance="outline" class="basis-1/2">
               <mat-label># of Days Rated</mat-label>
-              <input matInput formControlName="daysRated" type="number" readonly />
-            </mat-form-field>
-          </div>
-
-          <!-- Line 5 -->
-          <div class="formLineItem">
-            <mat-form-field appearance="outline">
-              <mat-label>Duty Title</mat-label>
-              <input matInput formControlName="dutyTitle" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Reason For Report</mat-label>
-              <input matInput formControlName="reasonReport" />
+              <input
+                matInput
+                formControlName="daysRated"
+                type="number"
+                readonly
+              />
             </mat-form-field>
           </div>
 
@@ -139,7 +92,6 @@
               <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
             </button>
           </div>
-
         </form>
       </mat-step>
       <!-- Tab 2 -->
@@ -171,22 +123,144 @@
       <!-- Raters Section -->
       <!-- Tab 3 -->
       <mat-step label="Rater Information">
-          <!-- Rater Information -->
-          <runk-person-data
-          (emitPersonData)=""></runk-person-data>
-          
-          <!-- Additional Rater Information -->
-          <runk-person-data></runk-person-data>
+        <!-- Rater Information -->
+        <h2 class="text-center mt-2">Rater Information</h2>
+        <runk-person-data
+          [rateeFields]="false"
+          (emitPersonData)="setPerson($event, Roles.RATER)"
+        ></runk-person-data>
 
+        <!-- Additional Rater Information -->
+        <h2 class="text-center mt-2">Additional Rater Information</h2>
+        <mat-button-toggle-group class="flex w-fit mx-auto">
+          <mat-button-toggle [checked]="true" value="concur"
+            >Concur</mat-button-toggle
+          >
+          <mat-button-toggle value="nonConcur">Non-Concur</mat-button-toggle>
+        </mat-button-toggle-group>
 
+        <mat-form-field appearance="outline" class="mt-5">
+          <mat-label>Comments</mat-label>
+          <textarea
+            matInput
+            #comment
+            rows="{{ 2 }}"
+            maxLength="{{ 240 }}"
+          ></textarea>
+          <mat-hint align="end"
+            >{{ comment.value.length }} / {{ 240 }}</mat-hint
+          >
+        </mat-form-field>
 
-          <div class="flex justify-end mt-3">
-            <button mat-flat-button color="primary" matStepperNext>
-              Next
-              <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
-            </button>
-          </div>
+        <runk-person-data
+          [rateeFields]="false"
+          (emitPersonData)="setPerson($event, Roles.ADDITIONAL)"
+        ></runk-person-data>
+
+        <!-- Commander Rater Information -->
+        <h2 class="text-center mt-2">Commander Information</h2>
+        <mat-button-toggle-group class="flex w-fit mx-auto">
+          <mat-button-toggle [checked]="true" value="concur"
+            >Concur</mat-button-toggle
+          >
+          <mat-button-toggle value="nonConcur">Non-Concur</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-form-field appearance="outline" class="mt-5">
+          <mat-label>Comments</mat-label>
+          <textarea
+            matInput
+            #comment
+            rows="{{ 1 }}"
+            maxLength="{{ 120 }}"
+          ></textarea>
+          <mat-hint align="end"
+            >{{ comment.value.length }} / {{ 120 }}</mat-hint
+          >
+        </mat-form-field>
+
+        <div class="formLineItem justify-center">
+          <mat-checkbox color="primary"
+            >TIG/TIS Promotion Eligible</mat-checkbox
+          >
+          <mat-checkbox color="primary">Referral Report</mat-checkbox>
+          <mat-checkbox color="primary">Quality Force Review</mat-checkbox>
+        </div>
+
+        <mat-divider class="mt-5"></mat-divider>
+        <h3 class="text-center mt-3">Future Roles</h3>
+        <div class="formLineItem">
+          <mat-form-field appearance="outline">
+            <mat-label>1.</mat-label>
+            <input matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>2.</mat-label>
+            <input matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>3.</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </div>
+
+        <mat-divider class="mt-2"></mat-divider>
+        <h3 class="text-center mt-3">Promotion Recommendation</h3>
+        <mat-button-toggle-group class="flex w-fit mx-auto my-2">
+          <mat-button-toggle [checked]="true" value="notReady"
+            >Not Ready Now</mat-button-toggle
+          >
+          <mat-button-toggle value="promote">Promote</mat-button-toggle>
+          <mat-button-toggle value="mustPromote"
+            >Must Promote</mat-button-toggle
+          >
+          <mat-button-toggle value="promoteNow">Promote Now</mat-button-toggle>
+        </mat-button-toggle-group>
+        <mat-divider class="mt-5"></mat-divider>
+
+        <runk-person-data
+          [rateeFields]="false"
+          (emitPersonData)="setPerson($event, Roles.CC)"
+        ></runk-person-data>
+
+        <div class="flex justify-between mt-5">
+          <button mat-button matStepperPrevious color="primary">
+            <mat-icon> arrow_back_ios</mat-icon>
+            Back
+          </button>
+          <button mat-flat-button color="primary" matStepperNext>
+            Next
+            <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
+          </button>
+        </div>
       </mat-step>
+
+      <!-- Signature -->
+      <mat-step>
+        <ng-template matStepLabel>Signature</ng-template>
+        
+        <div class="formLineItem mt-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Signature</mat-label>
+            <input
+              matInput
+              required
+            />
+          </mat-form-field>
+        </div>
+        
+        <div class="flex justify-between mt-5">
+          <button mat-button matStepperPrevious color="primary">
+            <mat-icon> arrow_back_ios</mat-icon>
+            Back
+          </button>
+          <button mat-flat-button color="primary" matStepperNext>
+            Next
+            <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>

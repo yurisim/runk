@@ -20,6 +20,8 @@ import { ReviewScaleComponent } from './components/review-scale/review-scale.com
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { PersonDataComponent } from './components/person-data/person-data.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { PersonDataComponent } from './components/person-data/person-data.compon
     MatSlideToggleModule,
     MatStepperModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

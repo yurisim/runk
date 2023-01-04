@@ -13,6 +13,8 @@ export class PrComponent {
     //
   }
 
+  Roles = Roles;
+
   maxDaysNonRated = 0;
 
   rateeTab = new FormGroup({
@@ -119,9 +121,9 @@ export class PrComponent {
 
   comments = ['', '', '', ''];
 
-  setPerson(emittedPerson: PersonData){
+  setPerson(emittedPerson: PersonData, role: Roles): void {
     const index = this.people.findIndex(
-      (person: PersonData) => person.role === emittedPerson.role
+      (person: PersonData) => person.role === role
     );
 
     this.people[index] = emittedPerson;

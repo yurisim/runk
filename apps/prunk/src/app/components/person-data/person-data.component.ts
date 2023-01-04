@@ -35,16 +35,22 @@ export class PersonDataComponent {
     SSN: '',
     dutyTitle: '',
     signature: '',
-    role: Roles.RATEE
   }
+
+  @Input()
+  rateeFields = true;
+
+  @Input()
+  raterFields = true;
 
   @Output()
   emitPersonData = new EventEmitter<PersonData>();
 
 
-  userInfo(data: PersonData)
+  userInfo()
   {
-    this.personData = data;
+    // this.personData = data;
+    console.log(this.personData.firstName);
     this.emitPersonData.emit(this.personData);
   }
 }
