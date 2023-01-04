@@ -20,6 +20,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReviewScaleComponent } from './components/review-scale/review-scale.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { PersonDataComponent } from './components/person-data/person-data.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     PrComponent,
     ReviewScaleComponent,
+    PersonDataComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -46,6 +49,7 @@ import { FormsModule } from '@angular/forms';
     MatCheckboxModule,
     MatStepperModule,
     ReactiveFormsModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
