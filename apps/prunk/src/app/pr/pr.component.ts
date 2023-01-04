@@ -17,6 +17,9 @@ export class PrComponent {
 
   maxDaysNonRated = 0;
 
+  // Q: regex for 3 digits
+  // A:
+
   rateeTab = new FormGroup({
     firstName: new FormControl('', Validators.required),
     middleInitial: new FormControl(''),
@@ -30,9 +33,10 @@ export class PrComponent {
     startDate: new FormControl<Date | null>(null, Validators.required),
     endDate: new FormControl<Date | null>(null, Validators.required),
     daysNonRated: new FormControl(0, [
-      Validators.maxLength(3),
-      // Only Numbers
-      Validators.pattern('[0-9]'),
+      Validators.maxLength(this.maxDaysNonRated.toString().length),
+      Validators.max(this.maxDaysNonRated),
+      Validators.min(0),
+      Validators.pattern('[0-9]{1,3}'),
     ]),
     daysRated: new FormControl(0),
     dutyTitle: new FormControl('', Validators.required),
@@ -152,13 +156,21 @@ export class PrComponent {
       // The component should prevent this from being negative
       const interval = end.diff(start, ['days']).days;
 
+      console.log(interval);
+
       this.maxDaysNonRated = interval;
 
-      const daysNonRated = this.rateeTab.get('daysNonRated')?.value ?? 0;
+      let daysNonRated = Number(this.rateeTab.get('daysNonRated')?.value) ?? 0;
 
-      if (!isNaN(daysNonRated)) {
-        this.rateeTab.get('daysRated')?.setValue(interval - daysNonRated);
-      }
+      daysNonRated =
+        daysNonRated > this.maxDaysNonRated
+          ? this.maxDaysNonRated
+          : daysNonRated;
+
+      // validate daysNonRated
+      this.rateeTab.get('daysRated')?.setValue(interval - daysNonRated);
+
+      console.log(this.rateeTab.get('daysNonRated')?.errors);
     }
   }
 }

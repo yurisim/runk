@@ -55,11 +55,20 @@
               <input
                 matInput
                 formControlName="daysNonRated"
-                (change)="calculateDaysOfRating()"
+                [maxlength]="maxDaysNonRated.toString().length"
+                [max]="maxDaysNonRated"
+                [min]="0"
+                (input)="calculateDaysOfRating()"
               />
             </mat-form-field>
             <mat-form-field appearance="outline" class="basis-1/2">
               <mat-label># of Days Rated</mat-label>
+              <input
+                matInput
+                formControlName="daysRated"
+                type="number"
+                readonly
+              />
               <input
                 matInput
                 formControlName="daysRated"
