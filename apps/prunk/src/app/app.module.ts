@@ -9,7 +9,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -44,6 +44,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatFormFieldModule,
     MatNativeDateModule,
     MatIconModule,
+    MatDividerModule,
     MatInputModule,
     MatSlideToggleModule,
     MatCheckboxModule,
