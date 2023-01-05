@@ -42,6 +42,7 @@ model Org {
 
 model Form {
   id        String     @id @default(uuid())
+  version   Int        @unique
   questions Question[]
   responses Response[]
 }
@@ -63,26 +64,23 @@ model Answer {
 }
 
 model Response {
-  id      String         @id @default(uuid())
+  id           String         @id @default(uuid())
   // one user can have many responses
-  ratee   Person         @relation("Ratee", fields: [rateeId], references: [id])
-  rateeId String
-  form    Form           @relation(fields: [formId], references: [id])
-  formId  String
-  answers Answer[]
-  begin   DateTime
-  end     DateTime
-  status  ResponseStatus
-  reason  ReportReason
-  // Raters
-  rater   Person?        @relation("Rater", fields: [raterId], references: [id])
-  raterId String?
-
-  addtlRater   Person? @relation("AddtlRater", fields: [addtlRaterId], references: [id])
+  form         Form           @relation(fields: [formId], references: [id])
+  formId       String
+  answers      Answer[]
+  begin        DateTime
+  end          DateTime
+  status       ResponseStatus
+  reason       ReportReason
+  ratee        Person         @relation("Ratee", fields: [rateeId], references: [id])
+  rateeId      String
+  rater        Person?        @relation("Rater", fields: [raterId], references: [id])
+  raterId      String?
+  addtlRater   Person?        @relation("AddtlRater", fields: [addtlRaterId], references: [id])
   addtlRaterId String?
-
-  CC   Person? @relation("CC", fields: [CCId], references: [id])
-  CCId String?
+  CC           Person?        @relation("CC", fields: [CCId], references: [id])
+  CCId         String?
 }
 
 enum Grade {
