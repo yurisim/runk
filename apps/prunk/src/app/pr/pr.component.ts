@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PersonData, QA, Roles } from '../types';
 import { DateTime } from 'luxon';
+import { PrService } from './pr.service';
 
 @Component({
   selector: 'runk-pr',
@@ -9,7 +10,7 @@ import { DateTime } from 'luxon';
   styleUrls: ['./pr.component.scss'],
 })
 export class PrComponent {
-  constructor() {
+  constructor(private prService: PrService,) {
     //
   }
 

@@ -89,6 +89,13 @@
         ]
       }
     },
+    "gqlgen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["graphql-codegen"],
+        "parallel": false
+      }
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": [
