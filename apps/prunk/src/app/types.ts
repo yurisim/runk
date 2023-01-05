@@ -4,7 +4,7 @@ export class QA {
 }
 export class Person {
   firstName!: string;
-  middleInitial?: string;
+  middleInitial!: string | null;
   lastName!: string;
   branch!: string;
   DAFSC!: string;
