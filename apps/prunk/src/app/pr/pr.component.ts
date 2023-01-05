@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PersonData, QA, Roles } from '../types';
 import { DateTime } from 'luxon';
+import { PrService } from './pr.service';
 
 @Component({
   selector: 'runk-pr',
@@ -9,7 +10,7 @@ import { DateTime } from 'luxon';
   styleUrls: ['./pr.component.scss'],
 })
 export class PrComponent {
-  constructor() {
+  constructor(private prService: PrService,) {
     //
   }
 
@@ -72,6 +73,7 @@ export class PrComponent {
     {
       firstName: '',
       lastName: '',
+      middleInitial: null,
       branch: '',
       DAFSC: '',
       grade: '',
@@ -84,6 +86,7 @@ export class PrComponent {
     {
       firstName: '',
       lastName: '',
+      middleInitial: null,
       branch: '',
       DAFSC: '',
       grade: '',
@@ -96,6 +99,7 @@ export class PrComponent {
     {
       firstName: '',
       lastName: '',
+      middleInitial: null,
       branch: '',
       DAFSC: '',
       grade: '',
@@ -108,6 +112,7 @@ export class PrComponent {
     {
       firstName: '',
       lastName: '',
+      middleInitial: null,
       branch: '',
       DAFSC: '',
       grade: '',
@@ -131,6 +136,10 @@ export class PrComponent {
     );
 
     this.people[index] = emittedPerson;
+  }
+
+  testMethod() {
+    this.prService.submitPerson();
   }
 
   setQA(emittedQA: QA): void {

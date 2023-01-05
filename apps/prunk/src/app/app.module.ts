@@ -1,27 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { AppComponent } from './app.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatCardModule } from '@angular/material/card';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PrComponent } from './pr/pr.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { ReviewScaleComponent } from './components/review-scale/review-scale.component';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { PersonDataComponent } from './components/person-data/person-data.component';
-import { MatDividerModule } from '@angular/material/divider';
+import { MaterialModule } from './material.module';
+import { InMemoryCache } from '@apollo/client/core'
+import { HttpClientModule } from '@angular/common/http'
+import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular'
+import { HttpLink } from 'apollo-angular/http'
+
 
 @NgModule({
   declarations: [
@@ -33,26 +26,28 @@ import { MatDividerModule } from '@angular/material/divider';
     PersonDataComponent,
   ],
   imports: [
+    HttpClientModule,
+    ApolloModule,
+    MaterialModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatDividerModule,
-    MatInputModule,
-    MatSlideToggleModule,
-    MatCheckboxModule,
-    MatStepperModule,
     ReactiveFormsModule,
-    MatDividerModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory(httpLink: HttpLink) {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://localhost:3333/graphql'
+          })
+        }
+      },
+      deps: [HttpLink]
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,8 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Question } from '../@generated/question/question.model';
 import { QuestionService } from './question.service';
-import { QuestionCreateInput } from 'prisma/@generated/question/question-create.input';
-import { QuestionUpdateInput } from 'prisma/@generated/question/question-update.input';
-import { Question } from 'prisma/@generated/question/question.model';
 
 @Resolver(() => Question)
 export class QuestionResolver {

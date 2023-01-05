@@ -1,8 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Form } from '../@generated/form/form.model';
 import { FormService } from './form.service';
-import { Form } from 'prisma/@generated/form/form.model';
-import { FormCreateInput } from 'prisma/@generated/form/form-create.input';
-import { FormUpdateInput } from 'prisma/@generated/form/form-update.input';
 
 @Resolver(() => Form)
 export class FormResolver {

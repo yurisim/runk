@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MaterialModule } from '../../material.module';
 
 import { ReviewScaleComponent } from './review-scale.component';
 
@@ -8,6 +9,7 @@ describe('ReviewScaleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [MaterialModule],
       declarations: [ReviewScaleComponent],
     }).compileComponents();
 

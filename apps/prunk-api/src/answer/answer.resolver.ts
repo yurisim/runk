@@ -1,8 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Answer } from '../@generated/answer/answer.model';
 import { AnswerService } from './answer.service';
-import { Answer } from 'prisma/@generated/answer/answer.model';
-import { AnswerCreateInput } from 'prisma/@generated/answer/answer-create.input';
-import { AnswerUpdateInput } from 'prisma/@generated/answer/answer-update.input';
 
 @Resolver(() => Answer)
 export class AnswerResolver {

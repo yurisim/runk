@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PersonData, Roles } from '../../types';
-
+import { PersonData } from '../../types';
 
 @Component({
   selector: 'runk-person-data',
@@ -9,10 +8,9 @@ import { PersonData, Roles } from '../../types';
   styleUrls: ['./person-data.component.scss'],
 })
 export class PersonDataComponent {
-
-  raterTab = new FormGroup({
+  personTab = new FormGroup({
     firstName: new FormControl('', Validators.required),
-    middleInitial: new FormControl(''),
+    middleInitial: new FormControl<string | null>(''),
     lastName: new FormControl('', Validators.required),
     branch: new FormControl('', [Validators.required]),
     DAFSC: new FormControl('', Validators.required),
@@ -35,6 +33,19 @@ export class PersonDataComponent {
     SSN: '',
     dutyTitle: '',
     signature: '',
+  };
+
+  constructor() {
+    this.personTab.get('firstName')?.setValue(this.personData.firstName);
+    this.personTab.get('lastName')?.setValue(this.personData.lastName);
+    this.personTab.get('middleInitial')?.setValue(this.personData.middleInitial);
+    this.personTab.get('branch')?.setValue(this.personData.branch);
+    this.personTab.get('DAFSC')?.setValue(this.personData.DAFSC);
+    this.personTab.get('grade')?.setValue(this.personData.grade);
+    this.personTab.get('org')?.setValue(this.personData.org);
+    this.personTab.get('SSN')?.setValue(this.personData.SSN);
+    this.personTab.get('dutyTitle')?.setValue(this.personData.dutyTitle);
+    this.personTab.get('signature')?.setValue(this.personData.signature);
   }
 
   @Input()
@@ -46,9 +57,7 @@ export class PersonDataComponent {
   @Output()
   emitPersonData = new EventEmitter<PersonData>();
 
-
-  userInfo()
-  {
+  userInfo() {
     // this.personData = data;
     console.log(this.personData.firstName);
     this.emitPersonData.emit(this.personData);

@@ -7,7 +7,7 @@ generator client {
 
 generator nestgraphql {
   provider = "prisma-nestjs-graphql"
-  output   = "./@generated"
+  output   = "../apps/prunk-api/src/@generated"
 }
 
 datasource db {
@@ -31,7 +31,7 @@ model Person {
 
 model Org {
   id    String   @id @default(uuid())
-  name  String
+  name  String   @unique
   PAS   String
   FDID  String
   users Person[]

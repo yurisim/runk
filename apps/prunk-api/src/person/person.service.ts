@@ -1,30 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { PersonCreateInput } from 'prisma/@generated/person/person-create.input';
-import { PersonUpdateInput } from 'prisma/@generated/person/person-update.input';
-import { StringFieldUpdateOperationsInput } from 'prisma/@generated/prisma/string-field-update-operations.input';
+import { FindManyPersonArgs } from '../@generated/person/find-many-person.args';
+import { FindUniquePersonArgs } from '../@generated/person/find-unique-person.args';
+import { UpdateOnePersonArgs } from '../@generated/person/update-one-person.args';
+import { UpsertOnePersonArgs } from '../@generated/person/upsert-one-person.args';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class PersonService {
-  create(createPersonInput: PersonCreateInput) {
-    return 'This action adds a new person';
+  constructor(private prisma: PrismaService) {}
+
+  upsert(upsertOnePersonArgs: UpsertOnePersonArgs) {
+    return this.prisma.person.upsert(upsertOnePersonArgs);
   }
 
-  findAll() {
-    return `This action returns all person`;
+  findMany(findManyPersonArgs: FindManyPersonArgs) {
+    return this.prisma.person.findMany(findManyPersonArgs);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} person`;
+  findOne(findUniquePersonArgs: FindUniquePersonArgs) {
+    return this.prisma.person.findUnique(findUniquePersonArgs);
   }
 
-  update(
-    id: StringFieldUpdateOperationsInput,
-    updatePersonInput: PersonUpdateInput
-  ) {
-    return `This action updates a #${id} person`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} person`;
-  }
+  // update(
+  //   updateOnePersonArgs: UpdateOnePersonArgs
+  // ) {
+  //   return this.prisma.person.update(updateOnePersonArgs);
+  // }
 }

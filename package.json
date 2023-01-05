@@ -4,10 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js && npx env-cmd -f .env npx nx run-many --target=prisma-generate --all --no-parallel",
+    "postinstall": "node ./decorate-angular-cli.js && npx env-cmd -f .env npx nx run-many --target=prisma-generate --all --no-parallel && graphql-codegen",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "codegen": "graphql-codegen"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +22,7 @@
     "@angular/platform-browser": "~15.0.4",
     "@angular/platform-browser-dynamic": "~15.0.4",
     "@angular/router": "~15.0.4",
+    "@apollo/client": "^3.7.3",
     "@nestjs/apollo": "^10.1.7",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
@@ -29,9 +31,11 @@
     "@nrwl/angular": "15.4.4",
     "@nrwl/nest": "15.4.4",
     "@prisma/client": "^4.8.0",
+    "apollo-angular": "^4.1.1",
     "apollo-server-express": "^3.11.1",
     "class-transformer": "^0.5.1",
     "graphql": "^16.6.0",
+    "graphql-config": "^4.4.0",
     "luxon": "^3.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
@@ -46,6 +50,10 @@
     "@angular/cli": "~15.0.4",
     "@angular/compiler-cli": "~15.0.4",
     "@angular/language-service": "~15.0.4",
+    "@graphql-codegen/cli": "2.16.3",
+    "@graphql-codegen/typescript": "^2.8.7",
+    "@graphql-codegen/typescript-apollo-angular": "^3.5.6",
+    "@graphql-codegen/typescript-operations": "^2.5.12",
     "@nestjs/schematics": "^9.0.4",
     "@nestjs/testing": "^9.0.0",
     "@nrwl/cypress": "15.4.4",
@@ -77,9 +85,5 @@
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
     "typescript": "~4.8.2"
-  },
-  "resolutions": {
-    " @nrwl/angular/**/qs": "^6.2",
-    " @nrwl/angular/**/json5": "^1"
   }
 }

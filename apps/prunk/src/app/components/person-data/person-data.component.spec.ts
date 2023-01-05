@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../../material.module';
 
 import { PersonDataComponent } from './person-data.component';
 
@@ -8,6 +10,7 @@ describe('PersonDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [MaterialModule, ReactiveFormsModule],
       declarations: [PersonDataComponent],
     }).compileComponents();
 
