@@ -328,6 +328,7 @@ input IntFilter {
 
 type Mutation {
   createOrg(createOrgInput: OrgCreateInput!): Org!
+  createResponse(createResponseInput: ResponseCreateInput!): Response!
   upsertPerson(create: PersonCreateInput!, update: PersonUpdateInput!, where: PersonWhereUniqueInput!): Person!
 }
 
@@ -503,19 +504,25 @@ type Person {
 }
 
 type PersonCount {
-  forms: Int!
+  CCOf: Int!
+  addtlRater: Int!
+  rateeOf: Int!
+  raterOf: Int!
 }
 
 input PersonCreateInput {
+  CCOf: ResponseCreateNestedManyWithoutCCInput
+  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
   afsc: String!
   email: String
   firstName: String!
-  forms: ResponseCreateNestedManyWithoutUserInput
   grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
   org: OrgCreateNestedOneWithoutUsersInput!
+  rateeOf: ResponseCreateNestedManyWithoutRateeInput
+  raterOf: ResponseCreateNestedManyWithoutRaterInput
   ssn: Int!
 }
 
@@ -622,14 +629,17 @@ input PersonCreateWithoutCCOfInput {
 }
 
 input PersonCreateWithoutOrgInput {
+  CCOf: ResponseCreateNestedManyWithoutCCInput
+  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
   afsc: String!
   email: String
   firstName: String!
-  forms: ResponseCreateNestedManyWithoutUserInput
   grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
+  rateeOf: ResponseCreateNestedManyWithoutRateeInput
+  raterOf: ResponseCreateNestedManyWithoutRaterInput
   ssn: Int!
 }
 
@@ -1022,6 +1032,16 @@ input QuestionWhereUniqueInput {
   id: String
 }
 
+enum ReportReason {
+  Annual
+  Biennial
+  CRO
+  DirectedByCommander
+  DirectedByHAF
+  DirectedByNGB
+  Initial
+}
+
 type Response {
   CC: Person
   CCId: String
@@ -1042,6 +1062,20 @@ type Response {
 
 type ResponseCount {
   answers: Int!
+}
+
+input ResponseCreateInput {
+  CC: PersonCreateNestedOneWithoutCCOfInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  answers: AnswerCreateNestedManyWithoutResponsesInput
+  begin: DateTime!
+  end: DateTime!
+  form: FormCreateNestedOneWithoutResponsesInput!
+  id: String
+  ratee: PersonCreateNestedOneWithoutRateeOfInput!
+  rater: PersonCreateNestedOneWithoutRaterOfInput
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateManyAddtlRaterInput {
@@ -1170,13 +1204,6 @@ input ResponseCreateNestedManyWithoutRaterInput {
   connectOrCreate: [ResponseCreateOrConnectWithoutRaterInput!]
   create: [ResponseCreateWithoutRaterInput!]
   createMany: ResponseCreateManyRaterInputEnvelope
-}
-
-input ResponseCreateNestedManyWithoutUserInput {
-  connect: [ResponseWhereUniqueInput!]
-  connectOrCreate: [ResponseCreateOrConnectWithoutUserInput!]
-  create: [ResponseCreateWithoutUserInput!]
-  createMany: ResponseCreateManyUserInputEnvelope
 }
 
 input ResponseCreateOrConnectWithoutAddtlRaterInput {
@@ -1310,6 +1337,12 @@ input ResponseScalarWhereInput {
   id: StringFilter
   rateeId: StringFilter
   raterId: StringNullableFilter
+}
+
+enum ResponseStatus {
+  Completed
+  InProgress
+  Submitted
 }
 
 input ResponseUpdateManyMutationInput {

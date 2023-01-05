@@ -24,7 +24,11 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Reason For Report</mat-label>
-              <input matInput formControlName="reasonReport" />
+              <mat-select>
+                <mat-option *ngFor="let reason of reportReasons;let i=index" [value]="reason">
+                  {{ displayReasons[i] }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
 

@@ -1,6 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Person, Role } from '../../types';
+import {
+  Grade,
+} from '../../../@generated/generated';
 
 @Component({
   selector: 'runk-person-data[role]',
@@ -8,6 +11,9 @@ import { Person, Role } from '../../types';
   styleUrls: ['./person-data.component.scss'],
 })
 export class PersonDataComponent {
+
+  grades = Object.values(Grade).splice(0, 9);
+
   personTab = new FormGroup({
     firstName: new FormControl('', Validators.required),
     middleInitial: new FormControl<string | null>(''),
@@ -50,6 +56,7 @@ export class PersonDataComponent {
     this.personTab.get('SSN')?.setValue(this.personData.SSN);
     this.personTab.get('dutyTitle')?.setValue(this.personData.dutyTitle);
     this.personTab.get('signature')?.setValue(this.personData.signature);
+    console.log(this.grades);
   }
 
   @Input()

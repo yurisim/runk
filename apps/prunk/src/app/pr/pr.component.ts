@@ -3,7 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Person, QA, Role } from '../types';
 import { DateTime } from 'luxon';
 import { PrService } from './pr.service';
+
 import {
+  ReportReason,
   Grade,
   UpsertPersonPrMutationVariables,
 } from '../../@generated/generated';
@@ -21,8 +23,18 @@ export class PrComponent {
 
   maxDaysNonRated = 0;
 
-  // Q: regex for 3 digits
-  // A:
+  //TODO: find better way to do splice later
+  reportReasons = Object.values(ReportReason).splice(0, 7);
+
+  displayReasons = [
+    'Annual',
+    'Directed By Commander',
+    'Biennial',
+    'Directed By HAF',
+    'CRO',
+    'Initial',
+    'Directed By NGB',
+  ];
 
   rateeTab = new FormGroup({
     PAS: new FormControl('', Validators.required),
@@ -73,12 +85,12 @@ export class PrComponent {
   comments = ['', '', '', ''];
 
   setPerson(emittedPerson: Person): void {
-    console.log('set person emittion')
+    console.log('set person emittion');
     const index = this.people.findIndex(
       (foundPerson: Person) => foundPerson.role === emittedPerson.role
     );
 
-    console.log(index)
+    console.log(index);
 
     if (index === -1) {
       this.people.push(emittedPerson);
@@ -88,7 +100,7 @@ export class PrComponent {
   }
 
   submitRatee() {
-    console.log(this.people)
+    console.log(this.people);
 
     const ratee = this.people.find((person) => person.role === 0);
 

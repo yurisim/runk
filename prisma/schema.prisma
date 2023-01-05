@@ -63,18 +63,19 @@ model Answer {
 }
 
 model Response {
-  id      String   @id @default(uuid())
+  id      String         @id @default(uuid())
   // one user can have many responses
-  ratee   Person   @relation("Ratee", fields: [rateeId], references: [id])
+  ratee   Person         @relation("Ratee", fields: [rateeId], references: [id])
   rateeId String
-  form    Form     @relation(fields: [formId], references: [id])
+  form    Form           @relation(fields: [formId], references: [id])
   formId  String
   answers Answer[]
   begin   DateTime
   end     DateTime
-
+  status  ResponseStatus
+  reason  ReportReason
   // Raters
-  rater   Person? @relation("Rater", fields: [raterId], references: [id])
+  rater   Person?        @relation("Rater", fields: [raterId], references: [id])
   raterId String?
 
   addtlRater   Person? @relation("AddtlRater", fields: [addtlRaterId], references: [id])
@@ -94,6 +95,22 @@ enum Grade {
   E7
   E8
   E9
+}
+
+enum ResponseStatus {
+  InProgress
+  Submitted
+  Completed
+}
+
+enum ReportReason {
+  Annual
+  DirectedByCommander
+  Biennial
+  DirectedByHAF
+  CRO
+  Initial
+  DirectedByNGB
 }
 
 // enum RatedScale {

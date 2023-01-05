@@ -37,11 +37,7 @@
   <div class="formLineItem">
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Duty Title</mat-label>
-      <input
-        matInput
-        formControlName="dutyTitle"
-        (input)="userInfo()"
-      />
+      <input matInput formControlName="dutyTitle" (input)="userInfo()" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>SSN</mat-label>
@@ -55,11 +51,11 @@
     </mat-form-field>
     <mat-form-field appearance="outline" class="basis-1/4">
       <mat-label>Grade</mat-label>
-      <input
-        matInput
-        formControlName="grade"
-        (input)="userInfo()"
-      />
+      <mat-select>
+        <mat-option *ngFor="let grade of grades" [value]="grade">
+          {{ grade }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 
@@ -67,11 +63,7 @@
   <div class="formLineItem">
     <mat-form-field appearance="outline" *ngIf="rateeFields">
       <mat-label>DAFSC</mat-label>
-      <input
-        matInput
-        formControlName="DAFSC"
-        (input)="userInfo()"
-      />
+      <input matInput formControlName="DAFSC" (input)="userInfo()" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Organization</mat-label>
@@ -84,11 +76,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline" *ngIf="raterFields">
       <mat-label>Branch</mat-label>
-      <input
-        matInput
-        formControlName="branch"
-        (input)="userInfo()"
-      />
+      <input matInput formControlName="branch" (input)="userInfo()" />
     </mat-form-field>
   </div>
 
@@ -96,11 +84,7 @@
   <div class="formLineItem" *ngIf="raterFields">
     <mat-form-field appearance="outline">
       <mat-label>Signature</mat-label>
-      <input
-        matInput
-        formControlName="signature"
-        (input)="userInfo()"
-      />
+      <input matInput formControlName="signature" (input)="userInfo()" />
     </mat-form-field>
   </div>
 </form>
