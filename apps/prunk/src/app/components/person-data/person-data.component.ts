@@ -8,9 +8,9 @@ import { PersonData } from '../../types';
   styleUrls: ['./person-data.component.scss'],
 })
 export class PersonDataComponent {
-  raterTab = new FormGroup({
+  personTab = new FormGroup({
     firstName: new FormControl('', Validators.required),
-    middleInitial: new FormControl(''),
+    middleInitial: new FormControl<string | null>(''),
     lastName: new FormControl('', Validators.required),
     branch: new FormControl('', [Validators.required]),
     DAFSC: new FormControl('', Validators.required),
@@ -34,6 +34,19 @@ export class PersonDataComponent {
     dutyTitle: '',
     signature: '',
   };
+
+  constructor() {
+    this.personTab.get('firstName')?.setValue(this.personData.firstName);
+    this.personTab.get('lastName')?.setValue(this.personData.lastName);
+    this.personTab.get('middleInitial')?.setValue(this.personData.middleInitial);
+    this.personTab.get('branch')?.setValue(this.personData.branch);
+    this.personTab.get('DAFSC')?.setValue(this.personData.DAFSC);
+    this.personTab.get('grade')?.setValue(this.personData.grade);
+    this.personTab.get('org')?.setValue(this.personData.org);
+    this.personTab.get('SSN')?.setValue(this.personData.SSN);
+    this.personTab.get('dutyTitle')?.setValue(this.personData.dutyTitle);
+    this.personTab.get('signature')?.setValue(this.personData.signature);
+  }
 
   @Input()
   rateeFields = true;

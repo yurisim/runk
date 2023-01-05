@@ -73,6 +73,7 @@ export class PrComponent {
     {
       firstName: '',
       lastName: '',
+      middleInitial: null,
       branch: '',
       DAFSC: '',
       grade: '',
@@ -85,6 +86,7 @@ export class PrComponent {
     {
       firstName: '',
       lastName: '',
+      middleInitial: null,
       branch: '',
       DAFSC: '',
       grade: '',
@@ -97,6 +99,7 @@ export class PrComponent {
     {
       firstName: '',
       lastName: '',
+      middleInitial: null,
       branch: '',
       DAFSC: '',
       grade: '',
@@ -109,6 +112,7 @@ export class PrComponent {
     {
       firstName: '',
       lastName: '',
+      middleInitial: null,
       branch: '',
       DAFSC: '',
       grade: '',
