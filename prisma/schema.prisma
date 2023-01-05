@@ -17,7 +17,7 @@ datasource db {
 
 model Person {
   id            String     @id @default(uuid())
-  email         String     @unique
+  email         String?    @unique
   grade         Grade
   firstName     String
   middleInitial String?
@@ -26,7 +26,10 @@ model Person {
   afsc          String
   org           Org        @relation(fields: [orgId], references: [id])
   orgId         String
-  forms         Response[]
+  rateeOf       Response[] @relation("Ratee")
+  raterOf       Response[] @relation("Rater")
+  addtlRater    Response[] @relation("AddtlRater")
+  CCOf          Response[] @relation("CC")
 }
 
 model Org {
@@ -62,14 +65,23 @@ model Answer {
 model Response {
   id      String   @id @default(uuid())
   // one user can have many responses
-  user    Person   @relation(fields: [userId], references: [id])
-  userId  String
+  ratee   Person   @relation("Ratee", fields: [rateeId], references: [id])
+  rateeId String
   form    Form     @relation(fields: [formId], references: [id])
   formId  String
   answers Answer[]
   begin   DateTime
   end     DateTime
+
   // Raters
+  rater   Person? @relation("Rater", fields: [raterId], references: [id])
+  raterId String?
+
+  addtlRater   Person? @relation("AddtlRater", fields: [addtlRaterId], references: [id])
+  addtlRaterId String?
+
+  CC   Person? @relation("CC", fields: [CCId], references: [id])
+  CCId String?
 }
 
 enum Grade {

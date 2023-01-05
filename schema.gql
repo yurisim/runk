@@ -490,7 +490,7 @@ input OrgWhereUniqueInput {
 type Person {
   _count: PersonCount!
   afsc: String!
-  email: String!
+  email: String
   firstName: String!
   forms: [Response!]
   grade: Grade!
@@ -508,7 +508,7 @@ type PersonCount {
 
 input PersonCreateInput {
   afsc: String!
-  email: String!
+  email: String
   firstName: String!
   forms: ResponseCreateNestedManyWithoutUserInput
   grade: Grade!
@@ -521,7 +521,7 @@ input PersonCreateInput {
 
 input PersonCreateManyOrgInput {
   afsc: String!
-  email: String!
+  email: String
   firstName: String!
   grade: Grade!
   id: String
@@ -542,14 +542,37 @@ input PersonCreateNestedManyWithoutOrgInput {
   createMany: PersonCreateManyOrgInputEnvelope
 }
 
-input PersonCreateNestedOneWithoutFormsInput {
+input PersonCreateNestedOneWithoutAddtlRaterInput {
   connect: PersonWhereUniqueInput
-  connectOrCreate: PersonCreateOrConnectWithoutFormsInput
-  create: PersonCreateWithoutFormsInput
+  connectOrCreate: PersonCreateOrConnectWithoutAddtlRaterInput
+  create: PersonCreateWithoutAddtlRaterInput
 }
 
-input PersonCreateOrConnectWithoutFormsInput {
-  create: PersonCreateWithoutFormsInput!
+input PersonCreateNestedOneWithoutCCOfInput {
+  connect: PersonWhereUniqueInput
+  connectOrCreate: PersonCreateOrConnectWithoutCCOfInput
+  create: PersonCreateWithoutCCOfInput
+}
+
+input PersonCreateNestedOneWithoutRateeOfInput {
+  connect: PersonWhereUniqueInput
+  connectOrCreate: PersonCreateOrConnectWithoutRateeOfInput
+  create: PersonCreateWithoutRateeOfInput
+}
+
+input PersonCreateNestedOneWithoutRaterOfInput {
+  connect: PersonWhereUniqueInput
+  connectOrCreate: PersonCreateOrConnectWithoutRaterOfInput
+  create: PersonCreateWithoutRaterOfInput
+}
+
+input PersonCreateOrConnectWithoutAddtlRaterInput {
+  create: PersonCreateWithoutAddtlRaterInput!
+  where: PersonWhereUniqueInput!
+}
+
+input PersonCreateOrConnectWithoutCCOfInput {
+  create: PersonCreateWithoutCCOfInput!
   where: PersonWhereUniqueInput!
 }
 
@@ -558,27 +581,85 @@ input PersonCreateOrConnectWithoutOrgInput {
   where: PersonWhereUniqueInput!
 }
 
-input PersonCreateWithoutFormsInput {
+input PersonCreateOrConnectWithoutRateeOfInput {
+  create: PersonCreateWithoutRateeOfInput!
+  where: PersonWhereUniqueInput!
+}
+
+input PersonCreateOrConnectWithoutRaterOfInput {
+  create: PersonCreateWithoutRaterOfInput!
+  where: PersonWhereUniqueInput!
+}
+
+input PersonCreateWithoutAddtlRaterInput {
+  CCOf: ResponseCreateNestedManyWithoutCCInput
   afsc: String!
-  email: String!
+  email: String
   firstName: String!
   grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
   org: OrgCreateNestedOneWithoutUsersInput!
+  rateeOf: ResponseCreateNestedManyWithoutRateeInput
+  raterOf: ResponseCreateNestedManyWithoutRaterInput
+  ssn: Int!
+}
+
+input PersonCreateWithoutCCOfInput {
+  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
+  afsc: String!
+  email: String
+  firstName: String!
+  grade: Grade!
+  id: String
+  lastName: String!
+  middleInitial: String
+  org: OrgCreateNestedOneWithoutUsersInput!
+  rateeOf: ResponseCreateNestedManyWithoutRateeInput
+  raterOf: ResponseCreateNestedManyWithoutRaterInput
   ssn: Int!
 }
 
 input PersonCreateWithoutOrgInput {
   afsc: String!
-  email: String!
+  email: String
   firstName: String!
   forms: ResponseCreateNestedManyWithoutUserInput
   grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
+  ssn: Int!
+}
+
+input PersonCreateWithoutRateeOfInput {
+  CCOf: ResponseCreateNestedManyWithoutCCInput
+  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
+  afsc: String!
+  email: String
+  firstName: String!
+  grade: Grade!
+  id: String
+  lastName: String!
+  middleInitial: String
+  org: OrgCreateNestedOneWithoutUsersInput!
+  raterOf: ResponseCreateNestedManyWithoutRaterInput
+  ssn: Int!
+}
+
+input PersonCreateWithoutRaterOfInput {
+  CCOf: ResponseCreateNestedManyWithoutCCInput
+  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
+  afsc: String!
+  email: String
+  firstName: String!
+  grade: Grade!
+  id: String
+  lastName: String!
+  middleInitial: String
+  org: OrgCreateNestedOneWithoutUsersInput!
+  rateeOf: ResponseCreateNestedManyWithoutRateeInput
   ssn: Int!
 }
 
@@ -625,7 +706,7 @@ enum PersonScalarFieldEnum {
 
 input PersonUpdateInput {
   afsc: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   firstName: StringFieldUpdateOperationsInput
   forms: ResponseUpdateManyWithoutUserNestedInput
   grade: EnumGradeFieldUpdateOperationsInput
@@ -636,29 +717,122 @@ input PersonUpdateInput {
   ssn: IntFieldUpdateOperationsInput
 }
 
-input PersonUpdateOneRequiredWithoutFormsNestedInput {
+input PersonUpdateOneRequiredWithoutRateeOfNestedInput {
   connect: PersonWhereUniqueInput
-  connectOrCreate: PersonCreateOrConnectWithoutFormsInput
-  create: PersonCreateWithoutFormsInput
-  update: PersonUpdateWithoutFormsInput
-  upsert: PersonUpsertWithoutFormsInput
+  connectOrCreate: PersonCreateOrConnectWithoutRateeOfInput
+  create: PersonCreateWithoutRateeOfInput
+  update: PersonUpdateWithoutRateeOfInput
+  upsert: PersonUpsertWithoutRateeOfInput
 }
 
-input PersonUpdateWithoutFormsInput {
+input PersonUpdateOneWithoutAddtlRaterNestedInput {
+  connect: PersonWhereUniqueInput
+  connectOrCreate: PersonCreateOrConnectWithoutAddtlRaterInput
+  create: PersonCreateWithoutAddtlRaterInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PersonUpdateWithoutAddtlRaterInput
+  upsert: PersonUpsertWithoutAddtlRaterInput
+}
+
+input PersonUpdateOneWithoutCCOfNestedInput {
+  connect: PersonWhereUniqueInput
+  connectOrCreate: PersonCreateOrConnectWithoutCCOfInput
+  create: PersonCreateWithoutCCOfInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PersonUpdateWithoutCCOfInput
+  upsert: PersonUpsertWithoutCCOfInput
+}
+
+input PersonUpdateOneWithoutRaterOfNestedInput {
+  connect: PersonWhereUniqueInput
+  connectOrCreate: PersonCreateOrConnectWithoutRaterOfInput
+  create: PersonCreateWithoutRaterOfInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PersonUpdateWithoutRaterOfInput
+  upsert: PersonUpsertWithoutRaterOfInput
+}
+
+input PersonUpdateWithoutAddtlRaterInput {
+  CCOf: ResponseUpdateManyWithoutCCNestedInput
   afsc: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   firstName: StringFieldUpdateOperationsInput
   grade: EnumGradeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   lastName: StringFieldUpdateOperationsInput
   middleInitial: NullableStringFieldUpdateOperationsInput
   org: OrgUpdateOneRequiredWithoutUsersNestedInput
+  rateeOf: ResponseUpdateManyWithoutRateeNestedInput
+  raterOf: ResponseUpdateManyWithoutRaterNestedInput
   ssn: IntFieldUpdateOperationsInput
 }
 
-input PersonUpsertWithoutFormsInput {
-  create: PersonCreateWithoutFormsInput!
-  update: PersonUpdateWithoutFormsInput!
+input PersonUpdateWithoutCCOfInput {
+  addtlRater: ResponseUpdateManyWithoutAddtlRaterNestedInput
+  afsc: StringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  grade: EnumGradeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  middleInitial: NullableStringFieldUpdateOperationsInput
+  org: OrgUpdateOneRequiredWithoutUsersNestedInput
+  rateeOf: ResponseUpdateManyWithoutRateeNestedInput
+  raterOf: ResponseUpdateManyWithoutRaterNestedInput
+  ssn: IntFieldUpdateOperationsInput
+}
+
+input PersonUpdateWithoutRateeOfInput {
+  CCOf: ResponseUpdateManyWithoutCCNestedInput
+  addtlRater: ResponseUpdateManyWithoutAddtlRaterNestedInput
+  afsc: StringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  grade: EnumGradeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  middleInitial: NullableStringFieldUpdateOperationsInput
+  org: OrgUpdateOneRequiredWithoutUsersNestedInput
+  raterOf: ResponseUpdateManyWithoutRaterNestedInput
+  ssn: IntFieldUpdateOperationsInput
+}
+
+input PersonUpdateWithoutRaterOfInput {
+  CCOf: ResponseUpdateManyWithoutCCNestedInput
+  addtlRater: ResponseUpdateManyWithoutAddtlRaterNestedInput
+  afsc: StringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  grade: EnumGradeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  middleInitial: NullableStringFieldUpdateOperationsInput
+  org: OrgUpdateOneRequiredWithoutUsersNestedInput
+  rateeOf: ResponseUpdateManyWithoutRateeNestedInput
+  ssn: IntFieldUpdateOperationsInput
+}
+
+input PersonUpsertWithoutAddtlRaterInput {
+  create: PersonCreateWithoutAddtlRaterInput!
+  update: PersonUpdateWithoutAddtlRaterInput!
+}
+
+input PersonUpsertWithoutCCOfInput {
+  create: PersonCreateWithoutCCOfInput!
+  update: PersonUpdateWithoutCCOfInput!
+}
+
+input PersonUpsertWithoutRateeOfInput {
+  create: PersonCreateWithoutRateeOfInput!
+  update: PersonUpdateWithoutRateeOfInput!
+}
+
+input PersonUpsertWithoutRaterOfInput {
+  create: PersonCreateWithoutRaterOfInput!
+  update: PersonUpdateWithoutRaterOfInput!
 }
 
 input PersonWhereInput {
@@ -666,7 +840,7 @@ input PersonWhereInput {
   NOT: [PersonWhereInput!]
   OR: [PersonWhereInput!]
   afsc: StringFilter
-  email: StringFilter
+  email: StringNullableFilter
   firstName: StringFilter
   forms: ResponseListRelationFilter
   grade: EnumGradeFilter
@@ -849,30 +1023,99 @@ input QuestionWhereUniqueInput {
 }
 
 type Response {
+  CC: Person
+  CCId: String
   _count: ResponseCount!
+  addtlRater: Person
+  addtlRaterId: String
   answers: [Answer!]
   begin: DateTime!
   end: DateTime!
   form: Form!
   formId: String!
   id: ID!
-  user: Person!
-  userId: String!
+  ratee: Person!
+  rateeId: String!
+  rater: Person
+  raterId: String
 }
 
 type ResponseCount {
   answers: Int!
 }
 
+input ResponseCreateManyAddtlRaterInput {
+  CCId: String
+  begin: DateTime!
+  end: DateTime!
+  formId: String!
+  id: String
+  rateeId: String!
+  raterId: String
+}
+
+input ResponseCreateManyAddtlRaterInputEnvelope {
+  data: [ResponseCreateManyAddtlRaterInput!]!
+  skipDuplicates: Boolean
+}
+
+input ResponseCreateManyCCInput {
+  addtlRaterId: String
+  begin: DateTime!
+  end: DateTime!
+  formId: String!
+  id: String
+  rateeId: String!
+  raterId: String
+}
+
+input ResponseCreateManyCCInputEnvelope {
+  data: [ResponseCreateManyCCInput!]!
+  skipDuplicates: Boolean
+}
+
 input ResponseCreateManyFormInput {
+  CCId: String
+  addtlRaterId: String
   begin: DateTime!
   end: DateTime!
   id: String
-  userId: String!
+  rateeId: String!
+  raterId: String
 }
 
 input ResponseCreateManyFormInputEnvelope {
   data: [ResponseCreateManyFormInput!]!
+  skipDuplicates: Boolean
+}
+
+input ResponseCreateManyRateeInput {
+  CCId: String
+  addtlRaterId: String
+  begin: DateTime!
+  end: DateTime!
+  formId: String!
+  id: String
+  raterId: String
+}
+
+input ResponseCreateManyRateeInputEnvelope {
+  data: [ResponseCreateManyRateeInput!]!
+  skipDuplicates: Boolean
+}
+
+input ResponseCreateManyRaterInput {
+  CCId: String
+  addtlRaterId: String
+  begin: DateTime!
+  end: DateTime!
+  formId: String!
+  id: String
+  rateeId: String!
+}
+
+input ResponseCreateManyRaterInputEnvelope {
+  data: [ResponseCreateManyRaterInput!]!
   skipDuplicates: Boolean
 }
 
@@ -888,10 +1131,24 @@ input ResponseCreateManyUserInputEnvelope {
   skipDuplicates: Boolean
 }
 
+input ResponseCreateNestedManyWithoutAddtlRaterInput {
+  connect: [ResponseWhereUniqueInput!]
+  connectOrCreate: [ResponseCreateOrConnectWithoutAddtlRaterInput!]
+  create: [ResponseCreateWithoutAddtlRaterInput!]
+  createMany: ResponseCreateManyAddtlRaterInputEnvelope
+}
+
 input ResponseCreateNestedManyWithoutAnswersInput {
   connect: [ResponseWhereUniqueInput!]
   connectOrCreate: [ResponseCreateOrConnectWithoutAnswersInput!]
   create: [ResponseCreateWithoutAnswersInput!]
+}
+
+input ResponseCreateNestedManyWithoutCCInput {
+  connect: [ResponseWhereUniqueInput!]
+  connectOrCreate: [ResponseCreateOrConnectWithoutCCInput!]
+  create: [ResponseCreateWithoutCCInput!]
+  createMany: ResponseCreateManyCCInputEnvelope
 }
 
 input ResponseCreateNestedManyWithoutFormInput {
@@ -901,6 +1158,20 @@ input ResponseCreateNestedManyWithoutFormInput {
   createMany: ResponseCreateManyFormInputEnvelope
 }
 
+input ResponseCreateNestedManyWithoutRateeInput {
+  connect: [ResponseWhereUniqueInput!]
+  connectOrCreate: [ResponseCreateOrConnectWithoutRateeInput!]
+  create: [ResponseCreateWithoutRateeInput!]
+  createMany: ResponseCreateManyRateeInputEnvelope
+}
+
+input ResponseCreateNestedManyWithoutRaterInput {
+  connect: [ResponseWhereUniqueInput!]
+  connectOrCreate: [ResponseCreateOrConnectWithoutRaterInput!]
+  create: [ResponseCreateWithoutRaterInput!]
+  createMany: ResponseCreateManyRaterInputEnvelope
+}
+
 input ResponseCreateNestedManyWithoutUserInput {
   connect: [ResponseWhereUniqueInput!]
   connectOrCreate: [ResponseCreateOrConnectWithoutUserInput!]
@@ -908,8 +1179,18 @@ input ResponseCreateNestedManyWithoutUserInput {
   createMany: ResponseCreateManyUserInputEnvelope
 }
 
+input ResponseCreateOrConnectWithoutAddtlRaterInput {
+  create: ResponseCreateWithoutAddtlRaterInput!
+  where: ResponseWhereUniqueInput!
+}
+
 input ResponseCreateOrConnectWithoutAnswersInput {
   create: ResponseCreateWithoutAnswersInput!
+  where: ResponseWhereUniqueInput!
+}
+
+input ResponseCreateOrConnectWithoutCCInput {
+  create: ResponseCreateWithoutCCInput!
   where: ResponseWhereUniqueInput!
 }
 
@@ -918,25 +1199,85 @@ input ResponseCreateOrConnectWithoutFormInput {
   where: ResponseWhereUniqueInput!
 }
 
+input ResponseCreateOrConnectWithoutRateeInput {
+  create: ResponseCreateWithoutRateeInput!
+  where: ResponseWhereUniqueInput!
+}
+
+input ResponseCreateOrConnectWithoutRaterInput {
+  create: ResponseCreateWithoutRaterInput!
+  where: ResponseWhereUniqueInput!
+}
+
 input ResponseCreateOrConnectWithoutUserInput {
   create: ResponseCreateWithoutUserInput!
   where: ResponseWhereUniqueInput!
 }
 
-input ResponseCreateWithoutAnswersInput {
+input ResponseCreateWithoutAddtlRaterInput {
+  CC: PersonCreateNestedOneWithoutCCOfInput
+  answers: AnswerCreateNestedManyWithoutResponsesInput
   begin: DateTime!
   end: DateTime!
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
-  user: PersonCreateNestedOneWithoutFormsInput!
+  ratee: PersonCreateNestedOneWithoutRateeOfInput!
+  rater: PersonCreateNestedOneWithoutRaterOfInput
+}
+
+input ResponseCreateWithoutAnswersInput {
+  CC: PersonCreateNestedOneWithoutCCOfInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  begin: DateTime!
+  end: DateTime!
+  form: FormCreateNestedOneWithoutResponsesInput!
+  id: String
+  ratee: PersonCreateNestedOneWithoutRateeOfInput!
+  rater: PersonCreateNestedOneWithoutRaterOfInput
+}
+
+input ResponseCreateWithoutCCInput {
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  answers: AnswerCreateNestedManyWithoutResponsesInput
+  begin: DateTime!
+  end: DateTime!
+  form: FormCreateNestedOneWithoutResponsesInput!
+  id: String
+  ratee: PersonCreateNestedOneWithoutRateeOfInput!
+  rater: PersonCreateNestedOneWithoutRaterOfInput
 }
 
 input ResponseCreateWithoutFormInput {
+  CC: PersonCreateNestedOneWithoutCCOfInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
   answers: AnswerCreateNestedManyWithoutResponsesInput
   begin: DateTime!
   end: DateTime!
   id: String
-  user: PersonCreateNestedOneWithoutFormsInput!
+  ratee: PersonCreateNestedOneWithoutRateeOfInput!
+  rater: PersonCreateNestedOneWithoutRaterOfInput
+}
+
+input ResponseCreateWithoutRateeInput {
+  CC: PersonCreateNestedOneWithoutCCOfInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  answers: AnswerCreateNestedManyWithoutResponsesInput
+  begin: DateTime!
+  end: DateTime!
+  form: FormCreateNestedOneWithoutResponsesInput!
+  id: String
+  rater: PersonCreateNestedOneWithoutRaterOfInput
+}
+
+input ResponseCreateWithoutRaterInput {
+  CC: PersonCreateNestedOneWithoutCCOfInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  answers: AnswerCreateNestedManyWithoutResponsesInput
+  begin: DateTime!
+  end: DateTime!
+  form: FormCreateNestedOneWithoutResponsesInput!
+  id: String
+  ratee: PersonCreateNestedOneWithoutRateeOfInput!
 }
 
 input ResponseCreateWithoutUserInput {
@@ -959,13 +1300,16 @@ input ResponseOrderByRelationAggregateInput {
 
 input ResponseScalarWhereInput {
   AND: [ResponseScalarWhereInput!]
+  CCId: StringNullableFilter
   NOT: [ResponseScalarWhereInput!]
   OR: [ResponseScalarWhereInput!]
+  addtlRaterId: StringNullableFilter
   begin: DateTimeFilter
   end: DateTimeFilter
   formId: StringFilter
   id: StringFilter
-  userId: StringFilter
+  rateeId: StringFilter
+  raterId: StringNullableFilter
 }
 
 input ResponseUpdateManyMutationInput {
@@ -974,7 +1318,17 @@ input ResponseUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
 }
 
+input ResponseUpdateManyWithWhereWithoutAddtlRaterInput {
+  data: ResponseUpdateManyMutationInput!
+  where: ResponseScalarWhereInput!
+}
+
 input ResponseUpdateManyWithWhereWithoutAnswersInput {
+  data: ResponseUpdateManyMutationInput!
+  where: ResponseScalarWhereInput!
+}
+
+input ResponseUpdateManyWithWhereWithoutCCInput {
   data: ResponseUpdateManyMutationInput!
   where: ResponseScalarWhereInput!
 }
@@ -984,9 +1338,33 @@ input ResponseUpdateManyWithWhereWithoutFormInput {
   where: ResponseScalarWhereInput!
 }
 
+input ResponseUpdateManyWithWhereWithoutRateeInput {
+  data: ResponseUpdateManyMutationInput!
+  where: ResponseScalarWhereInput!
+}
+
+input ResponseUpdateManyWithWhereWithoutRaterInput {
+  data: ResponseUpdateManyMutationInput!
+  where: ResponseScalarWhereInput!
+}
+
 input ResponseUpdateManyWithWhereWithoutUserInput {
   data: ResponseUpdateManyMutationInput!
   where: ResponseScalarWhereInput!
+}
+
+input ResponseUpdateManyWithoutAddtlRaterNestedInput {
+  connect: [ResponseWhereUniqueInput!]
+  connectOrCreate: [ResponseCreateOrConnectWithoutAddtlRaterInput!]
+  create: [ResponseCreateWithoutAddtlRaterInput!]
+  createMany: ResponseCreateManyAddtlRaterInputEnvelope
+  delete: [ResponseWhereUniqueInput!]
+  deleteMany: [ResponseScalarWhereInput!]
+  disconnect: [ResponseWhereUniqueInput!]
+  set: [ResponseWhereUniqueInput!]
+  update: [ResponseUpdateWithWhereUniqueWithoutAddtlRaterInput!]
+  updateMany: [ResponseUpdateManyWithWhereWithoutAddtlRaterInput!]
+  upsert: [ResponseUpsertWithWhereUniqueWithoutAddtlRaterInput!]
 }
 
 input ResponseUpdateManyWithoutAnswersNestedInput {
@@ -1000,6 +1378,20 @@ input ResponseUpdateManyWithoutAnswersNestedInput {
   update: [ResponseUpdateWithWhereUniqueWithoutAnswersInput!]
   updateMany: [ResponseUpdateManyWithWhereWithoutAnswersInput!]
   upsert: [ResponseUpsertWithWhereUniqueWithoutAnswersInput!]
+}
+
+input ResponseUpdateManyWithoutCCNestedInput {
+  connect: [ResponseWhereUniqueInput!]
+  connectOrCreate: [ResponseCreateOrConnectWithoutCCInput!]
+  create: [ResponseCreateWithoutCCInput!]
+  createMany: ResponseCreateManyCCInputEnvelope
+  delete: [ResponseWhereUniqueInput!]
+  deleteMany: [ResponseScalarWhereInput!]
+  disconnect: [ResponseWhereUniqueInput!]
+  set: [ResponseWhereUniqueInput!]
+  update: [ResponseUpdateWithWhereUniqueWithoutCCInput!]
+  updateMany: [ResponseUpdateManyWithWhereWithoutCCInput!]
+  upsert: [ResponseUpsertWithWhereUniqueWithoutCCInput!]
 }
 
 input ResponseUpdateManyWithoutFormNestedInput {
@@ -1016,6 +1408,34 @@ input ResponseUpdateManyWithoutFormNestedInput {
   upsert: [ResponseUpsertWithWhereUniqueWithoutFormInput!]
 }
 
+input ResponseUpdateManyWithoutRateeNestedInput {
+  connect: [ResponseWhereUniqueInput!]
+  connectOrCreate: [ResponseCreateOrConnectWithoutRateeInput!]
+  create: [ResponseCreateWithoutRateeInput!]
+  createMany: ResponseCreateManyRateeInputEnvelope
+  delete: [ResponseWhereUniqueInput!]
+  deleteMany: [ResponseScalarWhereInput!]
+  disconnect: [ResponseWhereUniqueInput!]
+  set: [ResponseWhereUniqueInput!]
+  update: [ResponseUpdateWithWhereUniqueWithoutRateeInput!]
+  updateMany: [ResponseUpdateManyWithWhereWithoutRateeInput!]
+  upsert: [ResponseUpsertWithWhereUniqueWithoutRateeInput!]
+}
+
+input ResponseUpdateManyWithoutRaterNestedInput {
+  connect: [ResponseWhereUniqueInput!]
+  connectOrCreate: [ResponseCreateOrConnectWithoutRaterInput!]
+  create: [ResponseCreateWithoutRaterInput!]
+  createMany: ResponseCreateManyRaterInputEnvelope
+  delete: [ResponseWhereUniqueInput!]
+  deleteMany: [ResponseScalarWhereInput!]
+  disconnect: [ResponseWhereUniqueInput!]
+  set: [ResponseWhereUniqueInput!]
+  update: [ResponseUpdateWithWhereUniqueWithoutRaterInput!]
+  updateMany: [ResponseUpdateManyWithWhereWithoutRaterInput!]
+  upsert: [ResponseUpsertWithWhereUniqueWithoutRaterInput!]
+}
+
 input ResponseUpdateManyWithoutUserNestedInput {
   connect: [ResponseWhereUniqueInput!]
   connectOrCreate: [ResponseCreateOrConnectWithoutUserInput!]
@@ -1030,8 +1450,18 @@ input ResponseUpdateManyWithoutUserNestedInput {
   upsert: [ResponseUpsertWithWhereUniqueWithoutUserInput!]
 }
 
+input ResponseUpdateWithWhereUniqueWithoutAddtlRaterInput {
+  data: ResponseUpdateWithoutAddtlRaterInput!
+  where: ResponseWhereUniqueInput!
+}
+
 input ResponseUpdateWithWhereUniqueWithoutAnswersInput {
   data: ResponseUpdateWithoutAnswersInput!
+  where: ResponseWhereUniqueInput!
+}
+
+input ResponseUpdateWithWhereUniqueWithoutCCInput {
+  data: ResponseUpdateWithoutCCInput!
   where: ResponseWhereUniqueInput!
 }
 
@@ -1040,25 +1470,85 @@ input ResponseUpdateWithWhereUniqueWithoutFormInput {
   where: ResponseWhereUniqueInput!
 }
 
+input ResponseUpdateWithWhereUniqueWithoutRateeInput {
+  data: ResponseUpdateWithoutRateeInput!
+  where: ResponseWhereUniqueInput!
+}
+
+input ResponseUpdateWithWhereUniqueWithoutRaterInput {
+  data: ResponseUpdateWithoutRaterInput!
+  where: ResponseWhereUniqueInput!
+}
+
 input ResponseUpdateWithWhereUniqueWithoutUserInput {
   data: ResponseUpdateWithoutUserInput!
   where: ResponseWhereUniqueInput!
 }
 
-input ResponseUpdateWithoutAnswersInput {
+input ResponseUpdateWithoutAddtlRaterInput {
+  CC: PersonUpdateOneWithoutCCOfNestedInput
+  answers: AnswerUpdateManyWithoutResponsesNestedInput
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   form: FormUpdateOneRequiredWithoutResponsesNestedInput
   id: StringFieldUpdateOperationsInput
-  user: PersonUpdateOneRequiredWithoutFormsNestedInput
+  ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
+  rater: PersonUpdateOneWithoutRaterOfNestedInput
+}
+
+input ResponseUpdateWithoutAnswersInput {
+  CC: PersonUpdateOneWithoutCCOfNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  begin: DateTimeFieldUpdateOperationsInput
+  end: DateTimeFieldUpdateOperationsInput
+  form: FormUpdateOneRequiredWithoutResponsesNestedInput
+  id: StringFieldUpdateOperationsInput
+  ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
+  rater: PersonUpdateOneWithoutRaterOfNestedInput
+}
+
+input ResponseUpdateWithoutCCInput {
+  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  answers: AnswerUpdateManyWithoutResponsesNestedInput
+  begin: DateTimeFieldUpdateOperationsInput
+  end: DateTimeFieldUpdateOperationsInput
+  form: FormUpdateOneRequiredWithoutResponsesNestedInput
+  id: StringFieldUpdateOperationsInput
+  ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
+  rater: PersonUpdateOneWithoutRaterOfNestedInput
 }
 
 input ResponseUpdateWithoutFormInput {
+  CC: PersonUpdateOneWithoutCCOfNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
   answers: AnswerUpdateManyWithoutResponsesNestedInput
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  user: PersonUpdateOneRequiredWithoutFormsNestedInput
+  ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
+  rater: PersonUpdateOneWithoutRaterOfNestedInput
+}
+
+input ResponseUpdateWithoutRateeInput {
+  CC: PersonUpdateOneWithoutCCOfNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  answers: AnswerUpdateManyWithoutResponsesNestedInput
+  begin: DateTimeFieldUpdateOperationsInput
+  end: DateTimeFieldUpdateOperationsInput
+  form: FormUpdateOneRequiredWithoutResponsesNestedInput
+  id: StringFieldUpdateOperationsInput
+  rater: PersonUpdateOneWithoutRaterOfNestedInput
+}
+
+input ResponseUpdateWithoutRaterInput {
+  CC: PersonUpdateOneWithoutCCOfNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  answers: AnswerUpdateManyWithoutResponsesNestedInput
+  begin: DateTimeFieldUpdateOperationsInput
+  end: DateTimeFieldUpdateOperationsInput
+  form: FormUpdateOneRequiredWithoutResponsesNestedInput
+  id: StringFieldUpdateOperationsInput
+  ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
 }
 
 input ResponseUpdateWithoutUserInput {
@@ -1069,15 +1559,39 @@ input ResponseUpdateWithoutUserInput {
   id: StringFieldUpdateOperationsInput
 }
 
+input ResponseUpsertWithWhereUniqueWithoutAddtlRaterInput {
+  create: ResponseCreateWithoutAddtlRaterInput!
+  update: ResponseUpdateWithoutAddtlRaterInput!
+  where: ResponseWhereUniqueInput!
+}
+
 input ResponseUpsertWithWhereUniqueWithoutAnswersInput {
   create: ResponseCreateWithoutAnswersInput!
   update: ResponseUpdateWithoutAnswersInput!
   where: ResponseWhereUniqueInput!
 }
 
+input ResponseUpsertWithWhereUniqueWithoutCCInput {
+  create: ResponseCreateWithoutCCInput!
+  update: ResponseUpdateWithoutCCInput!
+  where: ResponseWhereUniqueInput!
+}
+
 input ResponseUpsertWithWhereUniqueWithoutFormInput {
   create: ResponseCreateWithoutFormInput!
   update: ResponseUpdateWithoutFormInput!
+  where: ResponseWhereUniqueInput!
+}
+
+input ResponseUpsertWithWhereUniqueWithoutRateeInput {
+  create: ResponseCreateWithoutRateeInput!
+  update: ResponseUpdateWithoutRateeInput!
+  where: ResponseWhereUniqueInput!
+}
+
+input ResponseUpsertWithWhereUniqueWithoutRaterInput {
+  create: ResponseCreateWithoutRaterInput!
+  update: ResponseUpdateWithoutRaterInput!
   where: ResponseWhereUniqueInput!
 }
 
@@ -1089,16 +1603,22 @@ input ResponseUpsertWithWhereUniqueWithoutUserInput {
 
 input ResponseWhereInput {
   AND: [ResponseWhereInput!]
+  CC: PersonRelationFilter
+  CCId: StringNullableFilter
   NOT: [ResponseWhereInput!]
   OR: [ResponseWhereInput!]
+  addtlRater: PersonRelationFilter
+  addtlRaterId: StringNullableFilter
   answers: AnswerListRelationFilter
   begin: DateTimeFilter
   end: DateTimeFilter
   form: FormRelationFilter
   formId: StringFilter
   id: StringFilter
-  user: PersonRelationFilter
-  userId: StringFilter
+  ratee: PersonRelationFilter
+  rateeId: StringFilter
+  rater: PersonRelationFilter
+  raterId: StringNullableFilter
 }
 
 input ResponseWhereUniqueInput {

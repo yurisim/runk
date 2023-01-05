@@ -1,20 +1,23 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PersonData, QA, Roles } from '../types';
+import { Person, QA, Role } from '../types';
 import { DateTime } from 'luxon';
 import { PrService } from './pr.service';
-
+import {
+  Grade,
+  UpsertPersonPrMutationVariables,
+} from '../../@generated/generated';
 @Component({
   selector: 'runk-pr',
   templateUrl: './pr.component.html',
   styleUrls: ['./pr.component.scss'],
 })
 export class PrComponent {
-  constructor(private prService: PrService,) {
+  constructor(private prService: PrService) {
     //
   }
 
-  Roles = Roles;
+  roles = Role;
 
   maxDaysNonRated = 0;
 
@@ -22,13 +25,6 @@ export class PrComponent {
   // A:
 
   rateeTab = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    middleInitial: new FormControl(''),
-    lastName: new FormControl('', Validators.required),
-    SSN: new FormControl('', [Validators.required]),
-    DAFSC: new FormControl('', Validators.required),
-    grade: new FormControl('', Validators.required),
-    org: new FormControl('', Validators.required),
     PAS: new FormControl('', Validators.required),
     FDID: new FormControl('', Validators.required),
     startDate: new FormControl<Date | null>(null, Validators.required),
@@ -40,7 +36,6 @@ export class PrComponent {
       Validators.pattern('[0-9]{1,3}'),
     ]),
     daysRated: new FormControl(0),
-    dutyTitle: new FormControl('', Validators.required),
     reasonReport: new FormControl('', Validators.required),
     keyDuties: new FormControl('', [
       Validators.required,
@@ -69,56 +64,7 @@ export class PrComponent {
     },
   ];
 
-  people: PersonData[] = [
-    {
-      firstName: '',
-      lastName: '',
-      branch: '',
-      DAFSC: '',
-      grade: '',
-      org: '',
-      SSN: '',
-      dutyTitle: '',
-      signature: '',
-      role: Roles.RATEE
-    },
-    {
-      firstName: '',
-      lastName: '',
-      branch: '',
-      DAFSC: '',
-      grade: '',
-      org: '',
-      SSN: '',
-      dutyTitle: '',
-      signature: '',
-      role: Roles.RATER
-    },
-    {
-      firstName: '',
-      lastName: '',
-      branch: '',
-      DAFSC: '',
-      grade: '',
-      org: '',
-      SSN: '',
-      dutyTitle: '',
-      signature: '',
-      role: Roles.ADDITIONAL
-    },
-    {
-      firstName: '',
-      lastName: '',
-      branch: '',
-      DAFSC: '',
-      grade: '',
-      org: '',
-      SSN: '',
-      dutyTitle: '',
-      signature: '',
-      role: Roles.CC
-    },
-  ];
+  people: Person[] = [];
 
   charLimits = [720, 240, 240, 0];
 
@@ -126,16 +72,56 @@ export class PrComponent {
 
   comments = ['', '', '', ''];
 
-  setPerson(emittedPerson: PersonData, role: Roles): void {
+  setPerson(emittedPerson: Person): void {
+    console.log('set person emittion')
     const index = this.people.findIndex(
-      (person: PersonData) => person.role === role
+      (foundPerson: Person) => foundPerson.role === emittedPerson.role
     );
 
-    this.people[index] = emittedPerson;
+    console.log(index)
+
+    if (index === -1) {
+      this.people.push(emittedPerson);
+    } else {
+      this.people[index] = emittedPerson;
+    }
   }
 
-  testMethod() {
-    this.prService.submitPerson();
+  submitRatee() {
+    console.log(this.people)
+
+    const ratee = this.people.find((person) => person.role === 0);
+
+    if (!ratee) return;
+
+    const personData: UpsertPersonPrMutationVariables = {
+      create: {
+        afsc: ratee.DAFSC,
+        firstName: ratee.firstName,
+        grade: ratee.grade as Grade,
+        lastName: ratee.lastName,
+        middleInitial: ratee.middleInitial,
+        org: {
+          connectOrCreate: {
+            create: {
+              FDID: this.rateeTab.get('FDID')?.value as string,
+              PAS: this.rateeTab.get('PAS')?.value as string,
+              name: ratee.org,
+            },
+            where: {
+              name: ratee.org,
+            },
+          },
+        },
+        ssn: Number(ratee.SSN),
+      },
+      update: {},
+      where: {
+        ssn: Number(ratee.SSN),
+      },
+    };
+    console.log(personData);
+    this.prService.submitPerson(personData);
   }
 
   setQA(emittedQA: QA): void {
@@ -161,8 +147,6 @@ export class PrComponent {
       // The component should prevent this from being negative
       const interval = end.diff(start, ['days']).days;
 
-      console.log(interval);
-
       this.maxDaysNonRated = interval;
 
       let daysNonRated = Number(this.rateeTab.get('daysNonRated')?.value) ?? 0;
@@ -174,8 +158,6 @@ export class PrComponent {
 
       // validate daysNonRated
       this.rateeTab.get('daysRated')?.setValue(interval - daysNonRated);
-
-      console.log(this.rateeTab.get('daysNonRated')?.errors);
     }
   }
 }

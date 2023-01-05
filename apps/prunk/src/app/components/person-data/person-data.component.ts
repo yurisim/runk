@@ -1,9 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PersonData } from '../../types';
+import { Person, Role } from '../../types';
 
 @Component({
-  selector: 'runk-person-data',
+  selector: 'runk-person-data[role]',
   templateUrl: './person-data.component.html',
   styleUrls: ['./person-data.component.scss'],
 })
@@ -22,7 +22,10 @@ export class PersonDataComponent {
   });
 
   @Input()
-  personData: PersonData = {
+  role: Role = 0;
+
+  @Input()
+  personData: Person = {
     firstName: '',
     lastName: '',
     middleInitial: '',
@@ -33,6 +36,7 @@ export class PersonDataComponent {
     SSN: '',
     dutyTitle: '',
     signature: '',
+    role: this.role,
   };
 
   @Input()
@@ -42,7 +46,7 @@ export class PersonDataComponent {
   raterFields = true;
 
   @Output()
-  emitPersonData = new EventEmitter<PersonData>();
+  emitPersonData = new EventEmitter<Person>();
 
   userInfo() {
     // this.personData = data;

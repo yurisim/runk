@@ -2,7 +2,7 @@ export class QA {
   question!: string;
   answer!: string;
 }
-export class PersonData {
+export class Person {
   firstName!: string;
   middleInitial?: string;
   lastName!: string;
@@ -13,12 +13,12 @@ export class PersonData {
   SSN!: string;
   dutyTitle!: string;
   signature!: string;
-  role?: Roles;
+  role?: Role;
 }
 
-export enum Roles {
-  RATER,
-  RATEE,
-  CC,
-  ADDITIONAL
+export enum Role {
+  RATEE = 0,
+  RATER = 1,
+  ADDITIONAL = 2,
+  CC = 3,
 }

@@ -6,9 +6,11 @@
         <form [formGroup]="rateeTab" class="flex flex-col">
           <ng-template matStepLabel>Ratee Identification</ng-template>
 
-          <button (click)="testMethod()">sdfsdg</button>
-
-          <runk-person-data [raterFields]="false"></runk-person-data>
+          <runk-person-data
+            (emitPersonData)="setPerson($event)"
+            [raterFields]="false"
+            [role]="0"
+          ></runk-person-data>
 
           <!-- Line 3 -->
           <div class="formLineItem">
@@ -100,7 +102,12 @@
           </div>
 
           <div class="flex justify-end mt-3">
-            <button mat-flat-button color="primary" matStepperNext>
+            <button
+              (click)="submitRatee()"
+              mat-flat-button
+              color="primary"
+              matStepperNext
+            >
               Next
               <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
             </button>
@@ -140,7 +147,8 @@
         <h2 class="text-center mt-2">Rater Information</h2>
         <runk-person-data
           [rateeFields]="false"
-          (emitPersonData)="setPerson($event, Roles.RATER)"
+          (emitPersonData)="setPerson($event)"
+          [role]="1"
         ></runk-person-data>
 
         <!-- Additional Rater Information -->
@@ -167,7 +175,8 @@
 
         <runk-person-data
           [rateeFields]="false"
-          (emitPersonData)="setPerson($event, Roles.ADDITIONAL)"
+          (emitPersonData)="setPerson($event)"
+          [role]="2"
         ></runk-person-data>
 
         <!-- Commander Rater Information -->
@@ -233,7 +242,8 @@
 
         <runk-person-data
           [rateeFields]="false"
-          (emitPersonData)="setPerson($event, Roles.CC)"
+          (emitPersonData)="setPerson($event)"
+          [role]="3"
         ></runk-person-data>
 
         <div class="flex justify-between mt-5">
