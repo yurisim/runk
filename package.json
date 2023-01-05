@@ -46,6 +46,7 @@
     "@angular/cli": "~15.0.4",
     "@angular/compiler-cli": "~15.0.4",
     "@angular/language-service": "~15.0.4",
+    "@graphql-codegen/cli": "^2.16.3",
     "@nestjs/schematics": "^9.0.4",
     "@nestjs/testing": "^9.0.0",
     "@nrwl/cypress": "15.4.4",
@@ -77,9 +78,6 @@
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
     "typescript": "~4.8.2"
-  },
-  "resolutions": {
-    " @nrwl/angular/**/qs": "^6.2",
-    " @nrwl/angular/**/json5": "^1"
   }
 }
+
