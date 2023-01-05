@@ -13,6 +13,8 @@ import {
 export class PrService {
   constructor(private apollo: Apollo) {}
   submitPerson() {
+    console.log('haha');
+
     return this.apollo.mutate<
       UpsertPersonPrMutation,
       UpsertPersonPrMutationVariables
@@ -37,13 +39,13 @@ export class PrService {
               },
             },
           },
-          ssn: 540492692,
+          ssn: 7897987,
         },
         update: {},
         where: {
           email: 'matthew.eichler@us.af.mil',
         },
       },
-    });
+    }).subscribe();
   }
 }

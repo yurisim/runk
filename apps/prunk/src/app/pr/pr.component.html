@@ -6,6 +6,8 @@
         <form [formGroup]="rateeTab" class="flex flex-col">
           <ng-template matStepLabel>Ratee Identification</ng-template>
 
+          <button (click)="testMethod()">sdfsdg</button>
+
           <runk-person-data [raterFields]="false"></runk-person-data>
 
           <!-- Line 3 -->
@@ -249,17 +251,14 @@
       <!-- Signature -->
       <mat-step>
         <ng-template matStepLabel>Signature</ng-template>
-        
+
         <div class="formLineItem mt-5">
           <mat-form-field appearance="outline">
             <mat-label>Signature</mat-label>
-            <input
-              matInput
-              required
-            />
+            <input matInput required />
           </mat-form-field>
         </div>
-        
+
         <div class="flex justify-between mt-5">
           <button mat-button matStepperPrevious color="primary">
             <mat-icon> arrow_back_ios</mat-icon>

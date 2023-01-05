@@ -41,7 +41,7 @@ import { HttpLink } from 'apollo-angular/http'
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
-            uri: 'localhost:3333/graphql'
+            uri: 'http://localhost:3333/graphql'
           })
         }
       },

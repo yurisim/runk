@@ -134,6 +134,10 @@ export class PrComponent {
     this.people[index] = emittedPerson;
   }
 
+  testMethod() {
+    this.prService.submitPerson();
+  }
+
   setQA(emittedQA: QA): void {
     const index = this.QAs.findIndex(
       (qa: QA) => qa.question === emittedQA.question
