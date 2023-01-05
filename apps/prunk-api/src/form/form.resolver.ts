@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { Form } from '../@generated/form/form.model';
 import { FormService } from './form.service';
 
-
 @Resolver(() => Form)
 export class FormResolver {
   constructor(private readonly formService: FormService) {}

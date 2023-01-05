@@ -4,7 +4,6 @@ import { OrgCreateInput } from '../@generated/org/org-create.input';
 import { Org } from '../@generated/org/org.model';
 import { OrgService } from './org.service';
 
-
 @Resolver(() => Org)
 export class OrgResolver {
   constructor(private readonly orgService: OrgService) {}

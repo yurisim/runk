@@ -10,9 +10,7 @@ export class PersonResolver {
   constructor(private readonly personService: PersonService) {}
 
   @Mutation(() => Person)
-  upsertPerson(
-    @Args() upsertOnePersonArgs: UpsertOnePersonArgs
-  ) {
+  upsertPerson(@Args() upsertOnePersonArgs: UpsertOnePersonArgs) {
     return this.personService.upsert(upsertOnePersonArgs);
   }
 

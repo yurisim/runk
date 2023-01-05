@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { Answer } from '../@generated/answer/answer.model';
 import { AnswerService } from './answer.service';
 
-
 @Resolver(() => Answer)
 export class AnswerResolver {
   constructor(private readonly answerService: AnswerService) {}

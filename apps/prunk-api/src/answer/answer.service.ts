@@ -3,7 +3,6 @@ import { AnswerCreateInput } from '../@generated/answer/answer-create.input';
 import { AnswerUpdateInput } from '../@generated/answer/answer-update.input';
 import { StringFieldUpdateOperationsInput } from '../@generated/prisma/string-field-update-operations.input';
 
-
 @Injectable()
 export class AnswerService {
   create(createAnswerInput: AnswerCreateInput) {

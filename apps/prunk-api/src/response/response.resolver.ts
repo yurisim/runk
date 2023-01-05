@@ -1,7 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ResponseService } from './response.service';
 
-
 @Resolver(() => Response)
 export class ResponseResolver {
   constructor(private readonly responseService: ResponseService) {}

@@ -3,7 +3,6 @@ import { FormCreateInput } from '../@generated/form/form-create.input';
 import { FormUpdateInput } from '../@generated/form/form-update.input';
 import { StringFieldUpdateOperationsInput } from '../@generated/prisma/string-field-update-operations.input';
 
-
 @Injectable()
 export class FormService {
   create(createFormInput: FormCreateInput) {

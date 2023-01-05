@@ -19,7 +19,7 @@ import { PersonModule } from '../person/person.module';
     }),
     PrismaModule,
     OrgModule,
-    PersonModule
+    PersonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
