@@ -12,6 +12,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 const MaterialModules = [
   MatButtonModule,
@@ -28,6 +30,8 @@ const MaterialModules = [
   MatStepperModule,
   MatDividerModule,
   BrowserAnimationsModule,
+  MatToolbarModule,
+  MatMenuModule,
 ];
 
 @NgModule({

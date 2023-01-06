@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="flex justify-between" *ngIf="checkLogin()">
+  <button mat-icon-button aria-label="menu icon" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/home">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-menu-item routerLink="/pr">
+      <mat-icon>assignment</mat-icon>
+      <span>Performance Reviews</span>
+    </button>
+  </mat-menu>
+  <span>Prunk</span>
+  <button
+    mat-icon-button
+    aria-label="Account Icon"
+    [matMenuTriggerFor]="account"
+  >
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #account="matMenu">
+    <button mat-menu-item routerLink="/login" (click)="logOut()">
+      <mat-icon>logout</mat-icon>
+      <span>Sign Out</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
