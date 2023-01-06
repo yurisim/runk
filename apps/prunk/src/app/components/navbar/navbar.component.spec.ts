@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LocalService } from '../../../local/local.service';
 
 import { NavbarComponent } from './navbar.component';
 
@@ -9,6 +10,7 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
+      providers: [LocalService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);
