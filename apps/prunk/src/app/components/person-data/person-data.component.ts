@@ -12,7 +12,7 @@ import {
 })
 export class PersonDataComponent {
 
-  grades = Object.values(Grade).splice(0, 9);
+  grades = Object.values(Grade);
 
   personTab = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -56,7 +56,6 @@ export class PersonDataComponent {
     this.personTab.get('SSN')?.setValue(this.personData.SSN);
     this.personTab.get('dutyTitle')?.setValue(this.personData.dutyTitle);
     this.personTab.get('signature')?.setValue(this.personData.signature);
-    console.log(this.grades);
   }
 
   @Input()

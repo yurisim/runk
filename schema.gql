@@ -197,11 +197,34 @@ input EnumGradeFilter {
   notIn: [Grade!]
 }
 
+input EnumReportReasonFieldUpdateOperationsInput {
+  set: ReportReason
+}
+
+input EnumReportReasonFilter {
+  equals: ReportReason
+  in: [ReportReason!]
+  not: NestedEnumReportReasonFilter
+  notIn: [ReportReason!]
+}
+
+input EnumResponseStatusFieldUpdateOperationsInput {
+  set: ResponseStatus
+}
+
+input EnumResponseStatusFilter {
+  equals: ResponseStatus
+  in: [ResponseStatus!]
+  not: NestedEnumResponseStatusFilter
+  notIn: [ResponseStatus!]
+}
+
 type Form {
   _count: FormCount!
   id: ID!
   questions: [Question!]
   responses: [Response!]
+  version: Int!
 }
 
 type FormCount {
@@ -234,11 +257,13 @@ input FormCreateOrConnectWithoutResponsesInput {
 input FormCreateWithoutQuestionsInput {
   id: String
   responses: ResponseCreateNestedManyWithoutFormInput
+  version: Int!
 }
 
 input FormCreateWithoutResponsesInput {
   id: String
   questions: QuestionCreateNestedManyWithoutFormInput
+  version: Int!
 }
 
 input FormRelationFilter {
@@ -265,11 +290,13 @@ input FormUpdateOneRequiredWithoutResponsesNestedInput {
 input FormUpdateWithoutQuestionsInput {
   id: StringFieldUpdateOperationsInput
   responses: ResponseUpdateManyWithoutFormNestedInput
+  version: IntFieldUpdateOperationsInput
 }
 
 input FormUpdateWithoutResponsesInput {
   id: StringFieldUpdateOperationsInput
   questions: QuestionUpdateManyWithoutFormNestedInput
+  version: IntFieldUpdateOperationsInput
 }
 
 input FormUpsertWithoutQuestionsInput {
@@ -289,10 +316,12 @@ input FormWhereInput {
   id: StringFilter
   questions: QuestionListRelationFilter
   responses: ResponseListRelationFilter
+  version: IntFilter
 }
 
 input FormWhereUniqueInput {
   id: String
+  version: Int
 }
 
 enum Grade {
@@ -348,6 +377,20 @@ input NestedEnumGradeFilter {
   in: [Grade!]
   not: NestedEnumGradeFilter
   notIn: [Grade!]
+}
+
+input NestedEnumReportReasonFilter {
+  equals: ReportReason
+  in: [ReportReason!]
+  not: NestedEnumReportReasonFilter
+  notIn: [ReportReason!]
+}
+
+input NestedEnumResponseStatusFilter {
+  equals: ResponseStatus
+  in: [ResponseStatus!]
+  not: NestedEnumResponseStatusFilter
+  notIn: [ResponseStatus!]
 }
 
 input NestedIntFilter {
@@ -489,17 +532,20 @@ input OrgWhereUniqueInput {
 }
 
 type Person {
+  CCOf: [Response!]
   _count: PersonCount!
+  addtlRater: [Response!]
   afsc: String!
   email: String
   firstName: String!
-  forms: [Response!]
   grade: Grade!
   id: ID!
   lastName: String!
   middleInitial: String
   org: Org!
   orgId: String!
+  rateeOf: [Response!]
+  raterOf: [Response!]
   ssn: Int!
 }
 
@@ -684,16 +730,19 @@ input PersonOrderByRelationAggregateInput {
 }
 
 input PersonOrderByWithRelationInput {
+  CCOf: ResponseOrderByRelationAggregateInput
+  addtlRater: ResponseOrderByRelationAggregateInput
   afsc: SortOrder
   email: SortOrder
   firstName: SortOrder
-  forms: ResponseOrderByRelationAggregateInput
   grade: SortOrder
   id: SortOrder
   lastName: SortOrder
   middleInitial: SortOrder
   org: OrgOrderByWithRelationInput
   orgId: SortOrder
+  rateeOf: ResponseOrderByRelationAggregateInput
+  raterOf: ResponseOrderByRelationAggregateInput
   ssn: SortOrder
 }
 
@@ -715,15 +764,18 @@ enum PersonScalarFieldEnum {
 }
 
 input PersonUpdateInput {
+  CCOf: ResponseUpdateManyWithoutCCNestedInput
+  addtlRater: ResponseUpdateManyWithoutAddtlRaterNestedInput
   afsc: StringFieldUpdateOperationsInput
   email: NullableStringFieldUpdateOperationsInput
   firstName: StringFieldUpdateOperationsInput
-  forms: ResponseUpdateManyWithoutUserNestedInput
   grade: EnumGradeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   lastName: StringFieldUpdateOperationsInput
   middleInitial: NullableStringFieldUpdateOperationsInput
   org: OrgUpdateOneRequiredWithoutUsersNestedInput
+  rateeOf: ResponseUpdateManyWithoutRateeNestedInput
+  raterOf: ResponseUpdateManyWithoutRaterNestedInput
   ssn: IntFieldUpdateOperationsInput
 }
 
@@ -847,18 +899,21 @@ input PersonUpsertWithoutRaterOfInput {
 
 input PersonWhereInput {
   AND: [PersonWhereInput!]
+  CCOf: ResponseListRelationFilter
   NOT: [PersonWhereInput!]
   OR: [PersonWhereInput!]
+  addtlRater: ResponseListRelationFilter
   afsc: StringFilter
   email: StringNullableFilter
   firstName: StringFilter
-  forms: ResponseListRelationFilter
   grade: EnumGradeFilter
   id: StringFilter
   lastName: StringFilter
   middleInitial: StringNullableFilter
   org: OrgRelationFilter
   orgId: StringFilter
+  rateeOf: ResponseListRelationFilter
+  raterOf: ResponseListRelationFilter
   ssn: IntFilter
 }
 
@@ -1058,6 +1113,8 @@ type Response {
   rateeId: String!
   rater: Person
   raterId: String
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 type ResponseCount {
@@ -1086,6 +1143,8 @@ input ResponseCreateManyAddtlRaterInput {
   id: String
   rateeId: String!
   raterId: String
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateManyAddtlRaterInputEnvelope {
@@ -1101,6 +1160,8 @@ input ResponseCreateManyCCInput {
   id: String
   rateeId: String!
   raterId: String
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateManyCCInputEnvelope {
@@ -1116,6 +1177,8 @@ input ResponseCreateManyFormInput {
   id: String
   rateeId: String!
   raterId: String
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateManyFormInputEnvelope {
@@ -1131,6 +1194,8 @@ input ResponseCreateManyRateeInput {
   formId: String!
   id: String
   raterId: String
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateManyRateeInputEnvelope {
@@ -1146,22 +1211,12 @@ input ResponseCreateManyRaterInput {
   formId: String!
   id: String
   rateeId: String!
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateManyRaterInputEnvelope {
   data: [ResponseCreateManyRaterInput!]!
-  skipDuplicates: Boolean
-}
-
-input ResponseCreateManyUserInput {
-  begin: DateTime!
-  end: DateTime!
-  formId: String!
-  id: String
-}
-
-input ResponseCreateManyUserInputEnvelope {
-  data: [ResponseCreateManyUserInput!]!
   skipDuplicates: Boolean
 }
 
@@ -1236,11 +1291,6 @@ input ResponseCreateOrConnectWithoutRaterInput {
   where: ResponseWhereUniqueInput!
 }
 
-input ResponseCreateOrConnectWithoutUserInput {
-  create: ResponseCreateWithoutUserInput!
-  where: ResponseWhereUniqueInput!
-}
-
 input ResponseCreateWithoutAddtlRaterInput {
   CC: PersonCreateNestedOneWithoutCCOfInput
   answers: AnswerCreateNestedManyWithoutResponsesInput
@@ -1250,6 +1300,8 @@ input ResponseCreateWithoutAddtlRaterInput {
   id: String
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateWithoutAnswersInput {
@@ -1261,6 +1313,8 @@ input ResponseCreateWithoutAnswersInput {
   id: String
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateWithoutCCInput {
@@ -1272,6 +1326,8 @@ input ResponseCreateWithoutCCInput {
   id: String
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateWithoutFormInput {
@@ -1283,6 +1339,8 @@ input ResponseCreateWithoutFormInput {
   id: String
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateWithoutRateeInput {
@@ -1294,6 +1352,8 @@ input ResponseCreateWithoutRateeInput {
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
   rater: PersonCreateNestedOneWithoutRaterOfInput
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseCreateWithoutRaterInput {
@@ -1305,14 +1365,8 @@ input ResponseCreateWithoutRaterInput {
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
-}
-
-input ResponseCreateWithoutUserInput {
-  answers: AnswerCreateNestedManyWithoutResponsesInput
-  begin: DateTime!
-  end: DateTime!
-  form: FormCreateNestedOneWithoutResponsesInput!
-  id: String
+  reason: ReportReason!
+  status: ResponseStatus!
 }
 
 input ResponseListRelationFilter {
@@ -1337,6 +1391,8 @@ input ResponseScalarWhereInput {
   id: StringFilter
   rateeId: StringFilter
   raterId: StringNullableFilter
+  reason: EnumReportReasonFilter
+  status: EnumResponseStatusFilter
 }
 
 enum ResponseStatus {
@@ -1349,6 +1405,8 @@ input ResponseUpdateManyMutationInput {
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  reason: EnumReportReasonFieldUpdateOperationsInput
+  status: EnumResponseStatusFieldUpdateOperationsInput
 }
 
 input ResponseUpdateManyWithWhereWithoutAddtlRaterInput {
@@ -1377,11 +1435,6 @@ input ResponseUpdateManyWithWhereWithoutRateeInput {
 }
 
 input ResponseUpdateManyWithWhereWithoutRaterInput {
-  data: ResponseUpdateManyMutationInput!
-  where: ResponseScalarWhereInput!
-}
-
-input ResponseUpdateManyWithWhereWithoutUserInput {
   data: ResponseUpdateManyMutationInput!
   where: ResponseScalarWhereInput!
 }
@@ -1469,20 +1522,6 @@ input ResponseUpdateManyWithoutRaterNestedInput {
   upsert: [ResponseUpsertWithWhereUniqueWithoutRaterInput!]
 }
 
-input ResponseUpdateManyWithoutUserNestedInput {
-  connect: [ResponseWhereUniqueInput!]
-  connectOrCreate: [ResponseCreateOrConnectWithoutUserInput!]
-  create: [ResponseCreateWithoutUserInput!]
-  createMany: ResponseCreateManyUserInputEnvelope
-  delete: [ResponseWhereUniqueInput!]
-  deleteMany: [ResponseScalarWhereInput!]
-  disconnect: [ResponseWhereUniqueInput!]
-  set: [ResponseWhereUniqueInput!]
-  update: [ResponseUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [ResponseUpdateManyWithWhereWithoutUserInput!]
-  upsert: [ResponseUpsertWithWhereUniqueWithoutUserInput!]
-}
-
 input ResponseUpdateWithWhereUniqueWithoutAddtlRaterInput {
   data: ResponseUpdateWithoutAddtlRaterInput!
   where: ResponseWhereUniqueInput!
@@ -1513,11 +1552,6 @@ input ResponseUpdateWithWhereUniqueWithoutRaterInput {
   where: ResponseWhereUniqueInput!
 }
 
-input ResponseUpdateWithWhereUniqueWithoutUserInput {
-  data: ResponseUpdateWithoutUserInput!
-  where: ResponseWhereUniqueInput!
-}
-
 input ResponseUpdateWithoutAddtlRaterInput {
   CC: PersonUpdateOneWithoutCCOfNestedInput
   answers: AnswerUpdateManyWithoutResponsesNestedInput
@@ -1527,6 +1561,8 @@ input ResponseUpdateWithoutAddtlRaterInput {
   id: StringFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
+  reason: EnumReportReasonFieldUpdateOperationsInput
+  status: EnumResponseStatusFieldUpdateOperationsInput
 }
 
 input ResponseUpdateWithoutAnswersInput {
@@ -1538,6 +1574,8 @@ input ResponseUpdateWithoutAnswersInput {
   id: StringFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
+  reason: EnumReportReasonFieldUpdateOperationsInput
+  status: EnumResponseStatusFieldUpdateOperationsInput
 }
 
 input ResponseUpdateWithoutCCInput {
@@ -1549,6 +1587,8 @@ input ResponseUpdateWithoutCCInput {
   id: StringFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
+  reason: EnumReportReasonFieldUpdateOperationsInput
+  status: EnumResponseStatusFieldUpdateOperationsInput
 }
 
 input ResponseUpdateWithoutFormInput {
@@ -1560,6 +1600,8 @@ input ResponseUpdateWithoutFormInput {
   id: StringFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
+  reason: EnumReportReasonFieldUpdateOperationsInput
+  status: EnumResponseStatusFieldUpdateOperationsInput
 }
 
 input ResponseUpdateWithoutRateeInput {
@@ -1571,6 +1613,8 @@ input ResponseUpdateWithoutRateeInput {
   form: FormUpdateOneRequiredWithoutResponsesNestedInput
   id: StringFieldUpdateOperationsInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
+  reason: EnumReportReasonFieldUpdateOperationsInput
+  status: EnumResponseStatusFieldUpdateOperationsInput
 }
 
 input ResponseUpdateWithoutRaterInput {
@@ -1582,14 +1626,8 @@ input ResponseUpdateWithoutRaterInput {
   form: FormUpdateOneRequiredWithoutResponsesNestedInput
   id: StringFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
-}
-
-input ResponseUpdateWithoutUserInput {
-  answers: AnswerUpdateManyWithoutResponsesNestedInput
-  begin: DateTimeFieldUpdateOperationsInput
-  end: DateTimeFieldUpdateOperationsInput
-  form: FormUpdateOneRequiredWithoutResponsesNestedInput
-  id: StringFieldUpdateOperationsInput
+  reason: EnumReportReasonFieldUpdateOperationsInput
+  status: EnumResponseStatusFieldUpdateOperationsInput
 }
 
 input ResponseUpsertWithWhereUniqueWithoutAddtlRaterInput {
@@ -1628,12 +1666,6 @@ input ResponseUpsertWithWhereUniqueWithoutRaterInput {
   where: ResponseWhereUniqueInput!
 }
 
-input ResponseUpsertWithWhereUniqueWithoutUserInput {
-  create: ResponseCreateWithoutUserInput!
-  update: ResponseUpdateWithoutUserInput!
-  where: ResponseWhereUniqueInput!
-}
-
 input ResponseWhereInput {
   AND: [ResponseWhereInput!]
   CC: PersonRelationFilter
@@ -1652,6 +1684,8 @@ input ResponseWhereInput {
   rateeId: StringFilter
   rater: PersonRelationFilter
   raterId: StringNullableFilter
+  reason: EnumReportReasonFilter
+  status: EnumResponseStatusFilter
 }
 
 input ResponseWhereUniqueInput {
