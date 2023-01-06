@@ -10,11 +10,12 @@ import { ReviewScaleComponent } from './components/review-scale/review-scale.com
 import { FormsModule } from '@angular/forms';
 import { PersonDataComponent } from './components/person-data/person-data.component';
 import { MaterialModule } from './material.module';
-import { InMemoryCache } from '@apollo/client/core'
-import { HttpClientModule } from '@angular/common/http'
-import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular'
-import { HttpLink } from 'apollo-angular/http'
-
+import { InMemoryCache } from '@apollo/client/core';
+import { HttpClientModule } from '@angular/common/http';
+import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LocalService } from '../local/local.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { HttpLink } from 'apollo-angular/http'
     PrComponent,
     ReviewScaleComponent,
     PersonDataComponent,
+    NavbarComponent,
   ],
   imports: [
     HttpClientModule,
@@ -41,12 +43,13 @@ import { HttpLink } from 'apollo-angular/http'
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
-            uri: 'http://localhost:3333/graphql'
-          })
-        }
+            uri: 'http://localhost:3333/graphql',
+          }),
+        };
       },
-      deps: [HttpLink]
-    }
+      deps: [HttpLink],
+    },
+    LocalService
   ],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LocalService } from '../../local/local.service';
 
 @Component({
   selector: 'runk-login',
@@ -7,6 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  constructor(private _router: Router, private local: LocalService) {}
+
   passwordPattern = '^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$';
 
   hide = true;
@@ -21,6 +25,9 @@ export class LoginComponent {
   });
 
   onSubmit(): void {
-    // Submission
+    if (this.loginForm.valid) {
+      this.local.setLogin('login', 'true')
+      this._router.navigate(['home']);
+    }
   }
 }

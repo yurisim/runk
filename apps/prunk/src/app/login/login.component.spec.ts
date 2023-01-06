@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LocalService } from '../../local/local.service';
 import { MaterialModule } from '../material.module';
 
 import { LoginComponent } from './login.component';
@@ -12,6 +13,7 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MaterialModule, ReactiveFormsModule],
       declarations: [LoginComponent],
+      providers: [LocalService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
