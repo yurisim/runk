@@ -7,7 +7,7 @@
           <ng-template matStepLabel>Ratee Identification</ng-template>
 
           <runk-person-data
-            (emitPersonData)="setPerson($event)"
+            (emitPerson)="setPerson($event)"
             [raterFields]="false"
             [role]="0"
           ></runk-person-data>
@@ -25,7 +25,10 @@
             <mat-form-field appearance="outline">
               <mat-label>Reason For Report</mat-label>
               <mat-select>
-                <mat-option *ngFor="let reason of reportReasons;let i=index" [value]="reason">
+                <mat-option
+                  *ngFor="let reason of reportReasons; let i = index"
+                  [value]="reason"
+                >
                   {{ displayReasons[i] }}
                 </mat-option>
               </mat-select>
@@ -143,7 +146,7 @@
         <h2 class="text-center mt-2">Rater Information</h2>
         <runk-person-data
           [rateeFields]="false"
-          (emitPersonData)="setPerson($event)"
+          (emitPerson)="setPerson($event)"
           [role]="1"
         ></runk-person-data>
 
@@ -171,7 +174,7 @@
 
         <runk-person-data
           [rateeFields]="false"
-          (emitPersonData)="setPerson($event)"
+          (emitPerson)="setPerson($event)"
           [role]="2"
         ></runk-person-data>
 
@@ -238,7 +241,7 @@
 
         <runk-person-data
           [rateeFields]="false"
-          (emitPersonData)="setPerson($event)"
+          (emitPerson)="setPerson($event)"
           [role]="3"
         ></runk-person-data>
 

@@ -1,9 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Person, Role } from '../../types';
-import {
-  Grade,
-} from '../../../@generated/generated';
+import { Grade, Person, Role } from '../../types';
 
 @Component({
   selector: 'runk-person-data[role]',
@@ -11,7 +8,6 @@ import {
   styleUrls: ['./person-data.component.scss'],
 })
 export class PersonDataComponent {
-
   grades = Object.values(Grade);
 
   personTab = new FormGroup({
@@ -22,7 +18,7 @@ export class PersonDataComponent {
     DAFSC: new FormControl('', Validators.required),
     grade: new FormControl('', Validators.required),
     org: new FormControl('', Validators.required),
-    SSN: new FormControl('', [Validators.required, Validators.maxLength(4)]),
+    DODID: new FormControl('', [Validators.required, Validators.maxLength(10)]),
     dutyTitle: new FormControl('', Validators.required),
     signature: new FormControl('', Validators.required),
   });
@@ -31,31 +27,22 @@ export class PersonDataComponent {
   role: Role = 0;
 
   @Input()
-  personData: Person = {
+  person: Person = {
     firstName: '',
     lastName: '',
     middleInitial: '',
     branch: '',
     DAFSC: '',
-    grade: '',
+    grade: Grade.E1,
     org: '',
-    SSN: '',
+    DODID: '',
     dutyTitle: '',
     signature: '',
     role: this.role,
   };
 
   constructor() {
-    this.personTab.get('firstName')?.setValue(this.personData.firstName);
-    this.personTab.get('lastName')?.setValue(this.personData.lastName);
-    this.personTab.get('middleInitial')?.setValue(this.personData.middleInitial);
-    this.personTab.get('branch')?.setValue(this.personData.branch);
-    this.personTab.get('DAFSC')?.setValue(this.personData.DAFSC);
-    this.personTab.get('grade')?.setValue(this.personData.grade);
-    this.personTab.get('org')?.setValue(this.personData.org);
-    this.personTab.get('SSN')?.setValue(this.personData.SSN);
-    this.personTab.get('dutyTitle')?.setValue(this.personData.dutyTitle);
-    this.personTab.get('signature')?.setValue(this.personData.signature);
+    this.setPerson();
   }
 
   @Input()
@@ -65,11 +52,27 @@ export class PersonDataComponent {
   raterFields = true;
 
   @Output()
-  emitPersonData = new EventEmitter<Person>();
+  emitPerson = new EventEmitter<Person>();
+
+  setPerson() {
+    this.person.firstName = String(this.personTab.get('firstName')?.value);
+    this.person.middleInitial = String(
+      this.personTab.get('middleInitial')?.value
+    );
+    this.person.lastName = String(this.personTab.get('lastName')?.value);
+    this.person.branch = String(this.personTab.get('branch')?.value);
+    this.person.DAFSC = String(this.personTab.get('DAFSC')?.value);
+    this.person.grade = this.personTab.get('grade')?.value as Grade;
+    this.person.org = String(this.personTab.get('org')?.value);
+    this.person.DODID = String(this.personTab.get('DODID')?.value);
+    this.person.dutyTitle = String(this.personTab.get('dutyTitle')?.value);
+    this.person.signature = String(this.personTab.get('signature')?.value);
+    this.person.role = this.role;
+  }
 
   userInfo() {
-    // this.personData = data;
-    console.log(this.personData.firstName);
-    this.emitPersonData.emit(this.personData);
+    this.setPerson();
+
+    this.emitPerson.emit(this.person);
   }
 }

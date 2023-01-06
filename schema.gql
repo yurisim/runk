@@ -186,17 +186,6 @@ input DateTimeFilter {
   notIn: [DateTime!]
 }
 
-input EnumGradeFieldUpdateOperationsInput {
-  set: Grade
-}
-
-input EnumGradeFilter {
-  equals: Grade
-  in: [Grade!]
-  not: NestedEnumGradeFilter
-  notIn: [Grade!]
-}
-
 input EnumReportReasonFieldUpdateOperationsInput {
   set: ReportReason
 }
@@ -324,18 +313,6 @@ input FormWhereUniqueInput {
   version: Int
 }
 
-enum Grade {
-  E1
-  E2
-  E3
-  E4
-  E5
-  E6
-  E7
-  E8
-  E9
-}
-
 input IntFieldUpdateOperationsInput {
   decrement: Int
   divide: Int
@@ -370,13 +347,6 @@ input NestedDateTimeFilter {
   lte: DateTime
   not: NestedDateTimeFilter
   notIn: [DateTime!]
-}
-
-input NestedEnumGradeFilter {
-  equals: Grade
-  in: [Grade!]
-  not: NestedEnumGradeFilter
-  notIn: [Grade!]
 }
 
 input NestedEnumReportReasonFilter {
@@ -437,168 +407,82 @@ input NullableStringFieldUpdateOperationsInput {
 }
 
 type Org {
-  FDID: String!
   PAS: String!
-  _count: OrgCount!
   id: ID!
   name: String!
-  users: [Person!]
-}
-
-type OrgCount {
-  users: Int!
 }
 
 input OrgCreateInput {
-  FDID: String!
-  PAS: String!
-  id: String
-  name: String!
-  users: PersonCreateNestedManyWithoutOrgInput
-}
-
-input OrgCreateNestedOneWithoutUsersInput {
-  connect: OrgWhereUniqueInput
-  connectOrCreate: OrgCreateOrConnectWithoutUsersInput
-  create: OrgCreateWithoutUsersInput
-}
-
-input OrgCreateOrConnectWithoutUsersInput {
-  create: OrgCreateWithoutUsersInput!
-  where: OrgWhereUniqueInput!
-}
-
-input OrgCreateWithoutUsersInput {
-  FDID: String!
   PAS: String!
   id: String
   name: String!
 }
 
 input OrgOrderByWithRelationInput {
-  FDID: SortOrder
   PAS: SortOrder
   id: SortOrder
   name: SortOrder
-  users: PersonOrderByRelationAggregateInput
-}
-
-input OrgRelationFilter {
-  is: OrgWhereInput
-  isNot: OrgWhereInput
 }
 
 enum OrgScalarFieldEnum {
-  FDID
   PAS
   id
   name
 }
 
-input OrgUpdateOneRequiredWithoutUsersNestedInput {
-  connect: OrgWhereUniqueInput
-  connectOrCreate: OrgCreateOrConnectWithoutUsersInput
-  create: OrgCreateWithoutUsersInput
-  update: OrgUpdateWithoutUsersInput
-  upsert: OrgUpsertWithoutUsersInput
-}
-
-input OrgUpdateWithoutUsersInput {
-  FDID: StringFieldUpdateOperationsInput
-  PAS: StringFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-}
-
-input OrgUpsertWithoutUsersInput {
-  create: OrgCreateWithoutUsersInput!
-  update: OrgUpdateWithoutUsersInput!
-}
-
 input OrgWhereInput {
   AND: [OrgWhereInput!]
-  FDID: StringFilter
   NOT: [OrgWhereInput!]
   OR: [OrgWhereInput!]
   PAS: StringFilter
   id: StringFilter
   name: StringFilter
-  users: PersonListRelationFilter
 }
 
 input OrgWhereUniqueInput {
+  PAS: String
   id: String
   name: String
 }
 
 type Person {
   CCOf: [Response!]
+  DODID: Int!
   _count: PersonCount!
-  addtlRater: [Response!]
-  afsc: String!
+  addtlRaterOf: [Response!]
   email: String
   firstName: String!
-  grade: Grade!
   id: ID!
   lastName: String!
   middleInitial: String
-  org: Org!
-  orgId: String!
   rateeOf: [Response!]
   raterOf: [Response!]
-  ssn: Int!
 }
 
 type PersonCount {
   CCOf: Int!
-  addtlRater: Int!
+  addtlRaterOf: Int!
   rateeOf: Int!
   raterOf: Int!
 }
 
 input PersonCreateInput {
   CCOf: ResponseCreateNestedManyWithoutCCInput
-  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
-  afsc: String!
+  DODID: Int!
+  addtlRaterOf: ResponseCreateNestedManyWithoutAddtlRaterInput
   email: String
   firstName: String!
-  grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
-  org: OrgCreateNestedOneWithoutUsersInput!
   rateeOf: ResponseCreateNestedManyWithoutRateeInput
   raterOf: ResponseCreateNestedManyWithoutRaterInput
-  ssn: Int!
 }
 
-input PersonCreateManyOrgInput {
-  afsc: String!
-  email: String
-  firstName: String!
-  grade: Grade!
-  id: String
-  lastName: String!
-  middleInitial: String
-  ssn: Int!
-}
-
-input PersonCreateManyOrgInputEnvelope {
-  data: [PersonCreateManyOrgInput!]!
-  skipDuplicates: Boolean
-}
-
-input PersonCreateNestedManyWithoutOrgInput {
-  connect: [PersonWhereUniqueInput!]
-  connectOrCreate: [PersonCreateOrConnectWithoutOrgInput!]
-  create: [PersonCreateWithoutOrgInput!]
-  createMany: PersonCreateManyOrgInputEnvelope
-}
-
-input PersonCreateNestedOneWithoutAddtlRaterInput {
+input PersonCreateNestedOneWithoutAddtlRaterOfInput {
   connect: PersonWhereUniqueInput
-  connectOrCreate: PersonCreateOrConnectWithoutAddtlRaterInput
-  create: PersonCreateWithoutAddtlRaterInput
+  connectOrCreate: PersonCreateOrConnectWithoutAddtlRaterOfInput
+  create: PersonCreateWithoutAddtlRaterOfInput
 }
 
 input PersonCreateNestedOneWithoutCCOfInput {
@@ -619,18 +503,13 @@ input PersonCreateNestedOneWithoutRaterOfInput {
   create: PersonCreateWithoutRaterOfInput
 }
 
-input PersonCreateOrConnectWithoutAddtlRaterInput {
-  create: PersonCreateWithoutAddtlRaterInput!
+input PersonCreateOrConnectWithoutAddtlRaterOfInput {
+  create: PersonCreateWithoutAddtlRaterOfInput!
   where: PersonWhereUniqueInput!
 }
 
 input PersonCreateOrConnectWithoutCCOfInput {
   create: PersonCreateWithoutCCOfInput!
-  where: PersonWhereUniqueInput!
-}
-
-input PersonCreateOrConnectWithoutOrgInput {
-  create: PersonCreateWithoutOrgInput!
   where: PersonWhereUniqueInput!
 }
 
@@ -644,106 +523,65 @@ input PersonCreateOrConnectWithoutRaterOfInput {
   where: PersonWhereUniqueInput!
 }
 
-input PersonCreateWithoutAddtlRaterInput {
+input PersonCreateWithoutAddtlRaterOfInput {
   CCOf: ResponseCreateNestedManyWithoutCCInput
-  afsc: String!
+  DODID: Int!
   email: String
   firstName: String!
-  grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
-  org: OrgCreateNestedOneWithoutUsersInput!
   rateeOf: ResponseCreateNestedManyWithoutRateeInput
   raterOf: ResponseCreateNestedManyWithoutRaterInput
-  ssn: Int!
 }
 
 input PersonCreateWithoutCCOfInput {
-  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
-  afsc: String!
+  DODID: Int!
+  addtlRaterOf: ResponseCreateNestedManyWithoutAddtlRaterInput
   email: String
   firstName: String!
-  grade: Grade!
-  id: String
-  lastName: String!
-  middleInitial: String
-  org: OrgCreateNestedOneWithoutUsersInput!
-  rateeOf: ResponseCreateNestedManyWithoutRateeInput
-  raterOf: ResponseCreateNestedManyWithoutRaterInput
-  ssn: Int!
-}
-
-input PersonCreateWithoutOrgInput {
-  CCOf: ResponseCreateNestedManyWithoutCCInput
-  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
-  afsc: String!
-  email: String
-  firstName: String!
-  grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
   rateeOf: ResponseCreateNestedManyWithoutRateeInput
   raterOf: ResponseCreateNestedManyWithoutRaterInput
-  ssn: Int!
 }
 
 input PersonCreateWithoutRateeOfInput {
   CCOf: ResponseCreateNestedManyWithoutCCInput
-  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
-  afsc: String!
+  DODID: Int!
+  addtlRaterOf: ResponseCreateNestedManyWithoutAddtlRaterInput
   email: String
   firstName: String!
-  grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
-  org: OrgCreateNestedOneWithoutUsersInput!
   raterOf: ResponseCreateNestedManyWithoutRaterInput
-  ssn: Int!
 }
 
 input PersonCreateWithoutRaterOfInput {
   CCOf: ResponseCreateNestedManyWithoutCCInput
-  addtlRater: ResponseCreateNestedManyWithoutAddtlRaterInput
-  afsc: String!
+  DODID: Int!
+  addtlRaterOf: ResponseCreateNestedManyWithoutAddtlRaterInput
   email: String
   firstName: String!
-  grade: Grade!
   id: String
   lastName: String!
   middleInitial: String
-  org: OrgCreateNestedOneWithoutUsersInput!
   rateeOf: ResponseCreateNestedManyWithoutRateeInput
-  ssn: Int!
-}
-
-input PersonListRelationFilter {
-  every: PersonWhereInput
-  none: PersonWhereInput
-  some: PersonWhereInput
-}
-
-input PersonOrderByRelationAggregateInput {
-  _count: SortOrder
 }
 
 input PersonOrderByWithRelationInput {
   CCOf: ResponseOrderByRelationAggregateInput
-  addtlRater: ResponseOrderByRelationAggregateInput
-  afsc: SortOrder
+  DODID: SortOrder
+  addtlRaterOf: ResponseOrderByRelationAggregateInput
   email: SortOrder
   firstName: SortOrder
-  grade: SortOrder
   id: SortOrder
   lastName: SortOrder
   middleInitial: SortOrder
-  org: OrgOrderByWithRelationInput
-  orgId: SortOrder
   rateeOf: ResponseOrderByRelationAggregateInput
   raterOf: ResponseOrderByRelationAggregateInput
-  ssn: SortOrder
 }
 
 input PersonRelationFilter {
@@ -752,31 +590,25 @@ input PersonRelationFilter {
 }
 
 enum PersonScalarFieldEnum {
-  afsc
+  DODID
   email
   firstName
-  grade
   id
   lastName
   middleInitial
-  orgId
-  ssn
 }
 
 input PersonUpdateInput {
   CCOf: ResponseUpdateManyWithoutCCNestedInput
-  addtlRater: ResponseUpdateManyWithoutAddtlRaterNestedInput
-  afsc: StringFieldUpdateOperationsInput
+  DODID: IntFieldUpdateOperationsInput
+  addtlRaterOf: ResponseUpdateManyWithoutAddtlRaterNestedInput
   email: NullableStringFieldUpdateOperationsInput
   firstName: StringFieldUpdateOperationsInput
-  grade: EnumGradeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   lastName: StringFieldUpdateOperationsInput
   middleInitial: NullableStringFieldUpdateOperationsInput
-  org: OrgUpdateOneRequiredWithoutUsersNestedInput
   rateeOf: ResponseUpdateManyWithoutRateeNestedInput
   raterOf: ResponseUpdateManyWithoutRaterNestedInput
-  ssn: IntFieldUpdateOperationsInput
 }
 
 input PersonUpdateOneRequiredWithoutRateeOfNestedInput {
@@ -787,14 +619,14 @@ input PersonUpdateOneRequiredWithoutRateeOfNestedInput {
   upsert: PersonUpsertWithoutRateeOfInput
 }
 
-input PersonUpdateOneWithoutAddtlRaterNestedInput {
+input PersonUpdateOneWithoutAddtlRaterOfNestedInput {
   connect: PersonWhereUniqueInput
-  connectOrCreate: PersonCreateOrConnectWithoutAddtlRaterInput
-  create: PersonCreateWithoutAddtlRaterInput
+  connectOrCreate: PersonCreateOrConnectWithoutAddtlRaterOfInput
+  create: PersonCreateWithoutAddtlRaterOfInput
   delete: Boolean
   disconnect: Boolean
-  update: PersonUpdateWithoutAddtlRaterInput
-  upsert: PersonUpsertWithoutAddtlRaterInput
+  update: PersonUpdateWithoutAddtlRaterOfInput
+  upsert: PersonUpsertWithoutAddtlRaterOfInput
 }
 
 input PersonUpdateOneWithoutCCOfNestedInput {
@@ -817,69 +649,57 @@ input PersonUpdateOneWithoutRaterOfNestedInput {
   upsert: PersonUpsertWithoutRaterOfInput
 }
 
-input PersonUpdateWithoutAddtlRaterInput {
+input PersonUpdateWithoutAddtlRaterOfInput {
   CCOf: ResponseUpdateManyWithoutCCNestedInput
-  afsc: StringFieldUpdateOperationsInput
+  DODID: IntFieldUpdateOperationsInput
   email: NullableStringFieldUpdateOperationsInput
   firstName: StringFieldUpdateOperationsInput
-  grade: EnumGradeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   lastName: StringFieldUpdateOperationsInput
   middleInitial: NullableStringFieldUpdateOperationsInput
-  org: OrgUpdateOneRequiredWithoutUsersNestedInput
   rateeOf: ResponseUpdateManyWithoutRateeNestedInput
   raterOf: ResponseUpdateManyWithoutRaterNestedInput
-  ssn: IntFieldUpdateOperationsInput
 }
 
 input PersonUpdateWithoutCCOfInput {
-  addtlRater: ResponseUpdateManyWithoutAddtlRaterNestedInput
-  afsc: StringFieldUpdateOperationsInput
+  DODID: IntFieldUpdateOperationsInput
+  addtlRaterOf: ResponseUpdateManyWithoutAddtlRaterNestedInput
   email: NullableStringFieldUpdateOperationsInput
   firstName: StringFieldUpdateOperationsInput
-  grade: EnumGradeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   lastName: StringFieldUpdateOperationsInput
   middleInitial: NullableStringFieldUpdateOperationsInput
-  org: OrgUpdateOneRequiredWithoutUsersNestedInput
   rateeOf: ResponseUpdateManyWithoutRateeNestedInput
   raterOf: ResponseUpdateManyWithoutRaterNestedInput
-  ssn: IntFieldUpdateOperationsInput
 }
 
 input PersonUpdateWithoutRateeOfInput {
   CCOf: ResponseUpdateManyWithoutCCNestedInput
-  addtlRater: ResponseUpdateManyWithoutAddtlRaterNestedInput
-  afsc: StringFieldUpdateOperationsInput
+  DODID: IntFieldUpdateOperationsInput
+  addtlRaterOf: ResponseUpdateManyWithoutAddtlRaterNestedInput
   email: NullableStringFieldUpdateOperationsInput
   firstName: StringFieldUpdateOperationsInput
-  grade: EnumGradeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   lastName: StringFieldUpdateOperationsInput
   middleInitial: NullableStringFieldUpdateOperationsInput
-  org: OrgUpdateOneRequiredWithoutUsersNestedInput
   raterOf: ResponseUpdateManyWithoutRaterNestedInput
-  ssn: IntFieldUpdateOperationsInput
 }
 
 input PersonUpdateWithoutRaterOfInput {
   CCOf: ResponseUpdateManyWithoutCCNestedInput
-  addtlRater: ResponseUpdateManyWithoutAddtlRaterNestedInput
-  afsc: StringFieldUpdateOperationsInput
+  DODID: IntFieldUpdateOperationsInput
+  addtlRaterOf: ResponseUpdateManyWithoutAddtlRaterNestedInput
   email: NullableStringFieldUpdateOperationsInput
   firstName: StringFieldUpdateOperationsInput
-  grade: EnumGradeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   lastName: StringFieldUpdateOperationsInput
   middleInitial: NullableStringFieldUpdateOperationsInput
-  org: OrgUpdateOneRequiredWithoutUsersNestedInput
   rateeOf: ResponseUpdateManyWithoutRateeNestedInput
-  ssn: IntFieldUpdateOperationsInput
 }
 
-input PersonUpsertWithoutAddtlRaterInput {
-  create: PersonCreateWithoutAddtlRaterInput!
-  update: PersonUpdateWithoutAddtlRaterInput!
+input PersonUpsertWithoutAddtlRaterOfInput {
+  create: PersonCreateWithoutAddtlRaterOfInput!
+  update: PersonUpdateWithoutAddtlRaterOfInput!
 }
 
 input PersonUpsertWithoutCCOfInput {
@@ -900,27 +720,23 @@ input PersonUpsertWithoutRaterOfInput {
 input PersonWhereInput {
   AND: [PersonWhereInput!]
   CCOf: ResponseListRelationFilter
+  DODID: IntFilter
   NOT: [PersonWhereInput!]
   OR: [PersonWhereInput!]
-  addtlRater: ResponseListRelationFilter
-  afsc: StringFilter
+  addtlRaterOf: ResponseListRelationFilter
   email: StringNullableFilter
   firstName: StringFilter
-  grade: EnumGradeFilter
   id: StringFilter
   lastName: StringFilter
   middleInitial: StringNullableFilter
-  org: OrgRelationFilter
-  orgId: StringFilter
   rateeOf: ResponseListRelationFilter
   raterOf: ResponseListRelationFilter
-  ssn: IntFilter
 }
 
 input PersonWhereUniqueInput {
+  DODID: Int
   email: String
   id: String
-  ssn: Int
 }
 
 type Query {
@@ -1109,6 +925,7 @@ type Response {
   form: Form!
   formId: String!
   id: ID!
+  nonRatedDays: Int!
   ratee: Person!
   rateeId: String!
   rater: Person
@@ -1123,12 +940,13 @@ type ResponseCount {
 
 input ResponseCreateInput {
   CC: PersonCreateNestedOneWithoutCCOfInput
-  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterOfInput
   answers: AnswerCreateNestedManyWithoutResponsesInput
   begin: DateTime!
   end: DateTime!
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
+  nonRatedDays: Int!
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
   reason: ReportReason!
@@ -1141,6 +959,7 @@ input ResponseCreateManyAddtlRaterInput {
   end: DateTime!
   formId: String!
   id: String
+  nonRatedDays: Int!
   rateeId: String!
   raterId: String
   reason: ReportReason!
@@ -1158,6 +977,7 @@ input ResponseCreateManyCCInput {
   end: DateTime!
   formId: String!
   id: String
+  nonRatedDays: Int!
   rateeId: String!
   raterId: String
   reason: ReportReason!
@@ -1175,6 +995,7 @@ input ResponseCreateManyFormInput {
   begin: DateTime!
   end: DateTime!
   id: String
+  nonRatedDays: Int!
   rateeId: String!
   raterId: String
   reason: ReportReason!
@@ -1193,6 +1014,7 @@ input ResponseCreateManyRateeInput {
   end: DateTime!
   formId: String!
   id: String
+  nonRatedDays: Int!
   raterId: String
   reason: ReportReason!
   status: ResponseStatus!
@@ -1210,6 +1032,7 @@ input ResponseCreateManyRaterInput {
   end: DateTime!
   formId: String!
   id: String
+  nonRatedDays: Int!
   rateeId: String!
   reason: ReportReason!
   status: ResponseStatus!
@@ -1298,6 +1121,7 @@ input ResponseCreateWithoutAddtlRaterInput {
   end: DateTime!
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
+  nonRatedDays: Int!
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
   reason: ReportReason!
@@ -1306,11 +1130,12 @@ input ResponseCreateWithoutAddtlRaterInput {
 
 input ResponseCreateWithoutAnswersInput {
   CC: PersonCreateNestedOneWithoutCCOfInput
-  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterOfInput
   begin: DateTime!
   end: DateTime!
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
+  nonRatedDays: Int!
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
   reason: ReportReason!
@@ -1318,12 +1143,13 @@ input ResponseCreateWithoutAnswersInput {
 }
 
 input ResponseCreateWithoutCCInput {
-  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterOfInput
   answers: AnswerCreateNestedManyWithoutResponsesInput
   begin: DateTime!
   end: DateTime!
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
+  nonRatedDays: Int!
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
   reason: ReportReason!
@@ -1332,11 +1158,12 @@ input ResponseCreateWithoutCCInput {
 
 input ResponseCreateWithoutFormInput {
   CC: PersonCreateNestedOneWithoutCCOfInput
-  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterOfInput
   answers: AnswerCreateNestedManyWithoutResponsesInput
   begin: DateTime!
   end: DateTime!
   id: String
+  nonRatedDays: Int!
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   rater: PersonCreateNestedOneWithoutRaterOfInput
   reason: ReportReason!
@@ -1345,12 +1172,13 @@ input ResponseCreateWithoutFormInput {
 
 input ResponseCreateWithoutRateeInput {
   CC: PersonCreateNestedOneWithoutCCOfInput
-  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterOfInput
   answers: AnswerCreateNestedManyWithoutResponsesInput
   begin: DateTime!
   end: DateTime!
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
+  nonRatedDays: Int!
   rater: PersonCreateNestedOneWithoutRaterOfInput
   reason: ReportReason!
   status: ResponseStatus!
@@ -1358,12 +1186,13 @@ input ResponseCreateWithoutRateeInput {
 
 input ResponseCreateWithoutRaterInput {
   CC: PersonCreateNestedOneWithoutCCOfInput
-  addtlRater: PersonCreateNestedOneWithoutAddtlRaterInput
+  addtlRater: PersonCreateNestedOneWithoutAddtlRaterOfInput
   answers: AnswerCreateNestedManyWithoutResponsesInput
   begin: DateTime!
   end: DateTime!
   form: FormCreateNestedOneWithoutResponsesInput!
   id: String
+  nonRatedDays: Int!
   ratee: PersonCreateNestedOneWithoutRateeOfInput!
   reason: ReportReason!
   status: ResponseStatus!
@@ -1389,6 +1218,7 @@ input ResponseScalarWhereInput {
   end: DateTimeFilter
   formId: StringFilter
   id: StringFilter
+  nonRatedDays: IntFilter
   rateeId: StringFilter
   raterId: StringNullableFilter
   reason: EnumReportReasonFilter
@@ -1405,6 +1235,7 @@ input ResponseUpdateManyMutationInput {
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  nonRatedDays: IntFieldUpdateOperationsInput
   reason: EnumReportReasonFieldUpdateOperationsInput
   status: EnumResponseStatusFieldUpdateOperationsInput
 }
@@ -1559,6 +1390,7 @@ input ResponseUpdateWithoutAddtlRaterInput {
   end: DateTimeFieldUpdateOperationsInput
   form: FormUpdateOneRequiredWithoutResponsesNestedInput
   id: StringFieldUpdateOperationsInput
+  nonRatedDays: IntFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
   reason: EnumReportReasonFieldUpdateOperationsInput
@@ -1567,11 +1399,12 @@ input ResponseUpdateWithoutAddtlRaterInput {
 
 input ResponseUpdateWithoutAnswersInput {
   CC: PersonUpdateOneWithoutCCOfNestedInput
-  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterOfNestedInput
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   form: FormUpdateOneRequiredWithoutResponsesNestedInput
   id: StringFieldUpdateOperationsInput
+  nonRatedDays: IntFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
   reason: EnumReportReasonFieldUpdateOperationsInput
@@ -1579,12 +1412,13 @@ input ResponseUpdateWithoutAnswersInput {
 }
 
 input ResponseUpdateWithoutCCInput {
-  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterOfNestedInput
   answers: AnswerUpdateManyWithoutResponsesNestedInput
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   form: FormUpdateOneRequiredWithoutResponsesNestedInput
   id: StringFieldUpdateOperationsInput
+  nonRatedDays: IntFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
   reason: EnumReportReasonFieldUpdateOperationsInput
@@ -1593,11 +1427,12 @@ input ResponseUpdateWithoutCCInput {
 
 input ResponseUpdateWithoutFormInput {
   CC: PersonUpdateOneWithoutCCOfNestedInput
-  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterOfNestedInput
   answers: AnswerUpdateManyWithoutResponsesNestedInput
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  nonRatedDays: IntFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
   reason: EnumReportReasonFieldUpdateOperationsInput
@@ -1606,12 +1441,13 @@ input ResponseUpdateWithoutFormInput {
 
 input ResponseUpdateWithoutRateeInput {
   CC: PersonUpdateOneWithoutCCOfNestedInput
-  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterOfNestedInput
   answers: AnswerUpdateManyWithoutResponsesNestedInput
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   form: FormUpdateOneRequiredWithoutResponsesNestedInput
   id: StringFieldUpdateOperationsInput
+  nonRatedDays: IntFieldUpdateOperationsInput
   rater: PersonUpdateOneWithoutRaterOfNestedInput
   reason: EnumReportReasonFieldUpdateOperationsInput
   status: EnumResponseStatusFieldUpdateOperationsInput
@@ -1619,12 +1455,13 @@ input ResponseUpdateWithoutRateeInput {
 
 input ResponseUpdateWithoutRaterInput {
   CC: PersonUpdateOneWithoutCCOfNestedInput
-  addtlRater: PersonUpdateOneWithoutAddtlRaterNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterOfNestedInput
   answers: AnswerUpdateManyWithoutResponsesNestedInput
   begin: DateTimeFieldUpdateOperationsInput
   end: DateTimeFieldUpdateOperationsInput
   form: FormUpdateOneRequiredWithoutResponsesNestedInput
   id: StringFieldUpdateOperationsInput
+  nonRatedDays: IntFieldUpdateOperationsInput
   ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
   reason: EnumReportReasonFieldUpdateOperationsInput
   status: EnumResponseStatusFieldUpdateOperationsInput
@@ -1680,6 +1517,7 @@ input ResponseWhereInput {
   form: FormRelationFilter
   formId: StringFilter
   id: StringFilter
+  nonRatedDays: IntFilter
   ratee: PersonRelationFilter
   rateeId: StringFilter
   rater: PersonRelationFilter

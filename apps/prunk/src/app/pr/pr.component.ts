@@ -6,7 +6,6 @@ import { PrService } from './pr.service';
 
 import {
   ReportReason,
-  Grade,
   UpsertPersonPrMutationVariables,
 } from '../../@generated/generated';
 @Component({
@@ -85,12 +84,9 @@ export class PrComponent {
   comments = ['', '', '', ''];
 
   setPerson(emittedPerson: Person): void {
-    console.log('set person emittion');
     const index = this.people.findIndex(
       (foundPerson: Person) => foundPerson.role === emittedPerson.role
     );
-
-    console.log(index);
 
     if (index === -1) {
       this.people.push(emittedPerson);
@@ -99,40 +95,28 @@ export class PrComponent {
     }
   }
 
-  submitRatee() {
-    console.log(this.people);
+  //*
 
+  submitRatee() {
     const ratee = this.people.find((person) => person.role === 0);
 
     if (!ratee) return;
 
     const personData: UpsertPersonPrMutationVariables = {
       create: {
-        afsc: ratee.DAFSC,
+        DODID: Number(ratee.DODID),
         firstName: ratee.firstName,
-        grade: ratee.grade as Grade,
         lastName: ratee.lastName,
         middleInitial: ratee.middleInitial,
-        org: {
-          connectOrCreate: {
-            create: {
-              FDID: this.rateeTab.get('FDID')?.value as string,
-              PAS: this.rateeTab.get('PAS')?.value as string,
-              name: ratee.org,
-            },
-            where: {
-              name: ratee.org,
-            },
-          },
-        },
-        ssn: Number(ratee.SSN),
       },
       update: {},
       where: {
-        ssn: Number(ratee.SSN),
+        DODID: Number(ratee.DODID),
       },
     };
-    console.log(personData);
+
+    console.log(personData)
+
     this.prService.submitPerson(personData);
   }
 

@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { StringFieldUpdateOperationsInput } from '../@generated/prisma/string-field-update-operations.input';
+import { Prisma } from '@prisma/client';
 import { ResponseCreateInput } from '../@generated/response/response-create.input';
-import { ResponseUpdateInput } from '../@generated/response/response-update.input';
-import { UpsertOneResponseArgs } from '../@generated/response/args/upsert-one-response.args';
+import { UpsertOneResponseArgs } from '../@generated/response/upsert-one-response.args';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -12,11 +11,11 @@ export class ResponseService {
   create(createResponseInput: ResponseCreateInput) {
     return this.prisma.response.create({
       data: createResponseInput,
-    })
+    });
   }
 
-  upsert(upsertOnePersonArgs: UpsertOneResponseArgs) {
-    return this.prisma.person.upsert(upsertOnePersonArgs);
+  upsert(upsertOneResponseArgs: UpsertOneResponseArgs) {
+    return this.prisma.response.upsert(upsertOneResponseArgs as Prisma.ResponseUpsertArgs);
   }
 
   findAll() {

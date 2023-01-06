@@ -40,12 +40,13 @@
       <input matInput formControlName="dutyTitle" (input)="userInfo()" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="w-full">
-      <mat-label>SSN</mat-label>
+      <mat-label>DODID</mat-label>
       <input
         matInput
-        formControlName="SSN"
-        type="number"
-        [(ngModel)]="personData.SSN"
+        formControlName="DODID"
+        type="text"
+        pattern="\d*"
+        maxLength="10"
         (input)="userInfo()"
       />
     </mat-form-field>

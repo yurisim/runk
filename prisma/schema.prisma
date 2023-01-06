@@ -6,8 +6,10 @@ generator client {
 }
 
 generator nestgraphql {
-  provider = "prisma-nestjs-graphql"
-  output   = "../apps/prunk-api/src/@generated"
+  provider               = "prisma-nestjs-graphql"
+  output                 = "../apps/prunk-api/src/@generated"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
 }
 
 datasource db {
@@ -17,27 +19,28 @@ datasource db {
 
 model Person {
   id            String     @id @default(uuid())
+  /// @Validator.IsEmail()
   email         String?    @unique
-  grade         Grade
   firstName     String
+  /// @Validator.MaxLength(1)
   middleInitial String?
   lastName      String
-  ssn           Int        @unique
-  afsc          String
-  org           Org        @relation(fields: [orgId], references: [id])
-  orgId         String
+  /// @Validator.MaxLength(10)
+  DODID         Int        @unique
+  // Can't do this because it changes over time in a form
+  // org           Org        @relation(fields: [orgId], references: [id])
+  // orgId         String
   rateeOf       Response[] @relation("Ratee")
   raterOf       Response[] @relation("Rater")
-  addtlRater    Response[] @relation("AddtlRater")
+  addtlRaterOf  Response[] @relation("AddtlRater")
   CCOf          Response[] @relation("CC")
 }
 
 model Org {
-  id    String   @id @default(uuid())
-  name  String   @unique
-  PAS   String
-  FDID  String
-  users Person[]
+  id   String @id @default(uuid())
+  name String @unique
+  PAS  String @unique
+  // users Person[]
 }
 
 model Form {
@@ -71,6 +74,7 @@ model Response {
   answers      Answer[]
   begin        DateTime
   end          DateTime
+  nonRatedDays Int
   status       ResponseStatus
   reason       ReportReason
   ratee        Person         @relation("Ratee", fields: [rateeId], references: [id])
@@ -81,18 +85,6 @@ model Response {
   addtlRaterId String?
   CC           Person?        @relation("CC", fields: [CCId], references: [id])
   CCId         String?
-}
-
-enum Grade {
-  E1
-  E2
-  E3
-  E4
-  E5
-  E6
-  E7
-  E8
-  E9
 }
 
 enum ResponseStatus {
