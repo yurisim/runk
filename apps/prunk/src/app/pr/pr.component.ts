@@ -42,8 +42,6 @@ export class PrComponent implements OnInit {
     startDate: new FormControl<Date | null>(null, Validators.required),
     endDate: new FormControl<Date | null>(null, Validators.required),
     daysNonRated: new FormControl(0, [
-      Validators.maxLength(this.maxDaysNonRated.toString().length),
-      Validators.max(this.maxDaysNonRated),
       Validators.min(0),
       Validators.pattern('[0-9]{1,3}'),
     ]),
@@ -258,7 +256,9 @@ export class PrComponent implements OnInit {
             DODID: Number(this.people[0].DODID),
           },
         },
-        reason: String(this.rateeTab.get('reason')?.value) as ReportReason,
+        reason: String(
+          this.rateeTab.get('reasonReport')?.value
+        ) as ReportReason,
         status: ResponseStatus.InProgress,
       },
       update: {},
@@ -309,6 +309,10 @@ export class PrComponent implements OnInit {
 
       // validate daysNonRated
       this.rateeTab.get('daysRated')?.setValue(interval - daysNonRated);
+
+      this.rateeTab.get('daysNonRated')?.setValue(daysNonRated);
+
+      this.rateeTab.get('daysNonRated')?.updateValueAndValidity();
     }
   }
 }

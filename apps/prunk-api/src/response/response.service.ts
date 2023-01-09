@@ -9,8 +9,10 @@ export class ResponseService {
   constructor(private prisma: PrismaService) {}
 
   upsert(upsertOneResponseArgs: UpsertOneResponseArgs) {
-    return this.prisma.response.upsert(
-      upsertOneResponseArgs as Prisma.ResponseUpsertArgs
-    );
+    return this.prisma.response
+      .upsert(upsertOneResponseArgs as Prisma.ResponseUpsertArgs)
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }

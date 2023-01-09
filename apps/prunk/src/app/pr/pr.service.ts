@@ -34,11 +34,11 @@ export class PrService {
       );
   }
 
-  upsertOrg(orgUpsertInput: UpsertOrgPrMutationVariables) {
+  upsertOrg(upsertOrgPrMutationVariables: UpsertOrgPrMutationVariables) {
     return this.apollo
       .mutate<UpsertOrgPrMutation, UpsertOrgPrMutationVariables>({
         mutation: UpsertOrgPrDocument,
-        variables: orgUpsertInput,
+        variables: upsertOrgPrMutationVariables,
         errorPolicy: 'all',
       })
       .subscribe(
@@ -51,7 +51,11 @@ export class PrService {
       );
   }
 
-  upsertResponse(upsertResponsePrMutationVariables: UpsertResponsePrMutationVariables) {
+  upsertResponse(
+    upsertResponsePrMutationVariables: UpsertResponsePrMutationVariables
+  ) {
+    console.log(upsertResponsePrMutationVariables);
+
     return this.apollo
       .mutate<UpsertResponsePrMutation, UpsertResponsePrMutationVariables>({
         mutation: UpsertResponsePrDocument,
@@ -62,10 +66,19 @@ export class PrService {
         // print errors if they exist
         ({ errors }) => {
           if (errors) {
-            console.log(errors);
+            console.log(JSON.stringify(errors, null, 2));
           }
         }
       );
   }
 
+  // getPASCode(orgsPrQueryVariables: OrgsPrQueryVariables) {
+  //   console.log('hello')
+  //   return this.apollo
+  //     .watchQuery<OrgsPrQuery, OrgsPrQueryVariables>({
+  //       query: OrgsPrDocument,
+  //       variables: orgsPrQueryVariables,
+  //     })
+  //     .valueChanges.pipe(map((result) => result.data.orgs));
+  // }
 }
