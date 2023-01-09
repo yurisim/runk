@@ -30,7 +30,7 @@
     "@nrwl/angular": "15.4.4",
     "@nrwl/nest": "15.4.4",
     "@prisma/client": "^4.8.0",
-    "apollo-angular": "^4.1.1",
+    "apollo-angular": "^4.2.0",
     "apollo-server-express": "^3.11.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
