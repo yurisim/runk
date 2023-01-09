@@ -1,117 +1,120 @@
+
 <mat-card class="m-3 w-[1080px] mx-auto">
   <mat-card-content>
     <mat-stepper #stepper>
       <!-- TAB 01 -->
       <mat-step [stepControl]="rateeTab" state="person">
-        <form [formGroup]="rateeTab" class="flex flex-col">
-          <ng-template matStepLabel>Ratee Identification</ng-template>
+          <form [formGroup]="rateeTab" class="flex flex-col">
+            <ng-template matStepLabel>Ratee Identification</ng-template>
 
-          <runk-person-data
-            (emitPerson)="setPerson($event)"
-            [raterFields]="false"
-            [role]="0"
-          ></runk-person-data>
+            <runk-person-data
+              (emitPerson)="setPerson($event)"
+              [raterFields]="false"
+              [role]="0"
+            ></runk-person-data>
 
-          <!-- Line 3 -->
-          <div class="formLineItem">
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>PAS Code</mat-label>
-              <input matInput formControlName="PAS" />
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>FDID</mat-label>
-              <input matInput formControlName="FDID" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Reason For Report</mat-label>
-              <mat-select>
-                <mat-option
-                  *ngFor="let reason of reportReasons; let i = index"
-                  [value]="reason"
-                >
-                  {{ displayReasons[i] }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <!-- Line 4 -->
-          <div class="formLineItem">
-            <mat-form-field appearance="outline">
-              <mat-label>Select a date range</mat-label>
-              <mat-date-range-input [rangePicker]="picker">
-                <input
-                  matStartDate
-                  placeholder="Start date"
-                  readonly
-                  (dateChange)="calculateDaysOfRating()"
-                  formControlName="startDate"
-                />
-                <input
-                  matEndDate
-                  placeholder="End date"
-                  readonly
-                  (dateChange)="calculateDaysOfRating()"
-                  formControlName="endDate"
-                />
-              </mat-date-range-input>
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="basis-1/2">
-              <mat-label># of Days Non-Rated</mat-label>
-              <input
-                matInput
-                formControlName="daysNonRated"
-                [maxlength]="maxDaysNonRated.toString().length"
-                [max]="maxDaysNonRated"
-                [min]="0"
-                (input)="calculateDaysOfRating()"
-              />
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="basis-1/2">
-              <mat-label># of Days Rated</mat-label>
-              <input
-                matInput
-                formControlName="daysRated"
-                type="number"
-                readonly
-              />
-            </mat-form-field>
-          </div>
-
-          <!-- Line 6 -->
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>Key Duties, Tasks, Responsibilities</mat-label>
-              <textarea
-                matInput
-                rows="{{ (240 / 240) * 2 }}"
-                maxLength="{{ 240 }}"
-                #keyDuties
-                formControlName="keyDuties"
-              ></textarea>
-              <mat-hint align="end"
-                >{{ keyDuties.value.length }} / {{ 240 }}</mat-hint
+        <!-- Line 3 -->
+        <div class="formLineItem">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>PAS Code</mat-label>
+            <input matInput formControlName="PAS" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>FDID</mat-label>
+            <input matInput formControlName="FDID" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Reason For Report</mat-label>
+            <mat-select>
+              <mat-option
+                *ngFor="let reason of reportReasons; let i = index"
+                [value]="reason"
               >
-            </mat-form-field>
-          </div>
+                {{ displayReasons[i] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-          <div class="flex justify-end mt-3">
-            <button
-              (click)="submitRatee()"
-              mat-flat-button
-              color="primary"
-              matStepperNext
-            >
-              Next
-              <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
-            </button>
-          </div>
-        </form>
+        <!-- Line 4 -->
+        <div class="formLineItem">
+          <mat-form-field appearance="outline">
+            <mat-label>Select a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input
+                matStartDate
+                placeholder="Start date"
+                readonly
+                (dateChange)="calculateDaysOfRating()"
+                formControlName="startDate"
+              />
+              <input
+                matEndDate
+                placeholder="End date"
+                readonly
+                (dateChange)="calculateDaysOfRating()"
+                formControlName="endDate"
+              />
+            </mat-date-range-input>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="basis-1/2">
+            <mat-label># of Days Non-Rated</mat-label>
+            <input
+              matInput
+              formControlName="daysNonRated"
+              [maxlength]="maxDaysNonRated.toString().length"
+              [max]="maxDaysNonRated"
+              [min]="0"
+              (input)="calculateDaysOfRating()"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="basis-1/2">
+            <mat-label># of Days Rated</mat-label>
+            <input
+              matInput
+              formControlName="daysRated"
+              type="number"
+              readonly
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Line 6 -->
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Key Duties, Tasks, Responsibilities</mat-label>
+            <textarea
+              matInput
+              rows="{{ (480 / 240) * 2 }}"
+              maxLength="{{ 480 }}"
+              #keyDuties
+              formControlName="keyDuties"
+            ></textarea>
+            <!-- Count number of lines and characters in  keyDuties -->
+            <mat-hint align="end"
+              >{{ keyDuties.value.length }} / {{ 480 }} Characters
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="flex justify-end mt-3">
+          <button
+            (click)="submitRatee()"
+            mat-flat-button
+            color="primary"
+            matStepperNext
+          >
+            Next
+            <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
+          </button>
+        </div>
+      </form>
+
       </mat-step>
       <!-- Tab 2 -->
       <mat-step [stepControl]="performanceTab" label="Performance Review">
