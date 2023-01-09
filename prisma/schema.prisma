@@ -6,8 +6,10 @@ generator client {
 }
 
 generator nestgraphql {
-  provider = "prisma-nestjs-graphql"
-  output   = "../apps/prunk-api/src/@generated"
+  provider               = "prisma-nestjs-graphql"
+  output                 = "../apps/prunk-api/src/@generated"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
 }
 
 datasource db {
@@ -17,37 +19,42 @@ datasource db {
 
 model Person {
   id            String     @id @default(uuid())
-  email         String     @unique
-  grade         Grade
+  /// @Validator.IsEmail()
+  email         String?    @unique
   firstName     String
+  /// @Validator.MaxLength(1)
   middleInitial String?
   lastName      String
-  ssn           Int        @unique
-  afsc          String
-  org           Org        @relation(fields: [orgId], references: [id])
-  orgId         String
-  forms         Response[]
+  /// @Validator.MaxLength(10)
+  DODID         Int        @unique
+  // Can't do this because it changes over time in a form
+  // org           Org        @relation(fields: [orgId], references: [id])
+  // orgId         String
+  rateeOf       Response[] @relation("Ratee")
+  raterOf       Response[] @relation("Rater")
+  addtlRaterOf  Response[] @relation("AddtlRater")
+  CCOf          Response[] @relation("CC")
 }
 
 model Org {
-  id    String   @id @default(uuid())
-  name  String   @unique
-  PAS   String
-  FDID  String
-  users Person[]
+  id   String @id @default(uuid())
+  name String @unique
+  PAS  String @unique
+  // users Person[]
 }
 
 model Form {
   id        String     @id @default(uuid())
+  version   Int        @unique
   questions Question[]
   responses Response[]
 }
 
 model Question {
   id      String   @id @default(uuid())
-  value   String
-  form    Form     @relation(fields: [formId], references: [id])
-  formId  String
+  value   String   @unique
+  form    Form?    @relation(fields: [formId], references: [id])
+  formId  String?
   answers Answer[]
 }
 
@@ -60,28 +67,40 @@ model Answer {
 }
 
 model Response {
-  id      String   @id @default(uuid())
+  id           String         @id @default(uuid())
   // one user can have many responses
-  user    Person   @relation(fields: [userId], references: [id])
-  userId  String
-  form    Form     @relation(fields: [formId], references: [id])
-  formId  String
-  answers Answer[]
-  begin   DateTime
-  end     DateTime
-  // Raters
+  form         Form           @relation(fields: [formId], references: [id])
+  formId       String
+  answers      Answer[]
+  begin        DateTime
+  end          DateTime
+  nonRatedDays Int
+  status       ResponseStatus
+  reason       ReportReason
+  ratee        Person         @relation("Ratee", fields: [rateeId], references: [id])
+  rateeId      String
+  rater        Person?        @relation("Rater", fields: [raterId], references: [id])
+  raterId      String?
+  addtlRater   Person?        @relation("AddtlRater", fields: [addtlRaterId], references: [id])
+  addtlRaterId String?
+  CC           Person?        @relation("CC", fields: [CCId], references: [id])
+  CCId         String?
 }
 
-enum Grade {
-  E1
-  E2
-  E3
-  E4
-  E5
-  E6
-  E7
-  E8
-  E9
+enum ResponseStatus {
+  InProgress
+  Submitted
+  Completed
+}
+
+enum ReportReason {
+  Annual
+  DirectedByCommander
+  Biennial
+  DirectedByHAF
+  CRO
+  Initial
+  DirectedByNGB
 }
 
 // enum RatedScale {

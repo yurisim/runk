@@ -25,21 +25,23 @@ export class ReviewScaleComponent {
   /**
    * The question and answer for this question
    * @memberof ReviewScaleComponent
-   * @description This is used to determine the question and answer in the UI
-   * @description This is also used to emit the question and answer to the parent component
-   * @description This is also used to set the initial value of the question and answer in the UI
+   * @description
+   * - This is used to determine the question and answer in the UI.
+   * - This is also used to emit the question and answer to the parent component.
+   * - This is also used to set the initial value of the question and answer in the UI.
    */
   @Input()
   QA: QA = {
     question: '',
     answer: '',
+    charLimit: 0,
   };
 
   /***
    * The initial comment for this question
    * @memberof ReviewScaleComponent
    * @description This is used to set the initial value of the comment in the UI
-   * @description This is also used to emit the comment to the parent component
+   * this is also used to emit the comment to the parent component
    */
   @Input()
   initialComment = '';
@@ -49,8 +51,8 @@ export class ReviewScaleComponent {
    * @memberof ReviewScaleComponent
    * @default 0
    * @description If 0, the comment box will not be displayed
-   * @description If -1, the comment box will be displayed with no character limit
-   * @description If > 0, the comment box will be displayed with a character limit
+   * If -1, the comment box will be displayed with no character limit
+   * If > 0, the comment box will be displayed with a character limit
    */
   @Input()
   charLimit = 0;
@@ -79,7 +81,6 @@ export class ReviewScaleComponent {
   @Output()
   emitComment = new EventEmitter<string>();
 
-
   constructor() {
     this.commentEnabled = this.charLimit > 0 || this.charLimit === -1;
   }
@@ -98,6 +99,7 @@ export class ReviewScaleComponent {
     this.emitQA.emit({
       question: this.QA.question,
       answer: this.QA.answer,
+      charLimit: this.QA.charLimit,
     });
   }
 

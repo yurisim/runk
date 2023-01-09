@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { FindManyOrgArgs } from '../@generated/org/find-many-org.args';
-import { OrgCreateInput } from '../@generated/org/org-create.input';
 import { Org } from '../@generated/org/org.model';
+import { UpsertOneOrgArgs } from '../@generated/org/upsert-one-org.args';
 import { OrgService } from './org.service';
 
 @Resolver(() => Org)
@@ -9,10 +9,10 @@ export class OrgResolver {
   constructor(private readonly orgService: OrgService) {}
 
   @Mutation(() => Org)
-  createOrg(
-    @Args('createOrgInput') createOrgInput: OrgCreateInput
+  upsertOrg(
+    @Args() upsertOneOrgArgs: UpsertOneOrgArgs,
   ): Promise<Org> {
-    return this.orgService.create(createOrgInput);
+    return this.orgService.upsert(upsertOneOrgArgs);
   }
 
   @Query(() => [Org], { name: 'orgs' })

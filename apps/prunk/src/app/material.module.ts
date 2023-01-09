@@ -12,6 +12,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 
@@ -30,6 +31,7 @@ const MaterialModules = [
   MatStepperModule,
   MatDividerModule,
   BrowserAnimationsModule,
+  MatSelectModule,
   MatToolbarModule,
   MatMenuModule,
 ];

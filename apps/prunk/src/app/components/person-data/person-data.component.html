@@ -2,6 +2,17 @@
 <form [formGroup]="personTab" class="flex flex-col mt-2">
   <ng-template matStepLabel>Ratee Identification</ng-template>
   <div class="mt-2 formLineItem">
+    <mat-form-field appearance="outline" class="basis-2/5">
+      <mat-label>DODID</mat-label>
+      <input
+        matInput
+        formControlName="DODID"
+        type="text"
+        pattern="\d*"
+        maxLength="10"
+        (input)="userInfo()"
+      />
+    </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>First Name</mat-label>
       <input
@@ -37,40 +48,24 @@
   <div class="formLineItem">
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Duty Title</mat-label>
-      <input
-        matInput
-        formControlName="dutyTitle"
-        (input)="userInfo()"
-      />
+      <input matInput formControlName="dutyTitle" (input)="userInfo()" />
     </mat-form-field>
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>SSN</mat-label>
-      <input
-        matInput
-        formControlName="SSN"
-        (input)="userInfo()"
-      />
+    <mat-form-field appearance="outline" *ngIf="person.role === 0">
+      <mat-label>DAFSC</mat-label>
+      <input matInput formControlName="DAFSC" (input)="userInfo()" />
     </mat-form-field>
-    <mat-form-field appearance="outline" class="basis-1/4">
+    <mat-form-field appearance="outline" class="basis-1/3">
       <mat-label>Grade</mat-label>
-      <input
-        matInput
-        formControlName="grade"
-        (input)="userInfo()"
-      />
+      <mat-select>
+        <mat-option *ngFor="let grade of grades" [value]="grade">
+          {{ grade }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 
   <!-- Line 3 -->
   <div class="formLineItem">
-    <mat-form-field appearance="outline" *ngIf="rateeFields">
-      <mat-label>DAFSC</mat-label>
-      <input
-        matInput
-        formControlName="DAFSC"
-        (input)="userInfo()"
-      />
-    </mat-form-field>
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Organization</mat-label>
       <input
@@ -80,25 +75,17 @@
         (input)="userInfo()"
       />
     </mat-form-field>
-    <mat-form-field appearance="outline" *ngIf="raterFields">
+    <mat-form-field appearance="outline" *ngIf="person.role === 1">
       <mat-label>Branch</mat-label>
-      <input
-        matInput
-        formControlName="branch"
-        (input)="userInfo()"
-      />
+      <input matInput formControlName="branch" (input)="userInfo()" />
     </mat-form-field>
   </div>
 
   <!-- Line 4 -->
-  <div class="formLineItem" *ngIf="raterFields">
+  <div class="formLineItem" *ngIf="person.role === 1">
     <mat-form-field appearance="outline">
       <mat-label>Signature</mat-label>
-      <input
-        matInput
-        formControlName="signature"
-        (input)="userInfo()"
-      />
+      <input matInput formControlName="signature" (input)="userInfo()" />
     </mat-form-field>
   </div>
 </form>

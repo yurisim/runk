@@ -1,17 +1,18 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { ResponseService } from './response.service';
 import { Response } from '../@generated/response/response.model';
+import { UpsertOneResponseArgs } from '../@generated/response/upsert-one-response.args';
 
 @Resolver(() => Response)
 export class ResponseResolver {
   constructor(private readonly responseService: ResponseService) {}
 
-  // @Mutation(() => Response)
-  // createResponse(
-  //   @Args('createResponseInput') createResponseInput: ResponseCreateInput
-  // ) {
-  //   return this.responseService.create(createResponseInput);
-  // }
+  @Mutation(() => Response)
+  upsertResponse(
+    @Args() upsertOneResponseArgs: UpsertOneResponseArgs
+  ) {
+    return this.responseService.upsert(upsertOneResponseArgs);
+  }
 
   // @Query(() => [Response], { name: 'response' })
   // findAll() {

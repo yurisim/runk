@@ -9,6 +9,7 @@ import { PrismaModule } from '../prisma/prisma.module';
 import { OrgModule } from '../org/org.module';
 import { PersonModule } from '../person/person.module';
 import { join } from 'path';
+import { ResponseModule } from '../response/response.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { join } from 'path';
     PrismaModule,
     OrgModule,
     PersonModule,
+    ResponseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

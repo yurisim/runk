@@ -3,12 +3,10 @@
     <mat-stepper #stepper>
       <!-- TAB 01 -->
       <mat-step [stepControl]="rateeTab" state="person">
-        <form [formGroup]="rateeTab" class="flex flex-col">
+        <form [formGroup]="rateeTab" (ngSubmit)="submitRatee()" class="flex flex-col">
           <ng-template matStepLabel>Ratee Identification</ng-template>
 
-          <button (click)="testMethod()">sdfsdg</button>
-
-          <runk-person-data [raterFields]="false"></runk-person-data>
+          <runk-person-data [(person)]="people[0]"></runk-person-data>
 
           <!-- Line 3 -->
           <div class="formLineItem">
@@ -22,7 +20,14 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Reason For Report</mat-label>
-              <input matInput formControlName="reasonReport" />
+              <mat-select formControlName="reasonReport">
+                <mat-option
+                  *ngFor="let reason of reportReasons; let i = index"
+                  [value]="i"
+                >
+                  {{ displayReasons[i] }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
 
@@ -80,19 +85,26 @@
               <mat-label>Key Duties, Tasks, Responsibilities</mat-label>
               <textarea
                 matInput
-                rows="{{ (240 / 240) * 2 }}"
-                maxLength="{{ 240 }}"
+                rows="{{ (480 / 240) * 2 }}"
+                maxLength="{{ 480 }}"
                 #keyDuties
                 formControlName="keyDuties"
               ></textarea>
+              <!-- Count number of lines and characters in  keyDuties -->
               <mat-hint align="end"
-                >{{ keyDuties.value.length }} / {{ 240 }}</mat-hint
-              >
+                >{{ keyDuties.value.length }} / {{ 480 }} Characters
+              </mat-hint>
             </mat-form-field>
           </div>
 
           <div class="flex justify-end mt-3">
-            <button mat-flat-button color="primary" matStepperNext>
+            <button
+              (submit)="submitRatee()"
+              [disabled]="rateeTab.invalid"
+              mat-flat-button
+              color="primary"
+              matStepperNext
+            >
               Next
               <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
             </button>
@@ -106,8 +118,8 @@
             *ngFor="let QA of QAs; let i = index"
             [questionNumber]="i"
             [QA]="QA"
-            [charLimit]="charLimits[i]"
-            [commentEnabled]="commentsEnabled[i]"
+            [charLimit]="QA.charLimit"
+            [commentEnabled]="QA.charLimit > 0"
             (emitQA)="setQA($any($event))"
             (emitComment)="setComment($event, i)"
           ></runk-review-scale>
@@ -130,10 +142,7 @@
       <mat-step label="Rater Information">
         <!-- Rater Information -->
         <h2 class="text-center mt-2">Rater Information</h2>
-        <runk-person-data
-          [rateeFields]="false"
-          (emitPersonData)="setPerson($event, Roles.RATER)"
-        ></runk-person-data>
+        <runk-person-data></runk-person-data>
 
         <!-- Additional Rater Information -->
         <h2 class="text-center mt-2">Additional Rater Information</h2>
@@ -157,10 +166,7 @@
           >
         </mat-form-field>
 
-        <runk-person-data
-          [rateeFields]="false"
-          (emitPersonData)="setPerson($event, Roles.ADDITIONAL)"
-        ></runk-person-data>
+        <runk-person-data></runk-person-data>
 
         <!-- Commander Rater Information -->
         <h2 class="text-center mt-2">Commander Information</h2>
@@ -223,10 +229,7 @@
         </mat-button-toggle-group>
         <mat-divider class="mt-5"></mat-divider>
 
-        <runk-person-data
-          [rateeFields]="false"
-          (emitPersonData)="setPerson($event, Roles.CC)"
-        ></runk-person-data>
+        <runk-person-data></runk-person-data>
 
         <div class="flex justify-between mt-5">
           <button mat-button matStepperPrevious color="primary">
@@ -256,7 +259,7 @@
             <mat-icon> arrow_back_ios</mat-icon>
             Back
           </button>
-          <button mat-flat-button color="primary" matStepperNext>
+          <button mat-flat-button color="primary" matStepperNext (click)="upsertResponse()">
             Next
             <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
           </button>

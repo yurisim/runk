@@ -2,11 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { FormCreateInput } from '../@generated/form/form-create.input';
 import { FormUpdateInput } from '../@generated/form/form-update.input';
 import { StringFieldUpdateOperationsInput } from '../@generated/prisma/string-field-update-operations.input';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class FormService {
+
+  constructor(private prisma: PrismaService) {}
+
   create(createFormInput: FormCreateInput) {
-    return 'This action adds a new form';
+    // return this.prisma.form.create({
+    //   data: {
+
+    //   })
   }
 
   findAll() {

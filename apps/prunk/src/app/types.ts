@@ -1,24 +1,39 @@
 export class QA {
   question!: string;
   answer!: string;
+  charLimit!: number;
+  comment?: string;
 }
-export class PersonData {
+
+export class Person {
   firstName!: string;
-  middleInitial!: string | null;
+  middleInitial!: string | undefined;
   lastName!: string;
   branch!: string;
   DAFSC!: string;
-  grade!: string;
+  grade!: Grade;
   org!: string;
-  SSN!: string;
+  DODID!: string;
   dutyTitle!: string;
   signature!: string;
-  role?: Roles;
+  role?: Role;
 }
 
-export enum Roles {
-  RATER,
-  RATEE,
-  CC,
-  ADDITIONAL
+export enum Role {
+  RATEE = 0,
+  RATER = 1,
+  ADDITIONAL = 2,
+  CC = 3,
+}
+
+export enum Grade {
+  E1 = 'E1',
+  E2 = 'E2',
+  E3 = 'E3',
+  E4 = 'E4',
+  E5 = 'E5',
+  E6 = 'E6',
+  E7 = 'E7',
+  E8 = 'E8',
+  E9 = 'E9',
 }
