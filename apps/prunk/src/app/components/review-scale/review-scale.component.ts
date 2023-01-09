@@ -34,6 +34,7 @@ export class ReviewScaleComponent {
   QA: QA = {
     question: '',
     answer: '',
+    charLimit: 0,
   };
 
   /***
@@ -98,6 +99,7 @@ export class ReviewScaleComponent {
     this.emitQA.emit({
       question: this.QA.question,
       answer: this.QA.answer,
+      charLimit: this.QA.charLimit,
     });
   }
 

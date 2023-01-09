@@ -333,8 +333,8 @@ input IntFilter {
 }
 
 type Mutation {
-  createOrg(createOrgInput: OrgCreateInput!): Org!
   createResponse(createResponseInput: ResponseCreateInput!): Response!
+  upsertOrg(create: OrgCreateInput!, update: OrgUpdateInput!, where: OrgWhereUniqueInput!): Org!
   upsertPerson(create: PersonCreateInput!, update: PersonUpdateInput!, where: PersonWhereUniqueInput!): Person!
 }
 
@@ -428,6 +428,12 @@ enum OrgScalarFieldEnum {
   PAS
   id
   name
+}
+
+input OrgUpdateInput {
+  PAS: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
 }
 
 input OrgWhereInput {

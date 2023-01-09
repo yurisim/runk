@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Person, QA, Role } from '../types';
+import { Grade, Person, QA, Role } from '../types';
 import { DateTime } from 'luxon';
 import { PrService } from './pr.service';
 
 import {
   ReportReason,
+  UpsertOrgPrMutationVariables,
   UpsertPersonPrMutationVariables,
 } from '../../@generated/generated';
 @Component({
@@ -13,12 +14,10 @@ import {
   templateUrl: './pr.component.html',
   styleUrls: ['./pr.component.scss'],
 })
-export class PrComponent {
+export class PrComponent implements OnInit {
   constructor(private prService: PrService) {
     //
   }
-
-  roles = Role;
 
   maxDaysNonRated = 0;
 
@@ -60,44 +59,47 @@ export class PrComponent {
     {
       question: 'Performance in Primary Duties/Training Requirements',
       answer: 'Not Rated',
+      charLimit: 720,
+      comment: '',
     },
     {
       question: 'Followership/Leadership',
       answer: 'Not Rated',
+      charLimit: 240,
+      comment: '',
     },
     {
       question: 'Whole Airman/Guardian Concept',
       answer: 'Not Rated',
+      charLimit: 240,
+      comment: '',
     },
     {
       question: 'Overall Performance Assessment',
       answer: 'Not Rated',
-    },
+      charLimit: 0,
+    }
   ];
 
   people: Person[] = [];
 
-  charLimits = [720, 240, 240, 0];
+  ngOnInit(): void {
+    const ratee = new Person();
+    ratee.role = Role.RATEE;
 
-  commentsEnabled = [true, true, true, false];
+    const rater = new Person();
+    rater.role = Role.RATER;
 
-  comments = ['', '', '', ''];
+    const additional = new Person();
+    additional.role = Role.ADDITIONAL;
 
-  setPerson(emittedPerson: Person): void {
-    const index = this.people.findIndex(
-      (foundPerson: Person) => foundPerson.role === emittedPerson.role
-    );
+    const cc = new Person();
+    cc.role = Role.CC;
 
-    if (index === -1) {
-      this.people.push(emittedPerson);
-    } else {
-      this.people[index] = emittedPerson;
-    }
+    this.people = [ratee, rater, additional, cc];
   }
 
-  //*
-
-  submitRatee() {
+  upsertRatee() {
     const ratee = this.people.find((person) => person.role === 0);
 
     if (!ratee) return;
@@ -115,9 +117,27 @@ export class PrComponent {
       },
     };
 
-    console.log(personData)
+    this.prService.upsertPerson(personData);
+  }
 
-    this.prService.submitPerson(personData);
+  upsertOrg(person: Person) {
+    const orgData: UpsertOrgPrMutationVariables = {
+      create: {
+        name: person.org,
+        PAS: String(this.rateeTab.get('PAS')?.value),
+      },
+      update: {},
+      where: {
+        name: person.org,
+      },
+    };
+
+    this.prService.upsertOrg(orgData);
+  }
+
+  submitRatee() {
+    this.upsertRatee();
+    this.upsertOrg(this.people[0]);
   }
 
   setQA(emittedQA: QA): void {
@@ -129,7 +149,7 @@ export class PrComponent {
   }
 
   setComment(emittedValue: string, index: number) {
-    this.comments[index] = emittedValue;
+    this.QAs[index].question = emittedValue;
   }
 
   calculateDaysOfRating() {

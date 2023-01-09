@@ -1,78 +1,45 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
 import { Grade, Person, Role } from '../../types';
 
 @Component({
-  selector: 'runk-person-data[role]',
+  selector: 'runk-person-data',
   templateUrl: './person-data.component.html',
   styleUrls: ['./person-data.component.scss'],
 })
-export class PersonDataComponent {
+export class PersonDataComponent implements OnInit {
+  // These are the grades that appear in the dropdown
   grades = Object.values(Grade);
 
-  personTab = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    middleInitial: new FormControl<string | null>(''),
-    lastName: new FormControl('', Validators.required),
-    branch: new FormControl('', [Validators.required]),
-    DAFSC: new FormControl('', Validators.required),
-    grade: new FormControl('', Validators.required),
-    org: new FormControl('', Validators.required),
-    DODID: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    dutyTitle: new FormControl('', Validators.required),
-    signature: new FormControl('', Validators.required),
+  // This is the form group for the person data
+  personTab = this.fb.nonNullable.group({
+    firstName: ['', Validators.required],
+    middleInitial: [''],
+    lastName: ['', Validators.required],
+    branch: ['', Validators.required],
+    DAFSC: ['', Validators.required],
+    grade: ['', Validators.required],
+    org: ['', Validators.required],
+    DODID: ['', Validators.required],
+    dutyTitle: ['', Validators.required],
+    signature: ['', Validators.required],
+    role: [Role.RATEE, Validators.required],
   });
 
+  // This is the initial person data, if it exists
   @Input()
-  role: Role = 0;
-
-  @Input()
-  person: Person = {
-    firstName: '',
-    lastName: '',
-    middleInitial: '',
-    branch: '',
-    DAFSC: '',
-    grade: Grade.E1,
-    org: '',
-    DODID: '',
-    dutyTitle: '',
-    signature: '',
-    role: this.role,
-  };
-
-  constructor() {
-    this.setPerson();
-  }
-
-  @Input()
-  rateeFields = true;
-
-  @Input()
-  raterFields = true;
+  person: Person = new Person();
 
   @Output()
-  emitPerson = new EventEmitter<Person>();
+  personChange = new EventEmitter<Person>();
 
-  setPerson() {
-    this.person.firstName = String(this.personTab.get('firstName')?.value);
-    this.person.middleInitial = String(
-      this.personTab.get('middleInitial')?.value
-    );
-    this.person.lastName = String(this.personTab.get('lastName')?.value);
-    this.person.branch = String(this.personTab.get('branch')?.value);
-    this.person.DAFSC = String(this.personTab.get('DAFSC')?.value);
-    this.person.grade = this.personTab.get('grade')?.value as Grade;
-    this.person.org = String(this.personTab.get('org')?.value);
-    this.person.DODID = String(this.personTab.get('DODID')?.value);
-    this.person.dutyTitle = String(this.personTab.get('dutyTitle')?.value);
-    this.person.signature = String(this.personTab.get('signature')?.value);
-    this.person.role = this.role;
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.personTab.patchValue(this.person);
   }
 
   userInfo() {
-    this.setPerson();
-
-    this.emitPerson.emit(this.person);
+    this.personChange.emit(Object.assign(this.person, this.personTab.value));
   }
 }

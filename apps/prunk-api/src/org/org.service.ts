@@ -5,10 +5,8 @@ import { Prisma } from '@prisma/client';
 @Injectable()
 export class OrgService {
   constructor(private prisma: PrismaService) {}
-  create(createOrgInput: Prisma.OrgCreateInput) {
-    return this.prisma.org.create({
-      data: createOrgInput,
-    });
+  upsert(orgUpsertArgs: Prisma.OrgUpsertArgs) {
+    return this.prisma.org.upsert(orgUpsertArgs);
   }
 
   findAll(orgFindManyArgs: Prisma.OrgFindManyArgs) {

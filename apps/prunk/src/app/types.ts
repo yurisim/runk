@@ -1,11 +1,13 @@
 export class QA {
   question!: string;
   answer!: string;
+  charLimit!: number;
+  comment?: string;
 }
 
 export class Person {
   firstName!: string;
-  middleInitial!: string | null;
+  middleInitial!: string | undefined;
   lastName!: string;
   branch!: string;
   DAFSC!: string;

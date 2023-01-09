@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {
+  UpsertOrgPrDocument,
+  UpsertOrgPrMutation,
+  UpsertOrgPrMutationVariables,
   UpsertPersonPrDocument,
   UpsertPersonPrMutation,
   UpsertPersonPrMutationVariables,
@@ -11,11 +14,28 @@ import {
 })
 export class PrService {
   constructor(private apollo: Apollo) {}
-  submitPerson(personUpsertInput: UpsertPersonPrMutationVariables) {
+  upsertPerson(personUpsertInput: UpsertPersonPrMutationVariables) {
     return this.apollo
       .mutate<UpsertPersonPrMutation, UpsertPersonPrMutationVariables>({
         mutation: UpsertPersonPrDocument,
         variables: personUpsertInput,
+        errorPolicy: 'all',
+      })
+      .subscribe(
+        // print errors if they exist
+        ({ errors }) => {
+          if (errors) {
+            console.log(errors);
+          }
+        }
+      );
+  }
+
+  upsertOrg(orgUpsertInput: UpsertOrgPrMutationVariables) {
+    return this.apollo
+      .mutate<UpsertOrgPrMutation, UpsertOrgPrMutationVariables>({
+        mutation: UpsertOrgPrDocument,
+        variables: orgUpsertInput,
         errorPolicy: 'all',
       })
       .subscribe(

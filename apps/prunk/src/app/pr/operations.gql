@@ -4,3 +4,9 @@ mutation upsertPersonPR($create: PersonCreateInput!, $update: PersonUpdateInput!
     firstName
   }
 }
+
+mutation upsertOrgPR($create: OrgCreateInput!, $update: OrgUpdateInput!, $where: OrgWhereUniqueInput!) {
+  upsertOrg(create: $create, update: $update, where: $where) {
+    name
+  }
+}
