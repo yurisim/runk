@@ -68,7 +68,7 @@ const personSeed: Prisma.PersonCreateInput[] = [
   },
 ];
 
-const questions: Prisma.QuestionCreateInput[] = [
+export const questions: Prisma.QuestionCreateInput[] = [
   {
     value: 'Duty Title',
   },
@@ -82,28 +82,25 @@ const questions: Prisma.QuestionCreateInput[] = [
     value: 'FDID',
   },
   {
-    value: 'Key Duties and Responsibilities',
-  },
-  {
-    value: 'Performance',
+    value: 'Key Duties/Responsibilities',
   },
   {
     value: 'Performance Rating',
   },
   {
-    value: 'Performance Comments',
+    value: 'Performance Comment',
   },
   {
-    value: 'Followership and Leadership',
+    value: 'Followership/Leadership Rating',
   },
   {
-    value: 'Followership and Leadership Rating',
+    value: 'Followership/Leadership Comment',
   },
   {
-    value: 'Followership and Leadership Comments',
+    value: 'Whole Airman Rating',
   },
   {
-    value: 'Overall',
+    value: 'Whole Airman Comment',
   },
   {
     value: 'Overall Rating',
@@ -168,6 +165,25 @@ async function main() {
       if (!(e instanceof PrismaClientKnownRequestError)) {
         throw e;
       }
+    }
+  }
+
+  try {
+    await prisma.form.upsert({
+      where: {
+        version: 1,
+      },
+      update: {},
+      create: {
+        version: 1,
+        questions: {
+          connect: [...questions],
+        },
+      },
+    });
+  } catch (e) {
+    if (!(e instanceof PrismaClientKnownRequestError)) {
+      throw e;
     }
   }
 }

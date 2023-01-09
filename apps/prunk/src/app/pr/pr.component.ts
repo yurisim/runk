@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Grade, Person, QA, Role } from '../types';
+import { Person, QA, Role } from '../types';
 import { DateTime } from 'luxon';
 import { PrService } from './pr.service';
 
 import {
   ReportReason,
+  ResponseStatus,
   UpsertOrgPrMutationVariables,
   UpsertPersonPrMutationVariables,
+  UpsertResponsePrMutationVariables,
 } from '../../@generated/generated';
 @Component({
   selector: 'runk-pr',
@@ -57,7 +59,7 @@ export class PrComponent implements OnInit {
 
   QAs: QA[] = [
     {
-      question: 'Performance in Primary Duties/Training Requirements',
+      question: 'Performance',
       answer: 'Not Rated',
       charLimit: 720,
       comment: '',
@@ -69,16 +71,16 @@ export class PrComponent implements OnInit {
       comment: '',
     },
     {
-      question: 'Whole Airman/Guardian Concept',
+      question: 'Whole Airman',
       answer: 'Not Rated',
       charLimit: 240,
       comment: '',
     },
     {
-      question: 'Overall Performance Assessment',
+      question: 'Overall',
       answer: 'Not Rated',
       charLimit: 0,
-    }
+    },
   ];
 
   people: Person[] = [];
@@ -135,6 +137,139 @@ export class PrComponent implements OnInit {
     this.prService.upsertOrg(orgData);
   }
 
+  upsertResponse() {
+    const guid = Math.random() + DateTime.now().toString();
+
+    console.log(guid);
+
+    const responseData: UpsertResponsePrMutationVariables = {
+      create: {
+        answers: {
+          create: [
+            {
+              value: this.people[0].dutyTitle,
+              question: {
+                connect: {
+                  value: 'Duty Title',
+                },
+              },
+            },
+            {
+              value: this.people[0].DAFSC,
+              question: {
+                connect: {
+                  value: 'DAFSC',
+                },
+              },
+            },
+            {
+              value: this.people[0].grade,
+              question: {
+                connect: {
+                  value: 'Grade',
+                },
+              },
+            },
+            {
+              value: String(this.rateeTab.get('FDID')?.value),
+              question: {
+                connect: {
+                  value: 'FDID',
+                },
+              },
+            },
+            {
+              value: String(this.rateeTab.get('keyDuties')?.value),
+              question: {
+                connect: {
+                  value: 'Key Duties/Responsibilities',
+                },
+              },
+            },
+            {
+              question: {
+                connect: {
+                  value: 'Performance Rating',
+                },
+              },
+              value: this.QAs[0].answer,
+            },
+            {
+              question: {
+                connect: {
+                  value: 'Performance Comment',
+                },
+              },
+              value: String(this.QAs[0].comment),
+            },
+            {
+              question: {
+                connect: {
+                  value: 'Followership/Leadership Rating',
+                },
+              },
+              value: this.QAs[1].answer,
+            },
+            {
+              question: {
+                connect: {
+                  value: 'Followership/Leadership Comment',
+                },
+              },
+              value: String(this.QAs[1].comment),
+            },
+            {
+              question: {
+                connect: {
+                  value: 'Whole Airman Rating',
+                },
+              },
+              value: this.QAs[2].answer,
+            },
+            {
+              question: {
+                connect: {
+                  value: 'Whole Airman Comment',
+                },
+              },
+              value: String(this.QAs[2].comment),
+            },
+            {
+              question: {
+                connect: {
+                  value: 'Overall Rating',
+                },
+              },
+              value: this.QAs[3].answer,
+            },
+          ],
+        },
+        id: guid,
+        begin: this.rateeTab.get('startDate')?.value,
+        end: this.rateeTab.get('endDate')?.value,
+        form: {
+          connect: {
+            version: 1,
+          },
+        },
+        nonRatedDays: Number(this.rateeTab.get('daysNonRated')?.value),
+        ratee: {
+          connect: {
+            DODID: Number(this.people[0].DODID),
+          },
+        },
+        reason: String(this.rateeTab.get('reason')?.value) as ReportReason,
+        status: ResponseStatus.InProgress,
+      },
+      update: {},
+      where: {
+        id: guid,
+      },
+    };
+
+    this.prService.upsertResponse(responseData);
+  }
+
   submitRatee() {
     this.upsertRatee();
     this.upsertOrg(this.people[0]);
@@ -149,7 +284,7 @@ export class PrComponent implements OnInit {
   }
 
   setComment(emittedValue: string, index: number) {
-    this.QAs[index].question = emittedValue;
+    this.QAs[index].comment = emittedValue;
   }
 
   calculateDaysOfRating() {

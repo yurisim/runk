@@ -1,5 +1,3 @@
-{{ QAs | json }}
-
 <mat-card class="m-3 w-[1080px] mx-auto">
   <mat-card-content>
     <mat-stepper #stepper>
@@ -25,7 +23,7 @@
               <mat-select formControlName="reasonReport">
                 <mat-option
                   *ngFor="let reason of reportReasons; let i = index"
-                  [value]="reason"
+                  [value]="i"
                 >
                   {{ displayReasons[i] }}
                 </mat-option>
@@ -261,7 +259,7 @@
             <mat-icon> arrow_back_ios</mat-icon>
             Back
           </button>
-          <button mat-flat-button color="primary" matStepperNext>
+          <button mat-flat-button color="primary" matStepperNext (click)="upsertResponse()">
             Next
             <mat-icon iconPositionEnd> arrow_forward_ios</mat-icon>
           </button>

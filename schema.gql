@@ -260,20 +260,22 @@ input FormRelationFilter {
   isNot: FormWhereInput
 }
 
-input FormUpdateOneRequiredWithoutQuestionsNestedInput {
-  connect: FormWhereUniqueInput
-  connectOrCreate: FormCreateOrConnectWithoutQuestionsInput
-  create: FormCreateWithoutQuestionsInput
-  update: FormUpdateWithoutQuestionsInput
-  upsert: FormUpsertWithoutQuestionsInput
-}
-
 input FormUpdateOneRequiredWithoutResponsesNestedInput {
   connect: FormWhereUniqueInput
   connectOrCreate: FormCreateOrConnectWithoutResponsesInput
   create: FormCreateWithoutResponsesInput
   update: FormUpdateWithoutResponsesInput
   upsert: FormUpsertWithoutResponsesInput
+}
+
+input FormUpdateOneWithoutQuestionsNestedInput {
+  connect: FormWhereUniqueInput
+  connectOrCreate: FormCreateOrConnectWithoutQuestionsInput
+  create: FormCreateWithoutQuestionsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: FormUpdateWithoutQuestionsInput
+  upsert: FormUpsertWithoutQuestionsInput
 }
 
 input FormUpdateWithoutQuestionsInput {
@@ -333,9 +335,9 @@ input IntFilter {
 }
 
 type Mutation {
-  createResponse(createResponseInput: ResponseCreateInput!): Response!
   upsertOrg(create: OrgCreateInput!, update: OrgUpdateInput!, where: OrgWhereUniqueInput!): Org!
   upsertPerson(create: PersonCreateInput!, update: PersonUpdateInput!, where: PersonWhereUniqueInput!): Person!
+  upsertResponse(create: ResponseCreateInput!, update: ResponseUpdateInput!, where: ResponseWhereUniqueInput!): Response!
 }
 
 input NestedDateTimeFilter {
@@ -759,8 +761,8 @@ enum QueryMode {
 type Question {
   _count: QuestionCount!
   answers: [Answer!]
-  form: Form!
-  formId: String!
+  form: Form
+  formId: String
   id: ID!
   value: String!
 }
@@ -803,7 +805,7 @@ input QuestionCreateOrConnectWithoutFormInput {
 }
 
 input QuestionCreateWithoutAnswersInput {
-  form: FormCreateNestedOneWithoutQuestionsInput!
+  form: FormCreateNestedOneWithoutQuestionsInput
   id: String
   value: String!
 }
@@ -829,7 +831,7 @@ input QuestionScalarWhereInput {
   AND: [QuestionScalarWhereInput!]
   NOT: [QuestionScalarWhereInput!]
   OR: [QuestionScalarWhereInput!]
-  formId: StringFilter
+  formId: StringNullableFilter
   id: StringFilter
   value: StringFilter
 }
@@ -872,7 +874,7 @@ input QuestionUpdateWithWhereUniqueWithoutFormInput {
 }
 
 input QuestionUpdateWithoutAnswersInput {
-  form: FormUpdateOneRequiredWithoutQuestionsNestedInput
+  form: FormUpdateOneWithoutQuestionsNestedInput
   id: StringFieldUpdateOperationsInput
   value: StringFieldUpdateOperationsInput
 }
@@ -900,13 +902,14 @@ input QuestionWhereInput {
   OR: [QuestionWhereInput!]
   answers: AnswerListRelationFilter
   form: FormRelationFilter
-  formId: StringFilter
+  formId: StringNullableFilter
   id: StringFilter
   value: StringFilter
 }
 
 input QuestionWhereUniqueInput {
   id: String
+  value: String
 }
 
 enum ReportReason {
@@ -1235,6 +1238,21 @@ enum ResponseStatus {
   Completed
   InProgress
   Submitted
+}
+
+input ResponseUpdateInput {
+  CC: PersonUpdateOneWithoutCCOfNestedInput
+  addtlRater: PersonUpdateOneWithoutAddtlRaterOfNestedInput
+  answers: AnswerUpdateManyWithoutResponsesNestedInput
+  begin: DateTimeFieldUpdateOperationsInput
+  end: DateTimeFieldUpdateOperationsInput
+  form: FormUpdateOneRequiredWithoutResponsesNestedInput
+  id: StringFieldUpdateOperationsInput
+  nonRatedDays: IntFieldUpdateOperationsInput
+  ratee: PersonUpdateOneRequiredWithoutRateeOfNestedInput
+  rater: PersonUpdateOneWithoutRaterOfNestedInput
+  reason: EnumReportReasonFieldUpdateOperationsInput
+  status: EnumResponseStatusFieldUpdateOperationsInput
 }
 
 input ResponseUpdateManyMutationInput {

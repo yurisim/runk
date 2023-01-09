@@ -10,3 +10,15 @@ mutation upsertOrgPR($create: OrgCreateInput!, $update: OrgUpdateInput!, $where:
     name
   }
 }
+
+mutation upsertResponsePR($create: ResponseCreateInput!, $update: ResponseUpdateInput!, $where: ResponseWhereUniqueInput!) {
+  upsertResponse(create: $create, update: $update, where: $where) {
+    id
+    answers {
+      value
+      question {
+        value
+      }
+    }
+  }
+}

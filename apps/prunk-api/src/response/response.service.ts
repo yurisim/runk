@@ -8,21 +8,9 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ResponseService {
   constructor(private prisma: PrismaService) {}
 
-  create(createResponseInput: ResponseCreateInput) {
-    return this.prisma.response.create({
-      data: createResponseInput,
-    });
-  }
-
   upsert(upsertOneResponseArgs: UpsertOneResponseArgs) {
-    return this.prisma.response.upsert(upsertOneResponseArgs as Prisma.ResponseUpsertArgs);
-  }
-
-  findAll() {
-    return `This action returns all response`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} response`;
+    return this.prisma.response.upsert(
+      upsertOneResponseArgs as Prisma.ResponseUpsertArgs
+    );
   }
 }

@@ -7,6 +7,9 @@ import {
   UpsertPersonPrDocument,
   UpsertPersonPrMutation,
   UpsertPersonPrMutationVariables,
+  UpsertResponsePrDocument,
+  UpsertResponsePrMutation,
+  UpsertResponsePrMutationVariables,
 } from '../../@generated/generated';
 
 @Injectable({
@@ -47,4 +50,22 @@ export class PrService {
         }
       );
   }
+
+  upsertResponse(upsertResponsePrMutationVariables: UpsertResponsePrMutationVariables) {
+    return this.apollo
+      .mutate<UpsertResponsePrMutation, UpsertResponsePrMutationVariables>({
+        mutation: UpsertResponsePrDocument,
+        variables: upsertResponsePrMutationVariables,
+        errorPolicy: 'all',
+      })
+      .subscribe(
+        // print errors if they exist
+        ({ errors }) => {
+          if (errors) {
+            console.log(errors);
+          }
+        }
+      );
+  }
+
 }
